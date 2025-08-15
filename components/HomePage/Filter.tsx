@@ -85,11 +85,11 @@ const Filter = () => {
     } finally {
       setLoading(false);
     }
-  },[ brandId, flavorId, puffsId, nicotineId]);
+  }, [brandId, flavorId, puffsId, nicotineId]);
 
   useEffect(() => {
     fetchFilterOptions();
-  }, [brandId, flavorId,fetchFilterOptions, puffsId, nicotineId]);
+  }, [brandId, flavorId, fetchFilterOptions, puffsId, nicotineId]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -112,23 +112,23 @@ const Filter = () => {
   };
 
   const handleOptionClick = (
-  type: "brandId" | "flavorId" | "puffsId" | "nicotineId",
-  id: string
-) => {
-  // Get the current value for this filter type
-  const currentValue = { brandId, flavorId, puffsId, nicotineId }[type];
-  
-  // If the clicked option is already selected, remove the filter
-  if (currentValue === id) {
-    removeFilter(type);
-  } else {
-    // Otherwise, set the new filter
-    setFilters({ [type]: id });
-  }
-  
-  // Close the dropdown
-  setOpenDropdown(null);
-};
+    type: "brandId" | "flavorId" | "puffsId" | "nicotineId",
+    id: string
+  ) => {
+    // Get the current value for this filter type
+    const currentValue = { brandId, flavorId, puffsId, nicotineId }[type];
+
+    // If the clicked option is already selected, remove the filter
+    if (currentValue === id) {
+      removeFilter(type);
+    } else {
+      // Otherwise, set the new filter
+      setFilters({ [type]: id });
+    }
+
+    // Close the dropdown
+    setOpenDropdown(null);
+  };
 
   const hasActiveFilters = activeFilters.length > 0;
 
