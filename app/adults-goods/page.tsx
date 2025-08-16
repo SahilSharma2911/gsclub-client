@@ -1,12 +1,10 @@
-import Hero from "@/components/adult-goods/Hero";
-import CommingSoon from "@/components/CommingSoon/CommingSoon";
+import AdultPage from "@/components/adult-goods/AdultPage";
 import React from "react";
 
 const page = () => {
   return (
-    // <CommingSoon />
     <div>
-      <Hero />
+      <AdultPage />
     </div>
   );
 };

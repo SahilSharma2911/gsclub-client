@@ -17,7 +17,7 @@ const GetMail = () => {
           Want to stay ahead of the latest updates?
         </h2>
         <p className="font-light">Subscribe to our newsletter today and</p>
-        <p className="font-light">be the first to know what's new!</p>
+        <p className="font-light">be the first to know what&apos;s new!</p>
       </div>
       <div className="w-full lg:w-auto">
         <form onSubmit={handleSubmit} className="font-light flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
@@ -35,7 +35,7 @@ const GetMail = () => {
             type="submit"
             className="bg-[#090808] text-center h-10 sm:h-8 text-white font-medium px-8 sm:px-14 text-lg sm:text-xl rounded-full whitespace-nowrap"
           >
-            I'm in
+            I&apos;m in
           </Button>
         </form>
       </div>

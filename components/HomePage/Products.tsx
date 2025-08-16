@@ -19,7 +19,11 @@ import {
 } from "@/components/ui/pagination";
 import { useQuery } from "@tanstack/react-query";
 
-const Products = () => {
+type ProductsProps = {
+  productType?: string;
+};
+
+const Products = ({ productType }: ProductsProps) => {
   const { brandId, flavorId, puffsId, nicotineId } = useFilter();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -46,6 +50,7 @@ const Products = () => {
     if (flavorId) params.append("flavorId", flavorId);
     if (puffsId) params.append("puffsId", puffsId);
     if (nicotineId) params.append("nicotineId", nicotineId);
+    if (productType) params.append("productType", productType);
     params.append("page", currentPage.toString());
     params.append("limit", limit.toString());
 
