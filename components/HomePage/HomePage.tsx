@@ -6,12 +6,14 @@ import Faq from "./Faq";
 import GetMail from "./GetMail";
 import AdultGoods from "./AdultGoods";
 import SupplementsBanner from "./SupplementsBanner";
+import ProductTypes from "./ProductTypes";
 
 const HomePage = () => {
   return (
     <main>
       <Hero />
-      <Filter />
+      {/* <Filter /> */}
+      <ProductTypes />
       <Products />
       <GetMail />
       <AdultGoods />
