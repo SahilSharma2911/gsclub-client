@@ -7,11 +7,13 @@ import GetMail from "./GetMail";
 import AdultGoods from "./AdultGoods";
 import SupplementsBanner from "./SupplementsBanner";
 import ProductList from "./ProductList";
+import ProductTypes from "./ProductTypes";
 
 const HomePage = () => {
   return (
     <main>
       <Hero />
+      <ProductTypes />
       <ProductList title="Just In" viewAllLink="/vapes" productType="VAPES" />
       <GetMail />
       <AdultGoods />

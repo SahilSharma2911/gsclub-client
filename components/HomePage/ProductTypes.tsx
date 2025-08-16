@@ -21,11 +21,11 @@ export default function ProductTypes() {
   ];
 
   return (
-    <div className="font-unbounded flex gap-6 flex-wrap justify-center py-8">
+    <div className="font-unbounded flex gap-6 flex-wrap justify-center xl:justify-between pt-16 w-11/12 mx-auto">
       {productTypes.map((type, idx) => (
         <div key={idx} className="text-center">
           <Link href={type.href}>
-            <div className="relative w-30 h-30 md:w-58 md:h-58 rounded-full overflow-hidden flex flex-wrap items-center justify-between border bg-[#DCDCF8]">
+            <div className="relative w-30 h-30 md:w-58 md:h-58 rounded-full overflow-hidden flex flex-wrap items-center justify-between border bg-[#DCDCF8] hover:shadow-sm">
               {type.img ? (
                 <Image
                   src={type.img}

@@ -1,3 +1,4 @@
+"use client"
 import { signupTemplate } from "@/emails/signupTemplate";
 
 export default function EmailPreview() {
