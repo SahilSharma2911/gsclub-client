@@ -110,8 +110,11 @@ const Products = ({ productType }: ProductsProps) => {
         behavior: "smooth",
         block: "start",
       });
-    } else {
-      // Fallback to window scroll if ref is not available
+    }
+  }, [currentPage]);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && !componentRef.current) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentPage]);

@@ -12,6 +12,7 @@ import AgeVerification from "@/components/AgeVerification/AgeVerification";
 import ScrollToTopButton from "@/components/ScrollToTopButton/ScrollToTopButton";
 import { getSEOData } from "@/lib/seo";
 import Image from "next/image";
+import Script from "next/script";
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -29,20 +30,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = await getSEOData('/*');
+  const seoData = await getSEOData("/*");
 
   if (!seoData) return {};
 
   const metadata: Metadata = {};
 
-  // Basic SEO
   if (seoData.title) metadata.title = seoData.title;
   if (seoData.description) metadata.description = seoData.description;
   if (seoData.keywords?.length > 0) metadata.keywords = seoData.keywords;
 
-  // OpenGraph
   const ogTitle = seoData.ogTitle || seoData.title;
   const ogDescription = seoData.ogDescription || seoData.description;
   const ogImage = seoData.ogImage;
@@ -54,11 +52,8 @@ export async function generateMetadata(): Promise<Metadata> {
     if (ogImage) metadata.openGraph.images = [ogImage];
   }
 
-  // Twitter
   if (ogTitle || ogDescription || ogImage) {
-    metadata.twitter = {
-      card: 'summary_large_image',
-    };
+    metadata.twitter = { card: "summary_large_image" };
     if (ogTitle) metadata.twitter.title = ogTitle;
     if (ogDescription) metadata.twitter.description = ogDescription;
     if (ogImage) metadata.twitter.images = [ogImage];
@@ -69,74 +64,70 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-
+}) {
   return (
     <html lang="en">
       <head>
         {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-TLGTR33M');
-            `,
-          }}
-        />
-        {/* End Google Tag Manager */}
+        <Script id="gtm" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TLGTR33M');
+          `}
+        </Script>
 
-        {/* Yandex.Metrika counter */}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-              m[i].l=1*new Date();
-              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-              (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-            
-              ym(102308489, "init", {
-                   clickmap:true,
-                   trackLinks:true,
-                   accurateTrackBounce:true,
-                   webvisor:true,
-                   ecommerce:"dataLayer"
-              });
-            `,
-          }}
-        />
-        <noscript>
-          <div>
-            <Image
-              width={1000}
-              height={1000}
-              src="https://mc.yandex.ru/watch/102308489"
-              style={{ position: 'absolute', left: '-9999px' }}
-              alt=""
-            />
-          </div>
-        </noscript>
-        {/* /Yandex.Metrika counter */}
+        {/* Yandex.Metrika */}
+        <Script id="yandex" strategy="afterInteractive">
+          {`
+            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {
+              if (document.scripts[j].src === r) { return; }
+            }
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(102308489, "init", {
+              clickmap:true,
+              trackLinks:true,
+              accurateTrackBounce:true,
+              webvisor:true,
+              ecommerce:"dataLayer"
+            });
+          `}
+        </Script>
       </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${unbounded.variable}`}
       >
-        {/* Google Tag Manager (noscript) */}
+        {/* GTM (noscript) */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TLGTR33M"
             height="0"
             width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
+            style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
+
+        {/* Yandex Metrika (noscript) */}
+        <noscript>
+          <div>
+            <Image
+              width={1}
+              height={1}
+              src="https://mc.yandex.ru/watch/102308489"
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
 
         <Providers>
           <Navbar />
