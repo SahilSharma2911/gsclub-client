@@ -1,31 +1,38 @@
-import Blog from '@/components/Blog/Blog';
-import { prisma } from '@/lib/prisma';
-import React from 'react';
-import type { Metadata } from 'next';
-import { getSEOData } from '@/lib/seo';
+import Blog from "@/components/Blog/Blog";
+import { prisma } from "@/lib/prisma";
+import React from "react";
+import type { Metadata } from "next";
+import { getSEOData } from "@/lib/seo";
+import { noIndex } from "@/lib/noindex";
 
 // Force dynamic rendering for fresh data
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 // Generate metadata for SEO
 export async function generateMetadata(): Promise<Metadata> {
   try {
     // Fetch SEO data for the blog page route
-    const seoData = await getSEOData('/blog');
+    const seoData = await getSEOData("/blog");
 
     if (!seoData) {
       return {
-        title: 'Our Blog',
-        description: 'Explore our latest blog articles and insights.',
+        title: "Our Blog",
+        description: "Explore our latest blog articles and insights.",
       };
     }
 
-    const metadata: Metadata = {};
+    const metadata: Metadata = {
+      ...noIndex,
+    };
 
     // Basic SEO
     if (seoData.title) metadata.title = seoData.title;
     if (seoData.description) metadata.description = seoData.description;
-    if (seoData.keywords && Array.isArray(seoData.keywords) && seoData.keywords.length > 0) {
+    if (
+      seoData.keywords &&
+      Array.isArray(seoData.keywords) &&
+      seoData.keywords.length > 0
+    ) {
       metadata.keywords = seoData.keywords;
     }
 
@@ -44,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
     // Twitter
     if (ogTitle || ogDescription || ogImage) {
       metadata.twitter = {
-        card: 'summary_large_image',
+        card: "summary_large_image",
       };
       if (ogTitle) metadata.twitter.title = ogTitle;
       if (ogDescription) metadata.twitter.description = ogDescription;
@@ -53,10 +60,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return metadata;
   } catch (error) {
-    console.error('Failed to generate metadata:', error);
+    console.error("Failed to generate metadata:", error);
     return {
-      title: 'Our Blog',
-      description: 'Explore our latest blog articles and insights.',
+      title: "Our Blog",
+      description: "Explore our latest blog articles and insights.",
     };
   }
 }
@@ -75,7 +82,7 @@ const page = async () => {
       </div>
     );
   } catch (error) {
-    console.error('Failed to fetch blog articles:', error);
+    console.error("Failed to fetch blog articles:", error);
     return (
       <div>
         <p>Failed to load blog articles. Please try again later.</p>

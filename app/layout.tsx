@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import AgeVerification from "@/components/AgeVerification/AgeVerification";
 import ScrollToTopButton from "@/components/ScrollToTopButton/ScrollToTopButton";
 import { getSEOData } from "@/lib/seo";
+import { noIndex } from "@/lib/noindex";
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -28,13 +29,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = await getSEOData('/*');
+  const seoData = await getSEOData("/*");
 
-  if (!seoData) return {};
+  const metadata: Metadata = {
+    ...noIndex,
+  };
 
-  const metadata: Metadata = {};
+  if (!seoData) return metadata;
 
   // Basic SEO
   if (seoData.title) metadata.title = seoData.title;
@@ -56,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Twitter
   if (ogTitle || ogDescription || ogImage) {
     metadata.twitter = {
-      card: 'summary_large_image',
+      card: "summary_large_image",
     };
     if (ogTitle) metadata.twitter.title = ogTitle;
     if (ogDescription) metadata.twitter.description = ogDescription;
@@ -71,7 +73,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <head>
@@ -114,7 +115,7 @@ export default function RootLayout({
           <div>
             <img
               src="https://mc.yandex.ru/watch/102308489"
-              style={{ position: 'absolute', left: '-9999px' }}
+              style={{ position: "absolute", left: "-9999px" }}
               alt=""
             />
           </div>
@@ -144,7 +145,7 @@ export default function RootLayout({
             src="https://www.googletagmanager.com/ns.html?id=GTM-TLGTR33M"
             height="0"
             width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
+            style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}

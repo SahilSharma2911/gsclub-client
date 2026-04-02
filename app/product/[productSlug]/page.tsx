@@ -1,8 +1,9 @@
-import ProductPage from '@/components/ProductPage/ProductPage';
-import { prisma } from '@/lib/prisma';
-import React from 'react';
-import type { Metadata } from 'next';
-import { getSEOData } from '@/lib/seo';
+import ProductPage from "@/components/ProductPage/ProductPage";
+import { prisma } from "@/lib/prisma";
+import React from "react";
+import type { Metadata } from "next";
+import { getSEOData } from "@/lib/seo";
+import { noIndex } from "@/lib/noindex";
 
 type Props = {
   params: Promise<{ productSlug: string }>;
@@ -71,13 +72,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!product) {
       return {
-        title: 'Product Not Found',
-        description: 'The requested product could not be found.',
+        title: "Product Not Found",
+        description: "The requested product could not be found.",
       };
     }
 
     const seoData = await getSEOData(`/product/${productSlug}`);
-    const metadata: Metadata = {};
+    const metadata: Metadata = {
+      ...noIndex,
+    };
 
     if (seoData) {
       if (seoData.title) metadata.title = seoData.title;
@@ -87,29 +90,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       if (seoData.ogTitle || seoData.ogDescription || seoData.ogImage) {
         metadata.openGraph = {};
         if (seoData.ogTitle) metadata.openGraph.title = seoData.ogTitle;
-        if (seoData.ogDescription) metadata.openGraph.description = seoData.ogDescription;
+        if (seoData.ogDescription)
+          metadata.openGraph.description = seoData.ogDescription;
         if (seoData.ogImage) metadata.openGraph.images = [seoData.ogImage];
       }
 
       if (seoData.ogTitle || seoData.ogDescription || seoData.ogImage) {
         metadata.twitter = {
-          card: 'summary_large_image',
+          card: "summary_large_image",
         };
         if (seoData.ogTitle) metadata.twitter.title = seoData.ogTitle;
-        if (seoData.ogDescription) metadata.twitter.description = seoData.ogDescription;
+        if (seoData.ogDescription)
+          metadata.twitter.description = seoData.ogDescription;
         if (seoData.ogImage) metadata.twitter.images = [seoData.ogImage];
       }
     } else {
-      metadata.title = product.name || 'Product';
-      metadata.description = 'View product details.';
+      metadata.title = product.name || "Product";
+      metadata.description = "View product details.";
     }
 
     return metadata;
   } catch (error) {
-    console.error('Failed to generate metadata:', error);
+    console.error("Failed to generate metadata:", error);
     return {
-      title: 'Product Not Found',
-      description: 'An error occurred while loading the product.',
+      title: "Product Not Found",
+      description: "An error occurred while loading the product.",
     };
   }
 }
