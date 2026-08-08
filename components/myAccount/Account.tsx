@@ -5,7 +5,7 @@ import Profile from "./Profile";
 import OrderHistory from "./OrderHistory";
 import Filter from "./Filter";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { TfiLayoutListThumb } from "react-icons/tfi";
@@ -28,7 +28,7 @@ interface AccountProps {
 const Account: React.FC<AccountProps> = ({ orders }) => {
   const [selectOpt, setSelectOpt] = useState<string>("My orders");
   const [addressCount, setAddressCount] = useState(0);
-  const { status, data: session } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const email = session?.user?.email
 
