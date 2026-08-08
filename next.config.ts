@@ -67,11 +67,7 @@ const nextConfig: NextConfig = {
         destination: '/brands/:brand',
         permanent: true,
       },
-      {
-        source: '/my-account:path*',
-        destination: '/login',
-        permanent: true,
-      },
+      // Removed: /my-account redirect was overriding the real account page (caused redirect loop)
 
       {
         source: '/hqd-cuvie-plus-vs-bar-vs-glaze-2026',
