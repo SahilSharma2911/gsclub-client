@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
       },
       // Duplicate page fix: /terms-conditions → canonical /terms-and-conditions
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
+      // SMOK brand discontinued - redirect to homepage
+      { source: '/brands/smok', destination: '/', permanent: true },
+      { source: '/brands/smok/:path*', destination: '/', permanent: true },
       // BC5000 EB Design — discontinued model, redirect to EBCREATE brand page
       { source: '/product/:slug*bc5000:rest*', destination: '/brands/ebcreate', permanent: true },
       { source: '/product/:slug*bc-5000:rest*', destination: '/brands/ebcreate', permanent: true },
@@ -58,7 +61,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/smok-vape',
-        destination: '/brands/smok',
+        destination: '/',
         permanent: true,
       },
       {
