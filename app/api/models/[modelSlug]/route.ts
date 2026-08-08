@@ -24,7 +24,7 @@ export async function GET(
     },
     select: { id: true, name: true, stockStatus: true, images: { take: 1, select: { url: true } }, flavor: { select: { name: true } } },
     orderBy: { name: "asc" },
-    take: 50,
+    take: 200,
   });
 
   // Deduplicate by name (keep first occurrence)
