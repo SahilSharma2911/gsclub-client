@@ -225,51 +225,80 @@ export async function GET(req: Request) {
       }
     }
 
-    // ── Trigram fuzzy fallback (fires only when exact/split search returns 0) ──
-    // Handles typos like "calombian" → "colombian", "bluebarry" → "blueberry"
+    // ── Fuzzy search fallback (fires only when exact/split search returns 0) ──
+    // Handles typos: "calombian"→"colombian", "rasberry"→"raspberry", "bluebarry"→"blueberry"
+    // Uses Levenshtein edit distance + trigram similarity for scoring
     if (search && search.length >= 4) {
       const exactCount = await prisma.product.count({ where: filter });
       if (exactCount === 0) {
-        // Trigram similarity: count shared 3-char substrings between two strings
-        const trigramSim = (a: string, b: string): number => {
-          const trigrams = (s: string) => {
-            const set = new Set<string>();
-            for (let i = 0; i < s.length - 2; i++) set.add(s.slice(i, i + 3));
-            return set;
-          };
-          const ta = trigrams(a.toLowerCase());
-          const tb = trigrams(b.toLowerCase());
-          if (ta.size === 0 || tb.size === 0) return 0;
-          let common = 0;
-          ta.forEach(t => { if (tb.has(t)) common++; });
-          return (2 * common) / (ta.size + tb.size);
+
+        // Levenshtein distance (number of single-char edits to transform a→b)
+        const levenshtein = (a: string, b: string): number => {
+          const m = a.length, n = b.length;
+          const dp: number[] = Array.from({ length: n + 1 }, (_, i) => i);
+          for (let i = 1; i <= m; i++) {
+            let prev = dp[0];
+            dp[0] = i;
+            for (let j = 1; j <= n; j++) {
+              const temp = dp[j];
+              dp[j] = a[i-1] === b[j-1] ? prev : 1 + Math.min(prev, dp[j], dp[j-1]);
+              prev = temp;
+            }
+          }
+          return dp[n];
         };
 
-        // Fetch all product names (lightweight)
+        // Trigram similarity (shared 3-char substrings)
+        const trigramSim = (a: string, b: string): number => {
+          const tg = (s: string) => { const st = new Set<string>(); for (let i = 0; i < s.length - 2; i++) st.add(s.slice(i, i+3)); return st; };
+          const ta = tg(a), tb = tg(b);
+          if (!ta.size || !tb.size) return 0;
+          let c = 0; ta.forEach(t => { if (tb.has(t)) c++; });
+          return (2 * c) / (ta.size + tb.size);
+        };
+
+        // Combined score: best of trigram or Levenshtein-based similarity
+        const wordSim = (qw: string, pw: string): number => {
+          const a = qw.toLowerCase(), b = pw.toLowerCase();
+          const lev = levenshtein(a, b);
+          const levSim = 1 - lev / Math.max(a.length, b.length);
+          const tSim = trigramSim(a, b);
+          return Math.max(levSim, tSim);
+        };
+
+        // Dynamic threshold: longer words tolerate more errors
+        // word len ≤4 → 0.80 | 5-7 → 0.72 | 8+ → 0.65
+        const getThreshold = (wordLen: number) =>
+          wordLen <= 4 ? 0.80 : wordLen <= 7 ? 0.72 : 0.65;
+
+        // Fetch all product names (lightweight - only name field)
         const allNames = await prisma.product.findMany({
           where: { isArchived: false },
           select: { name: true },
           take: 8000,
         });
 
-        // Score: best trigram similarity between any query word and any product word
         const queryWords = search.toLowerCase().split(/\s+/).filter(w => w.length >= 3);
-        const threshold = 0.45;
 
         const scored = allNames
           .map(p => {
             const productWords = p.name.toLowerCase().split(/\s+/);
-            let best = 0;
+            // Score = average of best match per query word (all qWords must match well)
+            let totalScore = 0;
             for (const qw of queryWords) {
+              const thresh = getThreshold(qw.length);
+              let bestForWord = 0;
               for (const pw of productWords) {
                 if (pw.length < 3) continue;
-                const s = trigramSim(qw, pw);
-                if (s > best) best = s;
+                const s = wordSim(qw, pw);
+                if (s > bestForWord) bestForWord = s;
               }
+              // If this query word has no good match, penalize heavily
+              totalScore += bestForWord >= thresh ? bestForWord : bestForWord * 0.3;
             }
-            return { name: p.name, score: best };
+            return { name: p.name, score: queryWords.length ? totalScore / queryWords.length : 0 };
           })
-          .filter(p => p.score >= threshold)
+          .filter(p => p.score >= 0.60)
           .sort((a, b) => b.score - a.score)
           .slice(0, 30);
 
