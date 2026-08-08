@@ -67,7 +67,10 @@ const nextConfig: NextConfig = {
         destination: '/brands/:brand',
         permanent: true,
       },
-      // Removed: /my-account redirect was overriding the real account page (caused redirect loop)
+      // ⚠️  DO NOT ADD BACK: /my-account → /login redirect.
+      // It was removed on Aug 6 (commit aa0f562) because it overrides the real account page
+      // and creates an infinite redirect loop (login → my-account → login → ...).
+      // The account page is protected server-side via getToken() in app/my-account/page.tsx.
 
       {
         source: '/hqd-cuvie-plus-vs-bar-vs-glaze-2026',
