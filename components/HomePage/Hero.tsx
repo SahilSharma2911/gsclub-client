@@ -12,14 +12,35 @@ const slides = [
 
 const Hero = () => {
     const [current, setCurrent] = useState(0);
+    const [loaded, setLoaded] = useState<Set<number>>(new Set([0]));
 
     useEffect(() => {
-        const t = setInterval(() => setCurrent(c => (c + 1) % slides.length), 5000);
+        const t = setInterval(() => {
+            setCurrent(c => {
+                const next = (c + 1) % slides.length;
+                // Preload slide after next so it's ready when we get there
+                const afterNext = (next + 1) % slides.length;
+                setLoaded(prev => new Set([...prev, next, afterNext]));
+                return next;
+            });
+        }, 5000);
         return () => clearInterval(t);
     }, []);
 
-    const prev = () => setCurrent(c => (c - 1 + slides.length) % slides.length);
-    const next = () => setCurrent(c => (c + 1) % slides.length);
+    const prev = () => {
+        setCurrent(c => {
+            const p = (c - 1 + slides.length) % slides.length;
+            setLoaded(prev => new Set([...prev, p]));
+            return p;
+        });
+    };
+    const next = () => {
+        setCurrent(c => {
+            const n = (c + 1) % slides.length;
+            setLoaded(prev => new Set([...prev, n]));
+            return n;
+        });
+    };
 
     return (
         <section className="w-full relative overflow-hidden">
@@ -32,26 +53,31 @@ const Hero = () => {
                     key={i}
                     className={`absolute inset-0 transition-opacity duration-700 ${i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                 >
-                    {/* Mobile */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={slide.mobile}
-                        alt={slide.alt}
-                        className="block md:hidden"
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        {...(i === 0 ? { fetchPriority: 'high' } : {})}
-                    />
-                    {/* Desktop */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={slide.desktop}
-                        alt={slide.alt}
-                        className="hidden md:block"
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        {...(i === 0 ? { fetchPriority: 'high' } : {})}
-                    />
+                    {/* Only render img when slide has been visited/preloaded - saves ~1MB bandwidth */}
+                    {loaded.has(i) && (
+                        <>
+                            {/* Mobile */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={slide.mobile}
+                                alt={slide.alt}
+                                className="block md:hidden"
+                                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                                loading={i === 0 ? 'eager' : 'lazy'}
+                                {...(i === 0 ? { fetchPriority: 'high' } : {})}
+                            />
+                            {/* Desktop */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={slide.desktop}
+                                alt={slide.alt}
+                                className="hidden md:block"
+                                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                                loading={i === 0 ? 'eager' : 'lazy'}
+                                {...(i === 0 ? { fetchPriority: 'high' } : {})}
+                            />
+                        </>
+                    )}
                 </div>
             ))}
 
@@ -60,7 +86,7 @@ const Hero = () => {
                 {slides.map((_, i) => (
                     <button
                         key={i}
-                        onClick={() => setCurrent(i)}
+                        onClick={() => { setLoaded(prev => new Set([...prev, i])); setCurrent(i); }}
                         className={`h-2 rounded-full transition-all ${i === current ? 'bg-white w-5' : 'bg-white/50 w-2'}`}
                         style={{ height: '8px', borderRadius: '9999px', background: i === current ? 'white' : 'rgba(255,255,255,0.5)', width: i === current ? '20px' : '8px' }}
                         aria-label={`Go to slide ${i + 1}`}
