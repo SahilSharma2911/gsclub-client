@@ -31,7 +31,7 @@ export async function GET(req: Request) {
     const maxPrice = searchParams.get("maxPrice");
 
     // Build filter object
-    const filter: Prisma.ProductWhereInput = {};
+    let filter: Prisma.ProductWhereInput = {};
 
     // Only apply the archive filter if we're not querying by specific IDs
     if (!productIds.length) {
@@ -221,6 +221,61 @@ export async function GET(req: Request) {
               },
             },
           ];
+        }
+      }
+    }
+
+    // ── Trigram fuzzy fallback (fires only when exact/split search returns 0) ──
+    // Handles typos like "calombian" → "colombian", "bluebarry" → "blueberry"
+    if (search && search.length >= 4) {
+      const exactCount = await prisma.product.count({ where: filter });
+      if (exactCount === 0) {
+        // Trigram similarity: count shared 3-char substrings between two strings
+        const trigramSim = (a: string, b: string): number => {
+          const trigrams = (s: string) => {
+            const set = new Set<string>();
+            for (let i = 0; i < s.length - 2; i++) set.add(s.slice(i, i + 3));
+            return set;
+          };
+          const ta = trigrams(a.toLowerCase());
+          const tb = trigrams(b.toLowerCase());
+          if (ta.size === 0 || tb.size === 0) return 0;
+          let common = 0;
+          ta.forEach(t => { if (tb.has(t)) common++; });
+          return (2 * common) / (ta.size + tb.size);
+        };
+
+        // Fetch all product names (lightweight)
+        const allNames = await prisma.product.findMany({
+          where: { isArchived: false },
+          select: { name: true },
+          take: 8000,
+        });
+
+        // Score: best trigram similarity between any query word and any product word
+        const queryWords = search.toLowerCase().split(/\s+/).filter(w => w.length >= 3);
+        const threshold = 0.45;
+
+        const scored = allNames
+          .map(p => {
+            const productWords = p.name.toLowerCase().split(/\s+/);
+            let best = 0;
+            for (const qw of queryWords) {
+              for (const pw of productWords) {
+                if (pw.length < 3) continue;
+                const s = trigramSim(qw, pw);
+                if (s > best) best = s;
+              }
+            }
+            return { name: p.name, score: best };
+          })
+          .filter(p => p.score >= threshold)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 30);
+
+        if (scored.length > 0) {
+          const fuzzyNames = scored.map(p => p.name);
+          filter = { name: { in: fuzzyNames }, isArchived: false } as typeof filter;
         }
       }
     }
