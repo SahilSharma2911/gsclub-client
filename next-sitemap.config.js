@@ -85,7 +85,6 @@ module.exports = {
       { loc: "/models/foger-switch-pro-pod-30000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-extra-1500-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-hookah-20000-puffs", priority: 0.8, changefreq: "weekly" },
-      { loc: "/models/fume-infinity-3500-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-infinity-4500-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-nb-super-k-20000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-pro-30000-puffs", priority: 0.8, changefreq: "weekly" },
