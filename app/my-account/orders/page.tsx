@@ -2,7 +2,6 @@ import React from 'react'
 import { getToken } from 'next-auth/jwt';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/utils/auth';
 import { Order } from '@/types/order';
 import { prisma } from '@/lib/prisma';
 import MobileOrder from '@/components/myAccount/MobileOrder';
