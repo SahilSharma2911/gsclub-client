@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Vape Shop Tennessee | GetSmoke",
-  description: "Buy disposable vapes online at GetSmoke. Vape Shop Tennessee.",
+  title: "Vape Shop Tennessee | Buy Disposable Vapes Online | GetSmoke",
+  description: "Shop premium disposable vapes online - delivered to Tennessee fast. Top brands: Geek Bar, Lost Mary, Fume, EBCreate. Free shipping on orders $49+. No minimum order.",
   alternates: { canonical: "https://getsmoke.com/vape-shop-tennessee" },
   openGraph: {
     title: "Vape Shop Tennessee | GetSmoke",
-    description: "Buy disposable vapes online at GetSmoke. Vape Shop Tennessee.",
+    description: "Premium disposable vapes delivered to Tennessee. Free shipping $49+. Shop 500+ flavors from top brands.",
     url: "https://getsmoke.com/vape-shop-tennessee",
     images: [{ url: "https://getsmoke.com/og-default.jpg" }],
   },
@@ -15,79 +16,203 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-static";
 
+const FEATURED_MODELS = [
+  {
+    name: "Geek Bar Pulse X2",
+    puffs: "25,000 puffs",
+    slug: "geek-bar-pulse-x2-25000-puffs",
+    image: "/model-banners/geek-bar-pulse-x2-hero.jpg",
+    price: "from $14.99",
+    tag: "Best Seller",
+  },
+  {
+    name: "Lost Mary MO20000",
+    puffs: "20,000 puffs",
+    slug: "lost-mary-mo20000-puffs",
+    image: "/model-banners/lost-mary-mo20000-hero.jpg",
+    price: "from $15.99",
+    tag: "New",
+  },
+  {
+    name: "EBCreate BC Pro",
+    puffs: "40,000 puffs",
+    slug: "ebcreate-bc-pro-40000-puffs",
+    image: "/model-banners/ebcreate-bc-pro-hero.jpg",
+    price: "from $17.99",
+    tag: "Top Rated",
+  },
+  {
+    name: "Geek Bar Pulse 2",
+    puffs: "25,000 puffs",
+    slug: "geek-bar-pulse-2-25000-puffs",
+    image: "/model-banners/geek-bar-pulse-2-hero.jpg",
+    price: "from $14.99",
+    tag: "Popular",
+  },
+];
+
+const MOQ_TIERS = [
+  { qty: "1-9 units", price: "Retail price", note: "No minimum order" },
+  { qty: "10-49 units", price: "5% off", note: "Mix brands and flavors" },
+  { qty: "50-99 units", price: "10% off", note: "Free priority shipping" },
+  { qty: "100+ units", price: "Contact us", note: "Custom pricing available" },
+];
+
 export default function Page() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">Vape Shop Tennessee</h1>
-        <h1 className="text-3xl font-bold mb-4 mt-6">Vape Shop Tennessee</h1>
-        <h2 className="text-2xl font-bold mb-3 mt-6">Rainbow Rain OVNS Dream</h2>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li><strong>Rated 0</strong><Link href="/product/rainbow-rain-ovns-dream/" className="text-purple-600 hover:underline">out of 5
-	$20.70  -  or subscribe to save up to 10%</Link><Link href="/wp-json/wp/v2/pages/9683?_fields=slug%2Ctitle%2Ccontent%2Cexcerpt%2Cyoast_head_json&add-to-cart=9524" className="text-purple-600 hover:underline">Add to cart</Link></li>
+    <main className="max-w-5xl mx-auto px-4 py-10">
+
+      {/* Hero */}
+      <section className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">
+          Vape Shop Tennessee - Buy Disposable Vapes Online
+        </h1>
+        <p className="text-lg text-gray-600 mb-6 max-w-3xl">
+          Tennessee&apos;s best online vape store. Shop 500+ disposable vapes from top brands - delivered anywhere in TN in 2-4 business days. No sales tax, free shipping on orders $49+.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Vapes
+          </Link>
+          <Link
+            href="/vapes?sort=newest"
+            className="inline-block border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            New Arrivals
+          </Link>
+        </div>
+      </section>
+
+      {/* Trust badges */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 text-center">
+        {[
+          { icon: "🚚", title: "Free Shipping", sub: "Orders $49+" },
+          { icon: "⚡", title: "Fast Delivery", sub: "2-4 days to TN" },
+          { icon: "✅", title: "500+ Flavors", sub: "Top brands in stock" },
+          { icon: "🔒", title: "Age Verified", sub: "21+ only, ID required" },
+        ].map((b) => (
+          <div key={b.title} className="bg-gray-50 rounded-xl p-4">
+            <div className="text-2xl mb-1">{b.icon}</div>
+            <div className="font-semibold text-gray-900 text-sm">{b.title}</div>
+            <div className="text-gray-500 text-xs">{b.sub}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* Featured Models */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Top Selling Disposable Vapes</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {FEATURED_MODELS.map((model) => (
+            <Link
+              key={model.slug}
+              href={`/models/${model.slug}`}
+              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="relative aspect-square bg-gray-50 overflow-hidden">
+                <Image
+                  src={model.image}
+                  alt={model.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+                <span className="absolute top-2 left-2 bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {model.tag}
+                </span>
+              </div>
+              <div className="p-3">
+                <div className="font-semibold text-sm text-gray-900 leading-tight mb-1">{model.name}</div>
+                <div className="text-xs text-gray-500 mb-1">{model.puffs}</div>
+                <div className="text-sm font-bold text-gray-900">{model.price}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Disposable Vapes →
+          </Link>
+        </div>
+      </section>
+
+      {/* MOQ / Wholesale */}
+      <section className="mb-12 bg-gray-900 rounded-2xl p-6 md:p-8 text-white">
+        <h2 className="text-2xl font-bold mb-2">Wholesale &amp; Bulk Orders - Tennessee</h2>
+        <p className="text-gray-400 mb-6">Stock your store or buy in bulk. Mix any brands, models, and flavors. No contracts, no minimums.</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          {MOQ_TIERS.map((tier) => (
+            <div key={tier.qty} className="bg-white/10 rounded-xl p-4 border border-white/20">
+              <div className="font-bold text-white mb-1">{tier.qty}</div>
+              <div className="text-yellow-400 font-semibold text-lg mb-1">{tier.price}</div>
+              <div className="text-gray-400 text-xs">{tier.note}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href="/vapes"
+            className="inline-block bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Start Shopping
+          </Link>
+          <a
+            href="mailto:info@getsmoke.com"
+            className="inline-block border border-white/40 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+          >
+            Contact for Bulk Pricing
+          </a>
+        </div>
+      </section>
+
+      {/* SEO Content */}
+      <section className="prose prose-gray max-w-none mb-10">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">Disposable Vapes Delivered Across Tennessee</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          GetSmoke ships premium disposable vapes to every corner of Tennessee - from Memphis and Nashville to Knoxville, Chattanooga, and beyond. As an online vape store, we carry 500+ products from the most trusted brands: Geek Bar, Lost Mary, Fume, EBCreate, HQD, Funky Republic, and more.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Every order ships from our US warehouse with standard 2-4 day delivery to Tennessee. Orders over $49 ship free. No subscription required - order once or anytime you need to restock.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Why Tennessee Vapers Choose GetSmoke</h3>
+        <ul className="space-y-2 text-gray-700 mb-4">
+          <li><strong>No sales tax</strong> - we collect only where legally required.</li>
+          <li><strong>Age-verified checkout</strong> - compliant with all Tennessee vaping regulations.</li>
+          <li><strong>Real product reviews</strong> - shop by ratings and verified purchases.</li>
+          <li><strong>Loyalty rewards</strong> - earn points on every order, redeem for discounts.</li>
+          <li><strong>Subscription option</strong> - save 10% on repeat orders of your favorites.</li>
         </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Welcome to Getsmoke, your premier Vape Shop in Tennessee, where we pride ourselves on providing an extensive range of vaping products, premium e-liquids, and accessories tailored to meet the needs of every vape enthusiast in the Smoky Mountain area and beyond. As a family-owned business, we are committed to creating a welcome environment that fosters community and caters to both seasoned vapers and newcomers looking for a tobacco-free alternative.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we believe in providing our customers with high-quality brands at affordable prices, ensuring they have access to 3rd party premium e-liquids and a range of e-cigarette flavors that satisfy every palate without breaking the bank. This commitment not only underscores our desire to enhance the vaping experience but also ensures that each selection aligns with current trends and preferences through strategic brand partnerships. We carefully curate our collection by considering popular brands such as Vape Wild and Naked 100, known for their diverse and tantalizing flavors like Strawberry Cream and Hawaiian POG.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our approach includes:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Regular customer feedback sessions to understand preferences</li>
-          <li>Monitoring industry trends for emerging flavors</li>
-          <li>Partnerships with reputable manufacturers to ensure quality</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">By maintaining this focus, we continuously adapt our offerings, ensuring they resonate with the vibrant vaping community while keeping prices competitive.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our knowledgeable and friendly staff at Getsmoke are dedicated to providing exceptional customer service, offering expert advice on the latest vaping technology and ensuring that every customer leaves with the information they need to make informed choices about their vaping experience. With a genuine passion for the vaping community, the team excels in not only guiding customers through the extensive product range but also educating them on vital aspects such as safety, maintenance, and proper usage techniques. This commitment is evident when they engage customers in detailed discussions regarding vaping devices, enabling them to choose equipment that suits their individual needs.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>For instance, if a customer is uncertain between various models, the staff uses their expertise to compare features and benefits.</li>
-          <li>Ongoing support is provided after the purchase; if issues arise or questions emerge, the team readily assists with troubleshooting, ensuring that customers feel confident in their choices.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Such attentiveness not only enhances overall customer satisfaction but also fosters lasting relationships built on trust and knowledge.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">With convenient vape shop locations across Tennessee, including Pigeon Forge, Sevierville, and Jefferson City, Getsmoke ensures that quality vaping products are easily accessible to every member of our vape community, making us the local choice for all your vaping needs. Each of these locations has been thoughtfully designed to cater to the diverse preferences of its customers.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Pigeon Forge: This location is perfect for tourists and locals alike, featuring a wide range of flavors and accessories that keep the spirit of adventure alive.</li>
-          <li>Sevierville: Known for its helpful staff, this shop offers personalized recommendations and frequent promotions, ensuring everyone finds their perfect vape.</li>
-          <li>Jefferson City: This site stands out for its extensive selection of premium products, making it a favorite among connoisseurs.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Each shop prioritizes convenience, allowing patrons to quickly find what they need, while also offering exclusive local deals and a welcoming atmosphere.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">By focusing on enhancing customer experience, Getsmoke has successfully established itself as a staple in the Tennessee vape scene.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Premium Vape Devices</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our selection of premium vape devices, including the latest vaporizer kits and disposable vapes, ensures that you have access to the best quality equipment designed to enhance your vaping experience while perfectly complementing our premium e-liquids.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Wide Range of E-Liquid Flavors</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we boast a wide range of e-liquid flavors that cater to every taste profile, providing fantastic nicotine alternatives that are tobacco-free and reflect the best of the vaping industry.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Replacement Parts and Accessories</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">We also offer a comprehensive selection of replacement parts and accessories, including various vape and DIY accessories that enable our customers to customize and maintain their devices for an optimal vaping experience.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Vape Device Set-Up and Customization</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our knowledgeable staff at Getsmoke is here to assist you with vape device set-up and customization, ensuring that your equipment is tailored to your specific preferences and the latest vaping technology.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">E-Liquid Mixing and Customization</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we provide e-liquid mixing and customization services that allow our customers to create unique flavor profiles tailored to their individual tastes, enhancing their overall customer experience.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Troubleshooting and Repairs</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our dedicated team at Getsmoke is always ready to assist with troubleshooting and repairs, ensuring that any issues with your vaping devices are promptly addressed to minimize downtime and enhance your vaping experience.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">We invite you to visit our Vape Shop in East Tennessee today Getsmoke, where you can explore our extensive selection of products and services at our various locations, and become part of our vibrant vaping community. Make sure to check out our 3rd party Premium products for the best quality and variety.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">You can find us at our various vape shop locations in Tennessee, including Pigeon Forge, Sevierville, and Jefferson City, making it easy for you to access quality vaping products and expert assistance. Whether you’re a seasoned vaper or just starting, you’ll appreciate the welcoming atmosphere and knowledgeable staff at each location. Each store offers a wide selection of vaporizer accessories. Here’s a quick look at what each shop offers:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Pigeon Forge: Open 10 AM - 9 PM, this shop features an extensive selection of e-liquids and devices, with a dedicated lounge area for customers to relax.</li>
-          <li>Sevierville: Operating hours are 11 AM - 8 PM, showcasing a broad inventory of premium brands and unique flavors, along with exclusive in-store promotions.</li>
-          <li>Jefferson City: Open 10 AM - 7 PM, it stands out with its community events and workshops, making it a great place for vapers to connect.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Each location is easily accessible, ensuring that customers across East Tennessee can consistently find the products and support they need, making it convenient for those living in the Smoky Mountain area.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">If you have any questions or concerns, please feel free to contact us at Getsmoke, where our customer service team is always ready to assist and provide you with the information you need. We pride ourselves on being a landmark in the vape industry, providing top-notch service and products. At Getsmoke, we prioritize your satisfaction and understand how important it is to have your queries addressed promptly. Our dedicated team is committed to creating an environment where your voice is heard, ensuring that all your needs are met efficiently. We believe in fostering strong relationships with our customers by providing exceptional service that goes above and beyond.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Email: <strong>info@getsmoke.com</strong></li>
-          <li>Expert Guidance: Knowledgeable support to assist you with detailed information.</li>
-          <li>Customer-Centric Approach: Tailored solutions to fit your specific requirements.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">For any inquiries or further information, please do not hesitate to reach out to us via phone or email. Your experience matters greatly to us, and we are here to help.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Stay updated with our latest news and offerings, including our tobacco free options that promote a healthier lifestyle. Stay connected with us by following Getsmoke on social media, where you can find updates, promotions, and engage with our vibrant vape community. Not only will you be in the loop about the latest happenings, but you’ll also gain early access to exclusive promotions and special offers designed just for our followers. Engaging with the vibrant community means you can share experiences, tips, and tricks with fellow enthusiasts, creating a sense of belonging that enriches your vaping journey. You’ll receive real-time updates on new products and services, ensuring that you are always ahead of the curve.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Exclusive promotions just for followers</li>
-          <li>Real-time updates on new products</li>
-          <li>Engaging community experiences</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">By following along, you’re not just purchasing a product; you’re becoming part of a dynamically lifestyle and our Turn it Up Club, which offers special perks and exclusive content for our members.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Vape Shop Tennessee, we pride ourselves on offering a wide selection of high-quality products at affordable prices. We also prioritize customer service, ensuring that each and every one of our customers has a positive experience when shopping with us. Additionally, our knowledgeable staff, well-versed in traditional E-cigs, Mods, Rda’s, Tanks, and Diy accessories are always happy to assist you in finding the perfect vape product for your needs.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, we frequently run promotions and discounts on our products, including 3rd party Premium selections and THC pens. Make sure to follow us on social media and sign up for our email list to stay updated on our latest deals and offers. We also offer a loyalty program for our regular customers, where you can earn points for every purchase and redeem them for discounts on future purchases.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, you must be at least 18 years old to purchase vape products at our shop. We take age verification seriously and require a valid ID for all purchases. This not only ensures compliance with local laws, but also promotes responsible vaping among our customers.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, we have a designated sampling area where you can try out different flavors before making a purchase. We believe that trying before buying is crucial in finding the perfect vape product for your preferences, and our staff is always available to assist you in finding your new favorite flavor.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Absolutely. We understand that vaping can be overwhelming for beginners, which is why we offer educational resources such as product guides and informational sessions. Our staff is also trained to answer any questions and provide guidance for those new to vaping.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, we offer the option in Jefferson City as well to purchase products online and pick them up at our physical store. This allows for a convenient and seamless shopping experience for our customers. Just select the “pick up” option at checkout and your order will be ready for you to pick up in-store.</p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Popular Vape Brands in Tennessee</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Tennessee vapers consistently top our best-seller lists with high-puff devices. The <Link href="/models/geek-bar-pulse-x2-25000-puffs" className="text-blue-600 hover:underline">Geek Bar Pulse X2</Link> (25,000 puffs) and <Link href="/models/ebcreate-bc-pro-40000-puffs" className="text-blue-600 hover:underline">EBCreate BC Pro</Link> (40,000 puffs) are especially popular for their long battery life and wide flavor selection. Fruit and menthol flavors lead sales statewide.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Tennessee Vaping Laws</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Tennessee law requires purchasers to be 21 or older to buy vaping products. GetSmoke uses a third-party age verification service at checkout to ensure compliance. We ship only to verified adults with a confirmed delivery address in the state.
+        </p>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-gray-50 rounded-2xl p-6 text-center">
+        <h2 className="text-xl font-bold mb-2 text-gray-900">Ready to order?</h2>
+        <p className="text-gray-600 mb-4">Browse 500+ disposable vapes. Free shipping on $49+. Delivered to Tennessee in 2-4 days.</p>
+        <Link
+          href="/vapes"
+          className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+        >
+          Shop All Vapes →
+        </Link>
+      </section>
+
     </main>
   );
 }
