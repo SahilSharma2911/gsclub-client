@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getModelBySlug } from "@/lib/models-config";
 import GenericModelPage from "@/components/ModelPage/GenericModelPage";
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 // Note: using plain <script> tags (not next/script) for JSON-LD so they render in initial HTML
 
 const SITE_URL = "https://getsmoke.com";
@@ -40,28 +41,42 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Fetch products for this model to build rich Schema
+// Uses same query logic as /api/models/[modelSlug] route for consistency
 async function getModelProducts(model: ReturnType<typeof getModelBySlug>) {
   if (!model) return [];
   try {
-    const excludeFilter = model.excludeQueries?.map(q => ({ name: { contains: q, mode: "insensitive" as const } })) ?? [];
-    return prisma.product.findMany({
+    const excludeFilters: Prisma.ProductWhereInput[] =
+      (model.excludeQueries ?? []).map((q) => ({
+        name: { contains: q, mode: "insensitive" as const },
+      }));
+
+    const products = await prisma.product.findMany({
       where: {
         name: { contains: model.dbSearchQuery, mode: "insensitive" },
         isArchived: false,
-        stockStatus: { not: "OUTOFSTOCK" },
-        NOT: [
-          { name: { contains: "pack of", mode: "insensitive" } },
-          ...excludeFilter,
-        ],
+        ...(excludeFilters.length > 0 ? { NOT: excludeFilters } : {}),
       },
-      include: {
+      select: {
+        name: true,
+        slug: true,
+        stockStatus: true,
         flavor: { select: { name: true } },
-        images: { take: 1, orderBy: { position: "asc" } },
+        images: { take: 1, orderBy: { position: "asc" }, select: { url: true } },
       },
       take: 60,
       orderBy: { name: "asc" },
     });
-  } catch {
+
+    // Deduplicate by name and filter out packs (same as client-side logic)
+    const seen = new Set<string>();
+    return products.filter((p) => {
+      if (seen.has(p.name)) return false;
+      if (/pack\s*of/i.test(p.name)) return false;
+      seen.add(p.name);
+      return true;
+    });
+  } catch (err) {
+    console.error("[getModelProducts] error:", err);
     return [];
   }
 }
@@ -105,11 +120,17 @@ export default async function ModelPage({ params }: Props) {
         name: p.name,
         url: `${SITE_URL}/product/${p.slug ?? ""}`,
         image: p.images?.[0]?.url || undefined,
+        sku: p.slug ?? undefined,
+        description: `${p.flavor?.name ?? p.name} flavor ${model.name} disposable vape. ${model.puffs} puffs, ${model.nicotine} nicotine. Buy online at GetSmoke.`,
         offers: {
           "@type": "Offer",
           priceCurrency: "USD",
           price: model.price.toFixed(2),
-          availability: "https://schema.org/InStock",
+          availability: p.stockStatus === "OUTOFSTOCK"
+            ? "https://schema.org/OutOfStock"
+            : p.stockStatus === "PREORDER"
+            ? "https://schema.org/PreOrder"
+            : "https://schema.org/InStock",
           url: `${SITE_URL}/product/${p.slug ?? ""}`,
           seller: { "@type": "Organization", name: "GetSmoke" },
         },
