@@ -1487,6 +1487,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/models/fume-infinity-3500-puffs',
+        destination: '/models/fume-infinity-4500-puffs',
+        permanent: true,
+      },
+      {
         source: '/models/fume-nb-super-k',
         destination: '/models/fume-nb-super-k-20000-puffs',
         permanent: true,
