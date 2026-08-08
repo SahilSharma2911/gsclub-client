@@ -86,8 +86,47 @@ export async function GET(req: Request) {
         // Strict name-only filter (used for bundles page)
         filter.name = { contains: search, mode: "insensitive" };
       } else {
+        // Build fuzzy-tolerant OR conditions:
+        // 1. Exact substring match
+        // 2. All space-separated words must appear (handles multi-word queries)
+        // 3. For merged words (e.g. "skymint" → "sky"+"mint"), try all possible 2-part splits
+        const buildFuzzyConditions = (q: string) => {
+          const conditions: object[] = [];
+          const words = q.trim().split(/\s+/).filter(w => w.length > 1);
+
+          // Exact
+          conditions.push({ name: { contains: q, mode: "insensitive" } });
+
+          // All individual words must appear (AND)
+          if (words.length > 1) {
+            conditions.push({
+              AND: words.map(w => ({ name: { contains: w, mode: "insensitive" } }))
+            });
+          }
+
+          // For a single merged token (no spaces), try all possible 2-part splits
+          // e.g. "skymint" → tries "sky"+"mint", "skym"+"int", etc.
+          if (words.length === 1 && q.length >= 4) {
+            for (let i = 2; i <= q.length - 2; i++) {
+              const left = q.slice(0, i);
+              const right = q.slice(i);
+              if (left.length >= 2 && right.length >= 2) {
+                conditions.push({
+                  AND: [
+                    { name: { contains: left, mode: "insensitive" } },
+                    { name: { contains: right, mode: "insensitive" } },
+                  ]
+                });
+              }
+            }
+          }
+
+          return conditions;
+        };
+
+        const fuzzyConditions = buildFuzzyConditions(search);
         filter.OR = [
-          { name: { contains: search, mode: "insensitive" } },
+          ...fuzzyConditions,
           { eLiquidContent: { contains: search, mode: "insensitive" } },
           { batteryCapacity: { contains: search, mode: "insensitive" } },
           { coil: { contains: search, mode: "insensitive" } },
