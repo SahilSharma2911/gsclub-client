@@ -12,6 +12,15 @@ export interface ModelConfig {
   price: number;
   packPrices?: { pack3?: number; pack5?: number; pack10?: number };
   preorderFlavors?: string[]; // flavor names shown as pre-order (grayed out) in flavor picker
+  // Technical specs (optional, shown on model page)
+  battery?: string;
+  eliquid?: string;
+  chargingPort?: string;
+  coil?: string;
+  display?: string;
+  // SEO
+  seoDescription?: string;
+  topFlavors?: string[];
 }
 
 export const MODELS: ModelConfig[] = [
