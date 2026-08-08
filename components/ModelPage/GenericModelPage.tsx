@@ -39,10 +39,31 @@ function buildPackConfig(
   };
 }
 
-function getFlavorName(product: ApiProduct): string {
+function getFlavorName(product: ApiProduct, modelQuery?: string): string {
   if (product.flavor?.name) return product.flavor.name;
-  // Try to extract flavor name from product name by removing common model prefixes
-  return product.name;
+
+  let name = product.name;
+
+  // Pattern 1: "Flavor Name - Brand Model Disposable Vape" → take part before " - "
+  if (name.includes(" - ")) {
+    return name.split(" - ")[0].trim();
+  }
+
+  // Pattern 2: Strip model query from name (e.g. "Cotton Candy Fume Infinity..." → "Cotton Candy")
+  if (modelQuery) {
+    const idx = name.toLowerCase().indexOf(modelQuery.toLowerCase());
+    if (idx > 0) {
+      return name.slice(0, idx).trim();
+    }
+  }
+
+  // Pattern 3: Strip common trailing suffixes
+  name = name.replace(/\s+(disposable\s+)?vape$/i, "").trim();
+  name = name.replace(/\s+fume\s+(infinity|extra|pro|ultra)\s*(plus)?$/i, "").trim();
+  name = name.replace(/\s+geek\s+bar.*$/i, "").trim();
+  name = name.replace(/\s+raz\s+.*$/i, "").trim();
+
+  return name;
 }
 
 function generateDescription(model: ModelConfig, flavorCount: number): string[] {
@@ -283,7 +304,7 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
           <div className="relative w-full rounded-3xl overflow-hidden bg-gray-50" style={{ paddingTop: "100%" }}>
             <Image
               src={heroSrc}
-              alt={selectedProduct ? `${model.shortName} - ${getFlavorName(selectedProduct)}` : model.name}
+              alt={selectedProduct ? `${model.shortName} - ${getFlavorName(selectedProduct, model.dbSearchQuery)}` : model.name}
               fill
               className="object-cover"
               priority
@@ -318,7 +339,7 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
                       {imgUrl ? (
                         <Image
                           src={imgUrl}
-                          alt={getFlavorName(product)}
+                          alt={getFlavorName(product, model.dbSearchQuery)}
                           fill
                           className={`object-cover ${oos || preorder ? "grayscale" : ""}`}
                         />
@@ -337,14 +358,14 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
                       )}
                     </div>
                     <span className={`text-[9px] text-center leading-tight max-w-[44px] ${oos || preorder ? "text-gray-400" : "text-gray-700 font-semibold"}`}>
-                      {getFlavorName(product)}
+                      {getFlavorName(product, model.dbSearchQuery)}
                     </span>
                   </button>
                 );
               })}
               {/* Pre-order flavor chips from config (flavors not yet in DB) */}
               {model.preorderFlavors?.filter(name =>
-                !products.some(p => getFlavorName(p).toLowerCase() === name.toLowerCase())
+                !products.some(p => getFlavorName(p, model.dbSearchQuery).toLowerCase() === name.toLowerCase())
               ).map(flavorName => (
                 <div
                   key={`preorder-${flavorName}`}
@@ -462,10 +483,10 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
                                 const oos = p.stockStatus === "OUTOFSTOCK";
                                 const preorder = p.stockStatus === "PREORDER";
                                 const label = oos
-                                  ? `${getFlavorName(p)} — Out of Stock`
+                                  ? `${getFlavorName(p, model.dbSearchQuery)} — Out of Stock`
                                   : preorder
-                                    ? `${getFlavorName(p)} — Pre-Order`
-                                    : getFlavorName(p);
+                                    ? `${getFlavorName(p, model.dbSearchQuery)} — Pre-Order`
+                                    : getFlavorName(p, model.dbSearchQuery);
                                 return (
                                   <option
                                     key={p.id}
