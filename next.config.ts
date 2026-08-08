@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       },
       // Duplicate page fix: /terms-conditions → canonical /terms-and-conditions
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
+      // BC5000 EB Design — discontinued model, redirect to EBCREATE brand page
+      { source: '/product/:slug*bc5000:rest*', destination: '/brands/ebcreate', permanent: true },
+      { source: '/product/:slug*bc-5000:rest*', destination: '/brands/ebcreate', permanent: true },
+      { source: '/models/:slug*bc5000:rest*', destination: '/brands/ebcreate', permanent: true },
       // Missing commercial URL
       { source: '/disposable-vapes', destination: '/vapes', permanent: true },
       {
