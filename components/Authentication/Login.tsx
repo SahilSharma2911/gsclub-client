@@ -95,22 +95,22 @@ const Login = () => {
       });
 
       if (loginResponse?.error) {
-        throw new Error(loginResponse.error);
+        // Show migration modal only for migration errors, not wrong password
+        if (loginResponse.error === "MIGRATION_REQUIRED") {
+          setLastEmail(formData.email);
+          setShowMigrationModal(true);
+          return;
+        }
+        toast.error("Invalid email or password. Please try again.");
+        return;
       }
 
       toast.success("Login successful!");
-      router.push(callbackUrl || "/my-account");
+      // Full page reload required so server components pick up the new session cookie
+      window.location.href = callbackUrl || "/my-account";
     } catch (error) {
       console.error("Login error:", error);
-      // Show migration modal on first invalid credentials attempt per email
-      const migrationKey = `gs_migration_seen_${formData.email}`;
-      const alreadySeen = typeof window !== "undefined" && localStorage.getItem(migrationKey);
-      if (!alreadySeen) {
-        setLastEmail(formData.email);
-        setShowMigrationModal(true);
-      } else {
-        toast.error("Invalid credentials. Please try again.");
-      }
+      toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
