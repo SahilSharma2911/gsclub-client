@@ -24,7 +24,7 @@ interface FilterButtonProps {
   isOpen: boolean;
   onToggle: () => void;
   selectedName?: string;
-  btnRef: React.RefObject<HTMLButtonElement | null>;
+  btnRef: React.RefObject<HTMLButtonElement>;
 }
 
 // Trigger button only — dropdown is rendered outside the overflow container
@@ -69,7 +69,7 @@ const Filter = ({ productType }: { productType?: string }) => {
   const flavorBtnRef = useRef<HTMLButtonElement>(null);
   const nicotineBtnRef = useRef<HTMLButtonElement>(null);
 
-  const btnRefs: Record<string, React.RefObject<HTMLButtonElement | null>> = {
+  const btnRefs: Record<string, React.RefObject<HTMLButtonElement>> = {
     brand: brandBtnRef,
     puffs: puffsBtnRef,
     flavor: flavorBtnRef,
