@@ -30,17 +30,10 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
   const [addressCount, setAddressCount] = useState(0);
   const { status, data: session } = useSession();
   const router = useRouter();
-  const pathname = usePathname();
   const email = session?.user?.email
 
-  useEffect(() => {
-    // Only redirect after session is fully resolved — never during "loading"
-    if (status === 'unauthenticated') {
-      const callbackUrl = pathname ? encodeURIComponent(pathname) : '';
-      router.replace(`/login?callbackUrl=${callbackUrl}`);
-    }
-    // status === "loading" → wait; status === "authenticated" → stay on page
-  }, [status, router, pathname]);
+  // Server-side auth guard in page.tsx already redirects unauthenticated users.
+  // No client-side redirect needed — it causes a loop with next-auth v4 + Next.js 15.
 
   useEffect(() => {
     const fetchAddressCount = async () => {
