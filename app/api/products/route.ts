@@ -271,11 +271,11 @@ export async function GET(req: Request) {
         const getThreshold = (wordLen: number) =>
           wordLen <= 4 ? 0.80 : wordLen <= 7 ? 0.72 : 0.65;
 
-        // Fetch all product names (lightweight - only name field)
+        // Fetch all product names (lightweight - only name field, capped at 3000)
         const allNames = await prisma.product.findMany({
           where: { isArchived: false },
           select: { name: true },
-          take: 8000,
+          take: 3000,
         });
 
         const queryWords = search.toLowerCase().split(/\s+/).filter(w => w.length >= 3);
