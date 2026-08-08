@@ -47,7 +47,7 @@ export interface Shipment {
 
 export interface Order {
   id: string;
-  orderNumber?: string | null;
+  orderNumber?: number | null;
   userEmail: string;
   isPaid: boolean;
   isDelivered: boolean;
@@ -60,6 +60,10 @@ export interface Order {
   totalAmount: number;
   shippingAmount?: string | null;
   shippingRateId?: string | null;
+  nmiTransactionId?: string | null;
+  refundedAmount?: number | null;
+  refundStatus?: string | null;
+  refundedAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
   Shipment?: Shipment | null;
