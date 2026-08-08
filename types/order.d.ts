@@ -47,6 +47,7 @@ export interface Shipment {
 
 export interface Order {
   id: string;
+  orderNumber?: string | null;
   userEmail: string;
   isPaid: boolean;
   isDelivered: boolean;
