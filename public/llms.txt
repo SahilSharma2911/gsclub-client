@@ -37,6 +37,8 @@
 - [RAZ DC25000 25000 Puffs](https://getsmoke.com/models/raz-dc25000-25000-puffs): All flavors
 - [RAZ TN9000 9000 Puffs](https://getsmoke.com/models/raz-tn9000-9000-puffs): All flavors
 - [EBCreate BC Pro 40000 Puffs](https://getsmoke.com/models/ebcreate-bc-pro-40000-puffs): All flavors
+- [Geek Bar Pulse X2 50000 Puffs](https://getsmoke.com/models/geek-bar-pulse-x2-50000-puffs): All flavors, newest model
+- [Lost Mary MO20000 20000 Puffs](https://getsmoke.com/models/lost-mary-mo20000-20000-puffs): All flavors
 
 ## Blog and Educational Content
 
@@ -71,10 +73,10 @@
 
 ## Buying Guides (Answer Pages for AI)
 
-- [Best Disposable Vapes 2025](https://getsmoke.com/best-disposable-vapes): Top picks ranked by puffs, flavor, price - with FAQ schema
+- [Best Disposable Vapes 2026](https://getsmoke.com/best-disposable-vapes): Top picks ranked by puffs, flavor, price - with FAQ schema
 - [How Many Puffs Guide](https://getsmoke.com/how-many-puffs-disposable-vape): Complete puff count duration table, FAQ schema
 
-## Pricing Reference (as of 2025)
+## Pricing Reference (as of 2026)
 
 | Product Category | Price Range | Notes |
 |---|---|---|
@@ -85,11 +87,11 @@
 | Hookah tobacco (250g) | $12.99-$22.99 | Al Fakher, Starbuzz |
 | Pack of 10 discount | 10-15% off | Available on select models |
 
-## Top Search Queries This Site Answers
+## Top Search Queries This Site Answers (2026)
 
-- "best disposable vape 2025"
+- "best disposable vape 2026"
 - "how many puffs does [brand] [model] last"
-- "geek bar pulse x review"
+- "geek bar pulse x2 review"
 - "lost mary turbo vs geek bar pulse x"
 - "hqd cuvie bar flavors"
 - "buy disposable vapes online USA"

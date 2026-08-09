@@ -20,6 +20,8 @@ const nextConfig: NextConfig = {
       },
       // Duplicate page fix: /terms-conditions → canonical /terms-and-conditions
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
+      // /brand/ is a duplicate of /brands/ - redirect to canonical URL
+      { source: '/brand/:brandSlug', destination: '/brands/:brandSlug', permanent: true },
       // Common URL variants that return 404 - redirect to correct pages
       { source: '/vape', destination: '/vapes', permanent: true },
       { source: '/vape/:path*', destination: '/vapes', permanent: true },
