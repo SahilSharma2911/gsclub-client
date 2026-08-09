@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { Unbounded } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -28,10 +29,6 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = await getSEOData("/*");
@@ -167,8 +164,10 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
-        {/* Yandex Metrika */}
-        <script
+        {/* Yandex Metrika - deferred after page is interactive */}
+        <Script
+          id="yandex-metrika"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function(m,e,t,r,i,k,a){
@@ -213,7 +212,7 @@ export default function RootLayout({
         ` }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${unbounded.variable} bg-black`}
+        className={`${geistSans.variable} antialiased ${unbounded.variable} bg-black`}
       >
 
         {/* Google Tag Manager (noscript) */}

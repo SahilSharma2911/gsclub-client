@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  compress: true,           // Enable gzip compression (default: true, explicit for clarity)
+  poweredByHeader: false,   // Remove X-Powered-By: Next.js header (security + minor perf)
   // Transpile packages that use ES2022 private class fields (#field syntax)
   // Required for Safari < 14.1 compatibility
   transpilePackages: [
