@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Vape Shop Illinois | GetSmoke",
-  description: "Buy disposable vapes online at GetSmoke. Vape Shop Illinois.",
+  title: "Vape Shop Illinois | Buy Disposable Vapes Online | GetSmoke",
+  description: "Shop premium disposable vapes online - delivered to Illinois fast. Top brands: Geek Bar, Lost Mary, RAZ, HQD. Free shipping on orders $89+. No minimum order. Adults 21+ only.",
   alternates: { canonical: "https://getsmoke.com/vape-shop-illinois" },
   openGraph: {
     title: "Vape Shop Illinois | GetSmoke",
-    description: "Buy disposable vapes online at GetSmoke. Vape Shop Illinois.",
+    description: "Premium disposable vapes delivered to Illinois. Free shipping $89+. Shop 500+ flavors from top brands.",
     url: "https://getsmoke.com/vape-shop-illinois",
     images: [{ url: "https://getsmoke.com/og-default.jpg" }],
   },
@@ -15,122 +16,211 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-static";
 
+const FEATURED_MODELS = [
+  {
+    name: "Geek Bar Pulse X2",
+    puffs: "50,000 puffs",
+    slug: "geek-bar-pulse-x2-50000-puffs",
+    image: "/model-banners/geek-bar-pulse-x2-hero.jpg",
+    price: "from $35.99",
+    tag: "Best Seller",
+  },
+  {
+    name: "Lost Mary MO20000",
+    puffs: "20,000 puffs",
+    slug: "lost-mary-mo20000-20000-puffs",
+    image: "/model-banners/lost-mary-mo20000-hero.jpg",
+    price: "from $16.89",
+    tag: "New",
+  },
+  {
+    name: "RAZ DC25000",
+    puffs: "25,000 puffs",
+    slug: "raz-dc25000-25000-puffs",
+    image: "/model-banners/raz-dc25000-hero.jpg",
+    price: "from $19.99",
+    tag: "Top Rated",
+  },
+  {
+    name: "HQD Cuvie Glaze",
+    puffs: "15,000 puffs",
+    slug: "hqd-cuvie-glaze-15000-puffs",
+    image: "/model-banners/hqd-cuvie-glaze-hero.jpg",
+    price: "from $16.99",
+    tag: "Popular",
+  },
+];
+
+const FAQ = [
+  {
+    q: "Do you deliver disposable vapes to Illinois?",
+    a: "Yes. We ship to all Illinois addresses including Chicago, Springfield, Rockford, Aurora, Naperville, and all other cities and towns. Standard delivery takes 2-4 business days.",
+  },
+  {
+    q: "What is the minimum order?",
+    a: "There is no minimum order. You can order a single disposable vape and we will ship it to you. Free shipping applies automatically on orders over $89.",
+  },
+  {
+    q: "What brands do you carry?",
+    a: "We stock all major brands: Geek Bar, Lost Mary, RAZ, HQD, EBCreate, Fume, Fifty Bar, VIHO, Foger, and many more. New products added weekly.",
+  },
+  {
+    q: "Do I need to be 21 to order?",
+    a: "Yes. Illinois law requires purchasers to be 21 or older. We use a third-party age verification service at checkout. A valid government-issued ID is required.",
+  },
+  {
+    q: "How long does shipping take to Illinois?",
+    a: "Most orders arrive in 2-4 business days. Orders placed before 2 PM ET typically ship the same day. You will receive a tracking number via email once shipped.",
+  },
+  {
+    q: "Can I return a disposable vape?",
+    a: "We accept returns on defective products within 30 days of purchase. Contact info@getsmoke.com with your order number and a description of the issue.",
+  },
+];
+
 export default function Page() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">Vape Shop Illinois</h1>
-        <h1 className="text-3xl font-bold mb-4 mt-6">Vape Shop Illinois</h1>
-        <h2 className="text-2xl font-bold mb-3 mt-6">Rainbow Rain OVNS Dream</h2>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li><strong>Rated 0</strong><Link href="/product/rainbow-rain-ovns-dream/" className="text-purple-600 hover:underline">out of 5
-	$20.70  -  or subscribe to save up to 10%</Link><Link href="/wp-json/wp/v2/pages/9668?_fields=slug%2Ctitle%2Ccontent%2Cexcerpt%2Cyoast_head_json&add-to-cart=9524" className="text-purple-600 hover:underline">Add to cart</Link></li>
+    <main className="max-w-5xl mx-auto px-4 py-10">
+
+      {/* Hero */}
+      <section className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">
+          Vape Shop Illinois - Buy Disposable Vapes Online
+        </h1>
+        <p className="text-lg text-gray-600 mb-6 max-w-3xl">
+          Illinois&apos; best online vape store. Shop 500+ disposable vapes from top brands - delivered anywhere in IL in 2-4 business days. Free shipping on orders $89+. No minimum order.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Vapes
+          </Link>
+          <Link
+            href="/vapes?sort=newest"
+            className="inline-block border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            New Arrivals
+          </Link>
+        </div>
+      </section>
+
+      {/* Trust badges */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 text-center">
+        {[
+          { icon: "🚚", title: "Free Shipping", sub: "Orders $89+" },
+          { icon: "⚡", title: "Fast Delivery", sub: "2-4 days to IL" },
+          { icon: "✅", title: "500+ Flavors", sub: "Top brands in stock" },
+          { icon: "🔒", title: "Age Verified", sub: "21+ only, ID required" },
+        ].map((b) => (
+          <div key={b.title} className="bg-gray-50 rounded-xl p-4">
+            <div className="text-2xl mb-1">{b.icon}</div>
+            <div className="font-semibold text-gray-900 text-sm">{b.title}</div>
+            <div className="text-gray-500 text-xs">{b.sub}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* Featured Models */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Top Selling Disposable Vapes</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {FEATURED_MODELS.map((model) => (
+            <Link
+              key={model.slug}
+              href={`/models/${model.slug}`}
+              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="relative aspect-square bg-gray-50 overflow-hidden">
+                <Image
+                  src={model.image}
+                  alt={model.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+                <span className="absolute top-2 left-2 bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {model.tag}
+                </span>
+              </div>
+              <div className="p-3">
+                <div className="font-semibold text-sm text-gray-900 leading-tight mb-1">{model.name}</div>
+                <div className="text-xs text-gray-500 mb-1">{model.puffs}</div>
+                <div className="text-sm font-bold text-gray-900">{model.price}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Disposable Vapes →
+          </Link>
+        </div>
+      </section>
+
+      {/* SEO Content */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">Disposable Vapes Delivered Across Illinois</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          GetSmoke ships premium disposable vapes to every corner of Illinois - from Chicago and Springfield to Rockford, Aurora, Naperville, and beyond. As an online vape retailer, we carry 500+ products from the most trusted brands: Geek Bar, Lost Mary, RAZ, HQD, EBCreate, Fume, Fifty Bar, and more.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Every order ships from our US warehouse with standard 2-4 day delivery to Illinois. Orders over $89 ship free. No subscription required - order once or anytime you need to restock.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Why Illinois Vapers Choose GetSmoke</h3>
+        <ul className="space-y-2 text-gray-700 mb-4 list-disc pl-5">
+          <li><strong>No minimum order</strong> - buy one or ten, we ship either way.</li>
+          <li><strong>Age-verified checkout</strong> - compliant with all Illinois vaping regulations.</li>
+          <li><strong>Real product reviews</strong> - shop by ratings and verified purchases.</li>
+          <li><strong>Loyalty rewards</strong> - earn points on every order, redeem for discounts.</li>
+          <li><strong>Subscription option</strong> - save 10% on repeat orders of your favorites.</li>
         </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Welcome to Getsmoke, your premier vape shop in Illinois, where we pride ourselves on being a one-stop shop for all your vaping needs. Our goal is to provide an exceptional vaping experience for both beginners and seasoned enthusiasts. With a wide selection of premium products, from vape kits and e-liquids to disposable vapes and mods, we ensure that our customers have access to the latest vaping trends and technologies. Our knowledgeable staff is always on hand to provide expert advice tailored to your vaping journey, ensuring customer satisfaction and community engagement.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we are a team of experienced vape enthusiasts dedicated to providing you with the best vaping products and customer service in Illinois.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our mission at Getsmoke is to provide top-notch customer service while ensuring that our customers are informed about the latest vaping trends and healthier options available. This commitment not only emphasizes the importance of staying current within the rapidly evolving vaping industry but also promotes a healthier lifestyle for those seeking alternatives. By prioritizing education and transparency, Getsmoke positions itself as a reliable source of information, guiding customers through the sometimes overwhelming options available in the market. This focus on customer enlightenment strengthens the relationship built with each individual, fostering a community where personal preferences and health insights are shared openly.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Workshops on safe vaping practices</li>
-          <li>Regular updates on emerging trends</li>
-          <li>Insights into health implications related to vaping</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Ultimately, this dedication to customer give the power toment not only establishes Getsmoke as a prominent leader in the Illinois vape market but also reflects a broader commitment to well-being and informed choices.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we offer a diverse range of premium products designed to meet the unique needs of every vaper, from beginners to advanced users. With our comprehensive selection, customers can explore an array of starter kits perfect for those just beginning their vaping journey. These kits typically include everything needed to start, ensuring a seamless experience. For those looking to elevate their sessions, our range of e-liquids comes in various flavors and nicotine strengths, catering to diverse tastes while prioritizing quality and safety.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Starter Kits</li>
-          <li>E-Liquids</li>
-          <li>Mods</li>
-          <li>Accessories</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our mods not only enhance performance but also include safety features for peace of mind. Accessories to customize your vaping experience further enrich the selection. Each product is carefully sourced, guaranteeing top-notch quality to assure customers of their choices.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we prioritize quality by offering safe vaping products from authentic and reputable brands in the industry, ensuring that every customer can enjoy their vaping experience with peace of mind. Regarding selecting vaping products, the emphasis on reputable brands cannot be overstated. Not only do these brands have established track records for safety, but they also invest in rigorous testing protocols to guarantee their products meet high standards.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Here’s a look at some of the top brands available at Getsmoke:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Brand A: Known for its innovative technology and commitment to quality.</li>
-          <li>Brand B: Renowned for their extensive research into harm reduction.</li>
-          <li>Brand C: Celebrated for their user-friendly designs and reliability.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Choosing well-known brands for vaping products means you’re not just investing in a device but also in your health and overall enjoyment. The benefits of sticking with trusted manufacturers include:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Higher quality ingredients that ensure a smooth vaping experience.</li>
-          <li>Reputable customer service for any inquiries or issues.</li>
-          <li>Peace of mind knowing you’re using products that comply with industry safety standards.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">We understand the importance of affordability, which is why we offer competitive prices on all our premium products to ensure customer satisfaction. At Getsmoke, customers can expect a meticulous pricing strategy that effectively balances quality with affordability, allowing them to indulge in top-notch items without breaking the bank. Our commitment to excellence is reflected in our diverse range of products, each thoughtfully priced to cater to various budgets. We regularly run promotions and offer a rewarding loyalty program that provides customers with incentives to return. This program not only enhances the shopping experience but also ensures that every purchase brings added value, fostering long-term relationships with our clientele.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Exclusive seasonal discounts</li>
-          <li>Member-only deals</li>
-          <li>Points earned with every purchase</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our exceptional customer service is led by a knowledgeable staff ready to provide expert advice, ensuring a positive vaping experience from the moment you enter our store. To maintain this high standard of service, Getsmoke invests significantly in ongoing training programs. Staff members participate in regular workshops that cover the latest products, safety protocols, and customer interaction techniques. This ensures that employees are well-versed in the intricacies of vaping technology and can communicate effectively with customers.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>For instance, a newly hired associate recently assisted a first-time customer in selecting the right device by patiently explaining different options and their benefits.</li>
-          <li>Because of this personalized guidance, the client left feeling confident and satisfied, subsequently praising the store on social media.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Such instances highlight how knowledgeable advice not only fosters a trusting relationship with clients but also significantly enhances overall satisfaction.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Vape Kits and Mods</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our selection of vape kits and mods cater to both beginners looking for starter kits and experienced vapers seeking advanced devices.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">E-liquids and Nicotine Salts</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">We offer an extensive array of e-liquids and nicotine salts, featuring a variety of flavor profiles and e-liquid flavors that cater to every palate, ensuring that both new and experienced users can find something that truly resonates with their preferences and needs.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Accessories and Replacement Parts</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our range of vape accessories includes everything from cartridge replacements to essential tools designed for safe and effective vaping, underlining the importance of a one stop shop for all vaping needs.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">With multiple locations across Illinois, Getsmoke is dedicated to being a centralized spot for all your vaping needs while engaging with the community we serve. Our Illinois vape shops emphasize both quality and community engagement.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our Chicago location is a bustling hub for vapers, offering a vibrant community space along with exceptional customer service. In this welcoming environment, patrons can explore an extensive range of products tailored to suit all preferences, from first-time users to seasoned enthusiasts. Engaging actively with the local vape community, this venue hosts weekly events ranging from informative workshops to social meet-ups, fostering connections among like-minded individuals. Customers can also take advantage of seasonal promotions that not only provide fantastic deals but also enhance the experience for everyone involved.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Monthly flavor tastings</li>
-          <li>Vaping education sessions</li>
-          <li>Exclusive product launches</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">These activities not only showcase the latest trends but also allow participants to share insights, ensuring that everyone leaves informed and inspired.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Located in Springfield, our store provides a centralized location for affordable vaping products and expert advice, ensuring access to an extensive selection of vaping devices. Plus its prime location, the store stands out with its diverse range of offerings, including exclusive e-liquids and high-quality devices. Customers can discover a variety of flavors that cater to different preferences, ensuring there’s something for everyone.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">The establishment prioritizes customer engagement through interactive workshops that educate patrons about vaping techniques and safety.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Regular events fostering community</li>
-          <li>Knowledgeable staff ready to assist</li>
-          <li>Exclusive discounts for loyal customers</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">This approach not only enhances the shopping experience but also builds a strong connection between the store and its valued clientele.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">In Peoria, Getsmoke serves as a community-focused vape shop aimed at achieving high customer satisfaction through personalized service. This establishment not only provides a diverse range of products tailored to fit various preferences but also actively engages with local residents through educational workshops and events. Customers can expect a warm atmosphere where knowledgeable staff offer insights into the latest trends and health-conscious choices in vaping, addressing health concerns and public health considerations.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Regular community meet-ups promote interaction and support.</li>
-          <li>Customized consultations ensure individuals find the products that suit their unique needs.</li>
-          <li>Partnerships with local artists and businesses exemplify their commitment to the Peoria community.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">With the goal of fostering a supportive environment, the shop encourages feedback, which plays a crucial role in continual improvement and customized offerings.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our Rockford location is renowned for its exceptional customer service and high-quality products that cater to all vaping enthusiasts, making it a preferred destination for those seeking both variety and expertise. At this location, the staff goes above and beyond to ensure each visitor feels valued and well-informed. By fostering open communication and actively engaging with customers, they build lasting relationships that keep clients returning. The team is well-versed in the latest trends and technologies in vaping, including environmentally friendly practices, allowing them to provide personalized recommendations tailored to individual preferences.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Regular demonstrations of new products highlight the commitment to education.</li>
-          <li>Exclusive events create a sense of community among customers.</li>
-          <li>Customer feedback is actively sought and utilized to improve their offerings.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">This dedication to customer satisfaction not only enhances the shopping experience but also reinforces their reputation as a leader in the local vaping market, showcasing their core mission to deliver unmatched service and quality.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">We invite you to visit Getsmoke today and experience firsthand why we are the leading vape shop in Illinois, committed to customer satisfaction and community engagement. At this vibrant hub of innovation, customers will discover an extensive range of products that cater to all preferences and lifestyles, including affordable vaping options. Whether you are a novice exploring options or a seasoned enthusiast seeking premium devices and flavors, the selection at Getsmoke ensures that everyone finds something tailored to their needs. Currently, there is an exciting promotion running, where customers can enjoy discounts on select items, making now the perfect time to explore. Don’t miss out on our community events that foster connections among vaping aficionados and promote a welcoming atmosphere.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Wide array of vape devices</li>
-          <li>Exclusive flavors and accessories</li>
-          <li>Special promotions and events</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Make your way to Getsmoke and elevate your vaping experience!</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we believe in open communication, and our knowledgeable staff is always available to assist you with any inquiries.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">You can reach us at our dedicated phone number for any questions regarding our products or services, including inquiries about regulations vaping and health risks. If you have inquiries that need immediate attention, it’s essential to connect with us directly. Our team is available to assist you with any concerns or inquiries that may arise, ensuring you receive the support you need in a timely manner.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Whether you require clarification on a product feature, need help with an order, or have feedback to share, we value all interactions. Don’t hesitate to call our customer service to experience prompt and efficient assistance. Remember, reaching out is the first step towards resolving issues effectively.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Our representatives are knowledgeable and ready to help.</li>
-          <li>We prioritize customer satisfaction above all.</li>
-          <li>Experience a quick and responsive service.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">For more detailed inquiries, feel free to contact us via email, and we will get back to you promptly. We value communication and strive to ensure that every question is addressed to your satisfaction. If you’re looking for assistance or further information, sending a message to our dedicated email support team is the best approach. Customer inquiries are typically responded to within 24 hours, so you can expect a timely reply. Our team is always ready to help clarify any details or provide tailored solutions suited to your needs.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Contact Email: <strong>info@getsmoke.com</strong></li>
-          <li>Response Time: Within 24 hours</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Connect with us through our social media channels to stay updated on the latest products and community events. By following us on platforms like Facebook, Instagram, Twitter, and LinkedIn, you can easily engage with our brand and become part of our vibrant online community. Each platform offers unique insights, from sneak peeks at upcoming releases to photos and videos from past events, ensuring that you’re never out of the loop. Not only do we share valuable information, but we also encourage customers to participate in exciting discussions, share their experiences, and connect with like-minded individuals who share similar interests.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">We look forward to seeing you online!</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, our Vape Shop in Illinois offers a wide range of products including e-cigarettes, vaporizers, mods, tanks, cartridges, and a variety of e-liquids in various flavors and nicotine strengths.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Aside from selling high-quality vaping products, our Vape Shop in Illinois also offers services such as coil building, battery replacements, and troubleshooting for any issues with your device. Additionally, we provide advice on maintaining good lung function while vaping.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our knowledgeable staff at Vape Shop Illinois can help you choose the perfect vape product for your needs and preferences. We will take into consideration your smoking history, nicotine level preference, and desired vaping experience. We also discuss potential health effects to ensure you make an informed choice.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">As a responsible vape shop, we strictly adhere to state laws and regulations. You must be at least 18 years old to purchase any products from our Vape Shop in Illinois. We also advise that pregnant women avoid vaping products for safety reasons.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, our Vape Shop in Illinois has a tasting station where you can try out different e-liquid flavors before making a purchase. This way, you can find the perfect vape juice flavor that suits your taste buds.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Yes, at Getsmoke, we frequently offer promotions and discounts on various products at our Vape Shop in Illinois. Be sure to follow us on social media and sign up for our newsletter to stay updated on our latest deals and offers. Just as master sommeliers guide you through wine selections, our experts will help you find the best vaping products.</p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Popular Vape Brands in Illinois</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Illinois vapers consistently top our best-seller lists with high-puff devices. The{" "}
+          <Link href="/models/geek-bar-pulse-x2-50000-puffs" className="text-blue-600 hover:underline">Geek Bar Pulse X2</Link>{" "}
+          (50,000 puffs) and{" "}
+          <Link href="/models/lost-mary-mo20000-20000-puffs" className="text-blue-600 hover:underline">Lost Mary MO20000</Link>{" "}
+          (20,000 puffs) are especially popular in the Chicago area. Berry, mint, and ice flavors are consistently top sellers.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Illinois Vaping Laws</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Illinois law requires purchasers to be 21 or older to buy vaping products. GetSmoke uses a third-party age verification service at checkout to ensure compliance. Adult signature is required upon delivery per PACT Act regulations. We ship only to verified adults with a confirmed delivery address in the state.
+        </p>
+      </section>
+
+      {/* FAQ */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          {FAQ.map((item) => (
+            <div key={item.q} className="border border-gray-200 rounded-xl p-5">
+              <h3 className="font-semibold text-gray-900 mb-2">{item.q}</h3>
+              <p className="text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-gray-50 rounded-2xl p-6 text-center">
+        <h2 className="text-xl font-bold mb-2 text-gray-900">Ready to order?</h2>
+        <p className="text-gray-600 mb-4">Browse 500+ disposable vapes. Free shipping on $89+. Delivered to Illinois in 2-4 days.</p>
+        <Link
+          href="/vapes"
+          className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+        >
+          Shop All Vapes →
+        </Link>
+      </section>
+
     </main>
   );
 }

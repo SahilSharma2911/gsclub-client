@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Vape Shop Florida | GetSmoke",
-  description: "Buy disposable vapes online at GetSmoke. Vape Shop Florida.",
+  title: "Vape Shop Florida | Buy Disposable Vapes Online | GetSmoke",
+  description: "Shop premium disposable vapes online - delivered to Florida fast. Top brands: Geek Bar, Lost Mary, RAZ, EBCreate. Free shipping on orders $89+. No minimum order. Adults 21+ only.",
   alternates: { canonical: "https://getsmoke.com/vape-shop-florida" },
   openGraph: {
     title: "Vape Shop Florida | GetSmoke",
-    description: "Buy disposable vapes online at GetSmoke. Vape Shop Florida.",
+    description: "Premium disposable vapes delivered to Florida. Free shipping $89+. Shop 500+ flavors from top brands.",
     url: "https://getsmoke.com/vape-shop-florida",
     images: [{ url: "https://getsmoke.com/og-default.jpg" }],
   },
@@ -15,84 +16,211 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-static";
 
+const FEATURED_MODELS = [
+  {
+    name: "Geek Bar Pulse X2",
+    puffs: "50,000 puffs",
+    slug: "geek-bar-pulse-x2-50000-puffs",
+    image: "/model-banners/geek-bar-pulse-x2-hero.jpg",
+    price: "from $35.99",
+    tag: "Best Seller",
+  },
+  {
+    name: "Lost Mary MO20000",
+    puffs: "20,000 puffs",
+    slug: "lost-mary-mo20000-20000-puffs",
+    image: "/model-banners/lost-mary-mo20000-hero.jpg",
+    price: "from $16.89",
+    tag: "New",
+  },
+  {
+    name: "EBCreate BC Pro",
+    puffs: "40,000 puffs",
+    slug: "ebcreate-bc-pro-40000-puffs",
+    image: "/model-banners/ebcreate-bc-pro-hero.jpg",
+    price: "from $17.99",
+    tag: "Top Rated",
+  },
+  {
+    name: "Geek Bar Pulse 2",
+    puffs: "25,000 puffs",
+    slug: "geek-bar-pulse-2-25000-puffs",
+    image: "/model-banners/geek-bar-pulse-2-hero.jpg",
+    price: "from $14.99",
+    tag: "Popular",
+  },
+];
+
+const FAQ = [
+  {
+    q: "Do you deliver disposable vapes to Florida?",
+    a: "Yes. We ship to all Florida addresses including Miami, Orlando, Tampa, Jacksonville, Fort Lauderdale, and all other cities and towns. Standard delivery takes 2-4 business days.",
+  },
+  {
+    q: "What is the minimum order?",
+    a: "There is no minimum order. You can order a single disposable vape and we will ship it to you. Free shipping applies automatically on orders over $89.",
+  },
+  {
+    q: "What brands do you carry?",
+    a: "We stock all major brands: Geek Bar, Lost Mary, RAZ, EBCreate, HQD, Fume, Fifty Bar, VIHO, Foger, and many more. New products added weekly.",
+  },
+  {
+    q: "Do I need to be 21 to order?",
+    a: "Yes. Florida law requires purchasers to be 21 or older. We use a third-party age verification service at checkout. A valid government-issued ID is required.",
+  },
+  {
+    q: "How long does shipping take to Florida?",
+    a: "Most orders arrive in 2-4 business days. Orders placed before 2 PM ET typically ship the same day. You will receive a tracking number via email once shipped.",
+  },
+  {
+    q: "Can I return a disposable vape?",
+    a: "We accept returns on defective products within 30 days of purchase. Contact info@getsmoke.com with your order number and a description of the issue.",
+  },
+];
+
 export default function Page() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">Vape Shop Florida</h1>
-        <h1 className="text-3xl font-bold mb-4 mt-6">Vape Shop Florida</h1>
-        <h2 className="text-2xl font-bold mb-3 mt-6">Rainbow Rain OVNS Dream</h2>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li><strong>Rated 0</strong><Link href="/product/rainbow-rain-ovns-dream/" className="text-purple-600 hover:underline">out of 5
-	$20.70  -  or subscribe to save up to 10%</Link><Link href="/wp-json/wp/v2/pages/9648?_fields=slug%2Ctitle%2Ccontent%2Cexcerpt%2Cyoast_head_json&add-to-cart=9524" className="text-purple-600 hover:underline">Add to cart</Link></li>
+    <main className="max-w-5xl mx-auto px-4 py-10">
+
+      {/* Hero */}
+      <section className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">
+          Vape Shop Florida - Buy Disposable Vapes Online
+        </h1>
+        <p className="text-lg text-gray-600 mb-6 max-w-3xl">
+          Florida&apos;s best online vape store. Shop 500+ disposable vapes from top brands - delivered anywhere in FL in 2-4 business days. Free shipping on orders $89+. No minimum order.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Vapes
+          </Link>
+          <Link
+            href="/vapes?sort=newest"
+            className="inline-block border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            New Arrivals
+          </Link>
+        </div>
+      </section>
+
+      {/* Trust badges */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 text-center">
+        {[
+          { icon: "🚚", title: "Free Shipping", sub: "Orders $89+" },
+          { icon: "⚡", title: "Fast Delivery", sub: "2-4 days to FL" },
+          { icon: "✅", title: "500+ Flavors", sub: "Top brands in stock" },
+          { icon: "🔒", title: "Age Verified", sub: "21+ only, ID required" },
+        ].map((b) => (
+          <div key={b.title} className="bg-gray-50 rounded-xl p-4">
+            <div className="text-2xl mb-1">{b.icon}</div>
+            <div className="font-semibold text-gray-900 text-sm">{b.title}</div>
+            <div className="text-gray-500 text-xs">{b.sub}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* Featured Models */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Top Selling Disposable Vapes</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {FEATURED_MODELS.map((model) => (
+            <Link
+              key={model.slug}
+              href={`/models/${model.slug}`}
+              className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="relative aspect-square bg-gray-50 overflow-hidden">
+                <Image
+                  src={model.image}
+                  alt={model.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+                <span className="absolute top-2 left-2 bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {model.tag}
+                </span>
+              </div>
+              <div className="p-3">
+                <div className="font-semibold text-sm text-gray-900 leading-tight mb-1">{model.name}</div>
+                <div className="text-xs text-gray-500 mb-1">{model.puffs}</div>
+                <div className="text-sm font-bold text-gray-900">{model.price}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            href="/vapes"
+            className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Shop All Disposable Vapes →
+          </Link>
+        </div>
+      </section>
+
+      {/* SEO Content */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">Disposable Vapes Delivered Across Florida</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          GetSmoke ships premium disposable vapes to every corner of Florida - from Miami and Orlando to Tampa, Jacksonville, Fort Lauderdale, and beyond. As an online vape retailer, we carry 500+ products from the most trusted brands: Geek Bar, Lost Mary, RAZ, EBCreate, HQD, Fume, Fifty Bar, and more.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Every order ships from our US warehouse with standard 2-4 day delivery to Florida. Orders over $89 ship free. No subscription required - order once or anytime you need to restock.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Why Florida Vapers Choose GetSmoke</h3>
+        <ul className="space-y-2 text-gray-700 mb-4 list-disc pl-5">
+          <li><strong>No minimum order</strong> - buy one or ten, we ship either way.</li>
+          <li><strong>Age-verified checkout</strong> - compliant with all Florida vaping regulations.</li>
+          <li><strong>Real product reviews</strong> - shop by ratings and verified purchases.</li>
+          <li><strong>Loyalty rewards</strong> - earn points on every order, redeem for discounts.</li>
+          <li><strong>Subscription option</strong> - save 10% on repeat orders of your favorites.</li>
         </ul>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>vaping trends</li>
-          <li>product innovations</li>
-          <li>health benefits</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, we pride ourselves on offering a wide selection of vaping products, from electronic cigarettes and e-liquids to the latest vape accessories and disposable devices. Plus, our diverse range of products includes a vape subscription box offering an exciting way to explore unique flavors and brands, tailored to individual preferences and delivered right to their doorstep each month. Customers can choose from various categories including:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Premium E-liquids: Featuring both classic and unique flavors.</li>
-          <li>Vape Kits: Comprehensive sets for beginners to advanced users.</li>
-          <li>Disposable Vapes: Convenient options for on-the-go vaping.</li>
-          <li>Accessories: Including coils, batteries, and more.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our commitment to quality ensures that each product meets high standards, providing satisfaction and a seamless vaping experience for all users, whether shopping in-store or through our vape shop online.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">We understand that affordability is essential, which is why Getsmoke offers competitive pricing and regular vape deals, including free shipping, to ensure you get the best value for your vaping needs. At Getsmoke, the commitment to quality remains unwavering, allowing customers to explore a curated selection of quality vape products that fit within their budget. This careful balance of affordability and quality is evident throughout our extensive online catalog, where shoppers can easily navigate through various options to find outstanding vape deals. Customers appreciate that great pricing doesn’t compromise product performance, giving them the peace of mind that they are making a wise investment in their vaping journey. Plus, with our promise of:</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>fast shipping online</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">you can count on receiving your orders promptly through our fast shipping online vape store, enhancing your overall experience with us.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our knowledgeable and friendly staff are here to provide expert advice, ensuring that you find the perfect products tailored to your vaping style and preferences, while adhering to e-cigarette regulations. In today’s rapidly evolving vaping landscape, having a devoted team of experts, well-versed in the latest vaping trends and e-cigarette regulations, is essential for customers seeking the best possible experience. A solid understanding of e-cigarette regulations not only aids in compliance but also enables customers to make informed decisions about their choices, enhancing customer satisfaction. With staff trained in the intricacies of product specifications, safety standards, and vaping categories, customers can feel more confident navigating the myriad options available.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>This expertise enhances customer satisfaction by offering tailored recommendations.</li>
-          <li>Knowledgeable staff can guide clients through legal constraints, ensuring peace of mind.</li>
-          <li>By fostering an informative shopping environment, one can cultivate lasting relationships with customers, ensuring reliability in delivery and service.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Ultimately, a skilled team is instrumental not just in making sales but in shaping a community of well-informed vapers who appreciate the nuances of their preferred products, fostering a deeper connection to the vaping industry.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">Located centrally in Florida, Getsmoke is your go-to 24 hour vape shop, offering convenient delivery options and reliability in delivery for all your vaping needs. With a diverse selection of products readily available at all hours, local customers can enjoy an unmatched shopping experience, supported by our age verification process. Whether you’re looking for the latest e-liquids or high-quality devices, the shop’s strategic location ensures that residents can easily access everything they require without the hassle of long travels, benefiting from instant delivery options and same day delivery.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Fast delivery options make it simple to receive products right at your door.</li>
-          <li>The expansive inventory guarantees that you won’t have to wait long to find your favorite items, whether shopping for vape flavors or new vape accessories.</li>
-          <li>Convenient hours mean you can shop whenever it suits you best.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">By choosing this local hub, you’re not just supporting a business; you’re benefiting from effortless accessibility, prompt service, and a commitment to customer satisfaction.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Premium E-liquids</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our premium e-liquids come in a vast variety of flavors, ensuring that every customer finds their perfect match, whether they prefer nicotine-based liquids or unique blends, enhancing their vaping experience with a variety of flavors.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Vape Devices</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">We offer a range of vape devices, including innovative vape pens, disposable vape pens, and advanced pod systems, to cater to every preference. Each of our offerings is designed with specific features to enhance the vaping experience, ensuring that users can find the perfect match for their lifestyle, whether through pod systems or vape pens.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Accessories and Replacement Parts</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">To enhance your vaping experience, we stock a variety of essential vape accessories and replacement parts that ensure your device performs at its best.
-These accessories are crucial not only for optimizing performance but also for prolonging the life of your vaping device.</p>
-        <h3 className="text-xl font-semibold mb-2 mt-4">Custom Vape Builds</h3>
-        <p className="mb-4 text-gray-700 leading-relaxed">Our team offers custom vape builds tailored to your preferences, utilizing quality vape products that ensure you have a unique and satisfying experience. In terms of creating a personalized vaping journey, working with seasoned professionals can make all the difference.</p>
-        <p className="mb-4 text-gray-700 leading-relaxed">We invite you to visit our Vape Shop in Florida today to explore our vast selection of products and take advantage of our instant delivery options for a seamless shopping experience. Whether you’re a seasoned enthusiast or just starting your journey into the world of vaping, this shop offers something for everyone. Boasting a diverse range of devices, e-liquids, and accessories, customers will find themselves immersed in an environment designed to cater to all preferences. Shopping in-store not only allows for hands-on experience with the latest technology but also provides opportunities to engage with knowledgeable staff who can guide recommendations tailored to individual needs. For those who prefer the convenience of online shopping, the quick delivery service ensures that your favorite products arrive at your doorstep in no time.</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Explore a wide variety of products ranging from beginner kits to advanced setups, all available at our vape supply in Florida.</li>
-          <li>Take advantage of expert advice from our friendly staff during your visit.</li>
-          <li>Enjoy fast shipping and instant delivery options that bring the store to your home.</li>
-        </ul>
-        <p className="mb-4 text-gray-700 leading-relaxed">Join the vibrant vaping community and discover the unmatched benefits of shopping at our vape shop!</p>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Offering exclusive promotions directly to followers, creating a feeling of VIP access.</li>
-          <li>Conducting polls and surveys to gather customer feedback, enhancing products and services based on direct input.</li>
-          <li>Sharing user-generated content, which highlights community experiences and showcases authentic testimonials.</li>
-        </ul>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Exclusive discounts that regular shoppers won’t find anywhere else.</li>
-          <li>First access to upcoming products, ensuring you’re always ahead of the trend.</li>
-          <li>Curated content, tailored tips, and inspiration that align perfectly with personal shopping preferences.</li>
-        </ul>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Each purchase not only brings immediate satisfaction but also accumulates points that can be redeemed for discounts.</li>
-          <li>These incentives encourage repeat visits, fostering a lasting relationship between customers and the brand.</li>
-          <li>Members often receive personalized recommendations based on their shopping habits, ensuring they find products tailored to their preferences.</li>
-        </ul>
-        <ul className="list-disc pl-6 mb-4 space-y-1">
-          <li>Customer support: We prioritize your experience</li>
-          <li>Knowledgeable assistance: Our team is expertly trained</li>
-          <li>Open communication: We value your thoughts and concerns</li>
-        </ul>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Popular Vape Brands in Florida</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Florida vapers consistently top our best-seller lists with high-puff devices. The{" "}
+          <Link href="/models/geek-bar-pulse-x2-50000-puffs" className="text-blue-600 hover:underline">Geek Bar Pulse X2</Link>{" "}
+          (50,000 puffs) and{" "}
+          <Link href="/models/raz-dc25000-25000-puffs" className="text-blue-600 hover:underline">RAZ DC25000</Link>{" "}
+          (25,000 puffs) are especially popular. Tropical fruit and menthol flavors lead sales statewide - perfect for the Florida climate.
+        </p>
+
+        <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Florida Vaping Laws</h3>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Florida law requires purchasers to be 21 or older to buy vaping products. GetSmoke uses a third-party age verification service at checkout to ensure compliance. Adult signature is required upon delivery per PACT Act regulations. We ship only to verified adults with a confirmed delivery address in the state.
+        </p>
+      </section>
+
+      {/* FAQ */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          {FAQ.map((item) => (
+            <div key={item.q} className="border border-gray-200 rounded-xl p-5">
+              <h3 className="font-semibold text-gray-900 mb-2">{item.q}</h3>
+              <p className="text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-gray-50 rounded-2xl p-6 text-center">
+        <h2 className="text-xl font-bold mb-2 text-gray-900">Ready to order?</h2>
+        <p className="text-gray-600 mb-4">Browse 500+ disposable vapes. Free shipping on $89+. Delivered to Florida in 2-4 days.</p>
+        <Link
+          href="/vapes"
+          className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+        >
+          Shop All Vapes →
+        </Link>
+      </section>
+
     </main>
   );
 }
