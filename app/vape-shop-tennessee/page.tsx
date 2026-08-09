@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Vape Shop Tennessee | Buy Disposable Vapes Online | GetSmoke",
-  description: "Shop premium disposable vapes online - delivered to Tennessee fast. Top brands: Geek Bar, Lost Mary, Fume, EBCreate. Free shipping on orders $49+. No minimum order.",
+  description: "Shop premium disposable vapes online - delivered to Tennessee fast. Top brands: Geek Bar, Lost Mary, Fume, EBCreate. Free shipping on orders $89+. No minimum order.",
   alternates: { canonical: "https://getsmoke.com/vape-shop-tennessee" },
   openGraph: {
     title: "Vape Shop Tennessee | GetSmoke",
-    description: "Premium disposable vapes delivered to Tennessee. Free shipping $49+. Shop 500+ flavors from top brands.",
+    description: "Premium disposable vapes delivered to Tennessee. Free shipping $89+. Shop 500+ flavors from top brands.",
     url: "https://getsmoke.com/vape-shop-tennessee",
     images: [{ url: "https://getsmoke.com/og-default.jpg" }],
   },
@@ -19,18 +19,18 @@ export const dynamic = "force-static";
 const FEATURED_MODELS = [
   {
     name: "Geek Bar Pulse X2",
-    puffs: "25,000 puffs",
-    slug: "geek-bar-pulse-x2-25000-puffs",
+    puffs: "50,000 puffs",
+    slug: "geek-bar-pulse-x2-50000-puffs",
     image: "/model-banners/geek-bar-pulse-x2-hero.jpg",
-    price: "from $14.99",
+    price: "from $35.99",
     tag: "Best Seller",
   },
   {
     name: "Lost Mary MO20000",
     puffs: "20,000 puffs",
-    slug: "lost-mary-mo20000-puffs",
+    slug: "lost-mary-mo20000-20000-puffs",
     image: "/model-banners/lost-mary-mo20000-hero.jpg",
-    price: "from $15.99",
+    price: "from $16.89",
     tag: "New",
   },
   {
@@ -51,11 +51,31 @@ const FEATURED_MODELS = [
   },
 ];
 
-const MOQ_TIERS = [
-  { qty: "1-9 units", price: "Retail price", note: "No minimum order" },
-  { qty: "10-49 units", price: "5% off", note: "Mix brands and flavors" },
-  { qty: "50-99 units", price: "10% off", note: "Free priority shipping" },
-  { qty: "100+ units", price: "Contact us", note: "Custom pricing available" },
+const FAQ = [
+  {
+    q: "Do you deliver disposable vapes to Tennessee?",
+    a: "Yes. We ship to all Tennessee addresses including Nashville, Memphis, Knoxville, Chattanooga, Clarksville, and rural areas. Standard delivery takes 2-4 business days.",
+  },
+  {
+    q: "What is the minimum order?",
+    a: "There is no minimum order. You can order a single disposable vape and we will ship it to you. Free shipping applies automatically on orders over $89.",
+  },
+  {
+    q: "What brands do you carry?",
+    a: "We stock all major brands: Geek Bar, Lost Mary, Fume, EBCreate, HQD, Funky Republic, Fifty Bar, Beri Crush, and many more. New products added weekly.",
+  },
+  {
+    q: "Do I need to be 21 to order?",
+    a: "Yes. Tennessee law requires purchasers to be 21 or older. We use a third-party age verification service at checkout. A valid government-issued ID is required.",
+  },
+  {
+    q: "How long does shipping take to Tennessee?",
+    a: "Most orders arrive in 2-4 business days. Orders placed before 2 PM ET typically ship the same day. You will receive a tracking number via email once shipped.",
+  },
+  {
+    q: "Can I return a disposable vape?",
+    a: "We accept returns on defective products within 30 days of purchase. Contact info@getsmoke.com with your order number and a description of the issue.",
+  },
 ];
 
 export default function Page() {
@@ -68,7 +88,7 @@ export default function Page() {
           Vape Shop Tennessee - Buy Disposable Vapes Online
         </h1>
         <p className="text-lg text-gray-600 mb-6 max-w-3xl">
-          Tennessee&apos;s best online vape store. Shop 500+ disposable vapes from top brands - delivered anywhere in TN in 2-4 business days. No sales tax, free shipping on orders $49+.
+          Tennessee&apos;s best online vape store. Shop 500+ disposable vapes from top brands - delivered anywhere in TN in 2-4 business days. Free shipping on orders $89+.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
@@ -89,7 +109,7 @@ export default function Page() {
       {/* Trust badges */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 text-center">
         {[
-          { icon: "🚚", title: "Free Shipping", sub: "Orders $49+" },
+          { icon: "🚚", title: "Free Shipping", sub: "Orders $89+" },
           { icon: "⚡", title: "Fast Delivery", sub: "2-4 days to TN" },
           { icon: "✅", title: "500+ Flavors", sub: "Top brands in stock" },
           { icon: "🔒", title: "Age Verified", sub: "21+ only, ID required" },
@@ -142,48 +162,19 @@ export default function Page() {
         </div>
       </section>
 
-      {/* MOQ / Wholesale */}
-      <section className="mb-12 bg-gray-900 rounded-2xl p-6 md:p-8 text-white">
-        <h2 className="text-2xl font-bold mb-2">Wholesale &amp; Bulk Orders - Tennessee</h2>
-        <p className="text-gray-400 mb-6">Stock your store or buy in bulk. Mix any brands, models, and flavors. No contracts, no minimums.</p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          {MOQ_TIERS.map((tier) => (
-            <div key={tier.qty} className="bg-white/10 rounded-xl p-4 border border-white/20">
-              <div className="font-bold text-white mb-1">{tier.qty}</div>
-              <div className="text-yellow-400 font-semibold text-lg mb-1">{tier.price}</div>
-              <div className="text-gray-400 text-xs">{tier.note}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/vapes"
-            className="inline-block bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-          >
-            Start Shopping
-          </Link>
-          <a
-            href="mailto:info@getsmoke.com"
-            className="inline-block border border-white/40 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
-          >
-            Contact for Bulk Pricing
-          </a>
-        </div>
-      </section>
-
       {/* SEO Content */}
-      <section className="prose prose-gray max-w-none mb-10">
+      <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4 text-gray-900">Disposable Vapes Delivered Across Tennessee</h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          GetSmoke ships premium disposable vapes to every corner of Tennessee - from Memphis and Nashville to Knoxville, Chattanooga, and beyond. As an online vape store, we carry 500+ products from the most trusted brands: Geek Bar, Lost Mary, Fume, EBCreate, HQD, Funky Republic, and more.
+          GetSmoke ships premium disposable vapes to every corner of Tennessee - from Memphis and Nashville to Knoxville, Chattanooga, and beyond. As an online vape retailer, we carry 500+ products from the most trusted brands: Geek Bar, Lost Mary, Fume, EBCreate, HQD, Funky Republic, and more.
         </p>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Every order ships from our US warehouse with standard 2-4 day delivery to Tennessee. Orders over $49 ship free. No subscription required - order once or anytime you need to restock.
+          Every order ships from our US warehouse with standard 2-4 day delivery to Tennessee. Orders over $89 ship free. No subscription required - order once or anytime you need to restock.
         </p>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Why Tennessee Vapers Choose GetSmoke</h3>
-        <ul className="space-y-2 text-gray-700 mb-4">
-          <li><strong>No sales tax</strong> - we collect only where legally required.</li>
+        <ul className="space-y-2 text-gray-700 mb-4 list-disc pl-5">
+          <li><strong>No minimum order</strong> - buy one or ten, we ship either way.</li>
           <li><strong>Age-verified checkout</strong> - compliant with all Tennessee vaping regulations.</li>
           <li><strong>Real product reviews</strong> - shop by ratings and verified purchases.</li>
           <li><strong>Loyalty rewards</strong> - earn points on every order, redeem for discounts.</li>
@@ -192,7 +183,11 @@ export default function Page() {
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Popular Vape Brands in Tennessee</h3>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Tennessee vapers consistently top our best-seller lists with high-puff devices. The <Link href="/models/geek-bar-pulse-x2-25000-puffs" className="text-blue-600 hover:underline">Geek Bar Pulse X2</Link> (25,000 puffs) and <Link href="/models/ebcreate-bc-pro-40000-puffs" className="text-blue-600 hover:underline">EBCreate BC Pro</Link> (40,000 puffs) are especially popular for their long battery life and wide flavor selection. Fruit and menthol flavors lead sales statewide.
+          Tennessee vapers consistently top our best-seller lists with high-puff devices. The{" "}
+          <Link href="/models/geek-bar-pulse-x2-50000-puffs" className="text-blue-600 hover:underline">Geek Bar Pulse X2</Link>{" "}
+          (50,000 puffs) and{" "}
+          <Link href="/models/ebcreate-bc-pro-40000-puffs" className="text-blue-600 hover:underline">EBCreate BC Pro</Link>{" "}
+          (40,000 puffs) are especially popular for their long battery life and wide flavor selection. Fruit and menthol flavors lead sales statewide.
         </p>
 
         <h3 className="text-xl font-semibold mb-3 text-gray-900 mt-6">Tennessee Vaping Laws</h3>
@@ -201,10 +196,23 @@ export default function Page() {
         </p>
       </section>
 
+      {/* FAQ */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          {FAQ.map((item) => (
+            <div key={item.q} className="border border-gray-200 rounded-xl p-5">
+              <h3 className="font-semibold text-gray-900 mb-2">{item.q}</h3>
+              <p className="text-gray-600 leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-gray-50 rounded-2xl p-6 text-center">
         <h2 className="text-xl font-bold mb-2 text-gray-900">Ready to order?</h2>
-        <p className="text-gray-600 mb-4">Browse 500+ disposable vapes. Free shipping on $49+. Delivered to Tennessee in 2-4 days.</p>
+        <p className="text-gray-600 mb-4">Browse 500+ disposable vapes. Free shipping on $89+. Delivered to Tennessee in 2-4 days.</p>
         <Link
           href="/vapes"
           className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
