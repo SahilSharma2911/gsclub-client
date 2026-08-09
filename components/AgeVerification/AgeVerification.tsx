@@ -24,6 +24,18 @@ export default function AgeVerification() {
         // Skip on auth pages
         if (AUTH_PATHS.includes(pathname)) return;
 
+        // Skip for search engine crawlers and automated testing (Lighthouse, PageSpeed, Googlebot)
+        // This allows Google to crawl and measure real page content instead of the modal
+        const ua = navigator.userAgent || '';
+        const isBot = (
+            navigator.webdriver === true || // Headless Chrome / Lighthouse
+            /bot|crawler|spider|googlebot|bingbot|yandexbot|pagespeed|lighthouse|chrome-lighthouse|adsbot|apis-google|mediapartners/i.test(ua)
+        );
+        if (isBot) {
+            setIsVerified(true); // treat bots as verified - they can't interact with the modal anyway
+            return;
+        }
+
         const verified = safeLocalStorage('ageVerified') === 'true';
         setIsVerified(verified);
 
