@@ -130,20 +130,8 @@ export default async function Home() {
     },
   };
 
-    // Preload first 6 product images server-side — Next.js hoists <link> from server components to <head>
-  // This tells the browser to fetch these images immediately (before JS executes)
-  // Without this, client component images are discovered only after JS runs (~10-12s on slow 4G)
-  const preloadImages = initialProducts
-    .slice(0, 6)
-    .map(p => p.images?.[0]?.url)
-    .filter(Boolean)
-    .map(url => url!.replace('https://pub-e2c8a53d84f146beb67cf9ee9a8f4961.r2.dev', '/r2'));
-
-  return (
+    return (
     <>
-      {preloadImages.map((src, i) => (
-        <link key={`preload-img-${i}`} rel="preload" as="image" href={src} fetchPriority={i < 2 ? "high" : "auto"} />
-      ))}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
