@@ -1,16 +1,15 @@
 /**
- * Product page — server-prefetches product for:
+ * Product page — server-prefetches product via internal API for:
  *  1. Real SEO metadata (title/desc from DB, not slug-derived)
- *  2. JSON-LD schema (Product + AggregateRating for Google rich snippets)
+ *  2. JSON-LD schema (Product + BreadcrumbList for Google rich snippets)
  *  3. SSR H1 in initial HTML (passed as initialProduct to client component)
  *
- * React.cache() deduplicates the DB call — one query serves all three needs.
+ * Uses fetch() → /api/products/[slug] (same endpoint client uses) to avoid
+ * direct Prisma in server component which caused silent failures / notFound().
  */
 import ProductPage from "@/components/ProductPage/ProductPage";
-import React, { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
 import { Product } from "@/types/product";
 
 export const dynamic = "force-dynamic";
@@ -20,100 +19,24 @@ type Props = {
   params: Promise<{ productSlug: string }>;
 };
 
-// React.cache() — deduplicated per request: generateMetadata + Page share one DB call
-// Shared Prisma include for all product page queries
-const PRODUCT_INCLUDE = {
-  Review: { where: { isApproved: true }, orderBy: { createdAt: "desc" as const } },
-  images: { orderBy: { position: "asc" as const } },
-  brand: true,
-  flavor: true,
-  Nicotine: true,
-  productPuffs: { include: { puffs: true }, orderBy: { createdAt: "asc" as const } },
-  productFlavors: { include: { flavor: true } },
-  ProductContentSection: true,
-} as const;
-
-// React.cache() deduplicates within a single render pass (page + generateMetadata)
-const getProductForPage = cache(async (slug: string): Promise<Product | null> => {
+// Fetch product from internal API (proven to work — same source as client uses)
+async function getProduct(slug: string): Promise<Product | null> {
   try {
-    const product = await prisma.product.findUnique({
-      where: { slug },
-      include: PRODUCT_INCLUDE,
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://getsmoke.com";
+    const res = await fetch(`${baseUrl}/api/products/${encodeURIComponent(slug)}`, {
+      cache: "no-store",
     });
-    return product as Product | null;
+    if (!res.ok) return null;
+    return (await res.json()) as Product;
   } catch (err) {
-    console.error(`[ProductPage] Prisma error for slug "${slug}":`, err);
-    // Retry once on transient connection errors
-    try {
-      const product = await prisma.product.findUnique({
-        where: { slug },
-        include: PRODUCT_INCLUDE,
-      });
-      return product as Product | null;
-    } catch (retryErr) {
-      console.error(`[ProductPage] Retry also failed for slug "${slug}":`, retryErr);
-      return null;
-    }
+    console.error(`[ProductPage] fetch failed for slug "${slug}":`, err);
+    return null;
   }
-});
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { productSlug } = await params;
-  const product = await getProductForPage(productSlug);
-  const canonicalUrl = `https://getsmoke.com/product/${productSlug}`;
-
-  if (!product) {
-    // Fallback: derive name from slug
-    const name = productSlug
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-    return {
-      title: `${name} | GetSmoke`,
-      description: `Buy ${name} at GetSmoke. Fast US shipping, 21+ only.`,
-      alternates: { canonical: canonicalUrl },
-    };
-  }
-
-  // product.name already contains brand + flavor (e.g. "Colombian Coffee Ice Juicy Bar JB5000")
-  // Don't prepend brand or append flavor - avoids duplicate like "Juicy Bar Colombian Coffee Ice Juicy Bar JB5000 - Colombian Coffee Ice"
-  const displayName = product.name;
-  const price = product.currentPrice.toFixed(2);
-  const image = product.images?.[0]?.url;
-  const inStock = product.stockStatus !== "OUTOFSTOCK";
-
-  const title = `${displayName} | GetSmoke`;
-  const description = `Buy ${displayName} for $${price} at GetSmoke. ${inStock ? "In stock" : "Pre-order"}, fast US shipping. 21+ only.`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: `${displayName} | GetSmoke`,
-      description,
-      url: canonicalUrl,
-      siteName: "GetSmoke",
-      type: "website",
-      ...(image ? { images: [{ url: image, width: 800, height: 800, alt: displayName }] } : {}),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${displayName} | GetSmoke`,
-      description,
-      ...(image ? { images: [image] } : {}),
-    },
-  };
 }
 
-// Build Product JSON-LD schema for Google rich snippets
+// Build Product JSON-LD schema
 function buildProductSchema(product: Product, slug: string) {
-  // product.name already has brand + flavor baked in - use directly
-  const fullName = product.name;
-  const image = product.images?.[0]?.url;
-  const inStock = product.stockStatus !== "OUTOFSTOCK";
-
-  const reviews = product.Review ?? [];
+  const reviews = (product.Review ?? []) as Array<{ rating: number }>;
   const ratingCount = reviews.length;
   const ratingValue =
     ratingCount > 0
@@ -123,28 +46,27 @@ function buildProductSchema(product: Product, slug: string) {
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: fullName,
+    name: product.name,
     url: `https://getsmoke.com/product/${slug}`,
     brand: {
       "@type": "Brand",
-      name: product.brand.name,
+      name: product.brand?.name ?? "",
     },
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
       price: product.currentPrice.toFixed(2),
-      availability: inStock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
+      availability:
+        product.stockStatus !== "OUTOFSTOCK"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
       url: `https://getsmoke.com/product/${slug}`,
-      seller: {
-        "@type": "Organization",
-        name: "GetSmoke",
-      },
+      seller: { "@type": "Organization", name: "GetSmoke" },
     },
   };
 
-  if (image) schema.image = [image];
+  const img = product.images?.[0]?.url;
+  if (img) schema.image = [img];
 
   if (ratingCount > 0 && ratingValue) {
     schema.aggregateRating = {
@@ -159,8 +81,11 @@ function buildProductSchema(product: Product, slug: string) {
   return schema;
 }
 
-// Build BreadcrumbList JSON-LD
+// Build BreadcrumbList JSON-LD schema
 function buildBreadcrumbSchema(product: Product, slug: string) {
+  const brandSlug = product.brand?.name
+    ?.toLowerCase()
+    .replace(/\s+/g, "-") ?? "";
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -170,8 +95,8 @@ function buildBreadcrumbSchema(product: Product, slug: string) {
       {
         "@type": "ListItem",
         position: 3,
-        name: product.brand.name,
-        item: `https://getsmoke.com/brands/${product.brand.name.toLowerCase().replace(/\s+/g, "-")}`,
+        name: product.brand?.name ?? "",
+        item: `https://getsmoke.com/brands/${brandSlug}`,
       },
       {
         "@type": "ListItem",
@@ -183,34 +108,69 @@ function buildBreadcrumbSchema(product: Product, slug: string) {
   };
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { productSlug } = await params;
+  const canonicalUrl = `https://getsmoke.com/product/${productSlug}`;
+  const product = await getProduct(productSlug);
+
+  if (!product) {
+    // Fallback: derive name from slug
+    const name = productSlug
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+    return {
+      title: `${name} | GetSmoke`,
+      description: `Buy ${name} at GetSmoke. Fast US shipping, 21+ only.`,
+      alternates: { canonical: canonicalUrl },
+    };
+  }
+
+  const price = product.currentPrice.toFixed(2);
+  const image = product.images?.[0]?.url;
+  const inStock = product.stockStatus !== "OUTOFSTOCK";
+  const title = `${product.name} | GetSmoke`;
+  const description = `Buy ${product.name} for $${price} at GetSmoke. ${
+    inStock ? "In stock" : "Pre-order"
+  }, fast US shipping. 21+ only.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: `${product.name} | GetSmoke`,
+      description,
+      url: canonicalUrl,
+      images: image ? [{ url: image, width: 800, height: 800, alt: product.name }] : [],
+      type: "website",
+    },
+  };
+}
+
 const page = async ({ params }: Props) => {
   const { productSlug } = await params;
-  const product = await getProductForPage(productSlug);
+  const product = await getProduct(productSlug);
 
-  // Product not found → proper 404 (HTTP 404 status, no indexing)
   if (!product) {
     notFound();
   }
 
   return (
     <>
-      {product && (
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(buildProductSchema(product, productSlug)),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(buildBreadcrumbSchema(product, productSlug)),
-            }}
-          />
-        </>
-      )}
-      <ProductPage productSlug={productSlug} initialProduct={product ?? undefined} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildProductSchema(product, productSlug)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildBreadcrumbSchema(product, productSlug)),
+        }}
+      />
+      <ProductPage productSlug={productSlug} initialProduct={product} />
     </>
   );
 };
