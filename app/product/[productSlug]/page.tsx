@@ -43,10 +43,22 @@ function buildProductSchema(product: Product, slug: string) {
       ? (reviews.reduce((sum, r) => sum + r.rating, 0) / ratingCount).toFixed(1)
       : null;
 
+  // Build description from product attributes
+  const puffCount = product.puffs?.[0]?.name ?? null;
+  const nicotine = product.Nicotine?.name ?? null;
+  const flavorName = product.flavor?.name ?? null;
+  const descParts = [product.name];
+  if (puffCount) descParts.push(`${puffCount} puffs`);
+  if (nicotine) descParts.push(`${nicotine} nicotine`);
+  if (flavorName) descParts.push(`${flavorName} flavor`);
+  descParts.push("disposable vape by GetSmoke. Fast US shipping, 21+ only.");
+  const productDescription = descParts.join(", ");
+
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
+    description: product.detailDescription || productDescription,
     url: `https://getsmoke.com/product/${slug}`,
     brand: {
       "@type": "Brand",
@@ -105,6 +117,54 @@ function buildBreadcrumbSchema(product: Product, slug: string) {
         item: `https://getsmoke.com/product/${slug}`,
       },
     ],
+  };
+}
+
+// Build FAQPage JSON-LD schema from product attributes
+function buildFAQSchema(product: Product) {
+  const brandName = product.brand?.name ?? "this brand";
+  const puffCount = product.puffs?.[0]?.name;
+  const nicotine = product.Nicotine?.name ?? "5%";
+  const price = `$${product.currentPrice.toFixed(2)}`;
+  const inStock = product.stockStatus !== "OUTOFSTOCK";
+
+  const questions = [
+    {
+      q: `How much does ${product.name} cost?`,
+      a: `${product.name} costs ${price} at GetSmoke with free shipping on orders over $89.`,
+    },
+    {
+      q: `Is ${product.name} in stock?`,
+      a: inStock
+        ? `Yes, ${product.name} is currently in stock and ready to ship.`
+        : `${product.name} is currently out of stock. Check back soon or browse similar products.`,
+    },
+    {
+      q: puffCount
+        ? `How many puffs does ${product.name} have?`
+        : `What is the puff count of ${product.name}?`,
+      a: puffCount
+        ? `${product.name} delivers approximately ${puffCount} puffs per device.`
+        : `${product.name} is a disposable vape by ${brandName}. Check the product details for exact puff count.`,
+    },
+    {
+      q: `What nicotine strength is ${product.name}?`,
+      a: `${product.name} contains ${nicotine} nicotine. Adults 21+ only.`,
+    },
+    {
+      q: `Who makes ${product.name}?`,
+      a: `${product.name} is made by ${brandName}, available at GetSmoke with fast US shipping.`,
+    },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: questions.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
   };
 }
 
@@ -168,6 +228,12 @@ const page = async ({ params }: Props) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(buildBreadcrumbSchema(product, productSlug)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildFAQSchema(product)),
         }}
       />
       <ProductPage productSlug={productSlug} initialProduct={product} />
