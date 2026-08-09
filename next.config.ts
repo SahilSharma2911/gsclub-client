@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
       },
       // Duplicate page fix: /terms-conditions → canonical /terms-and-conditions
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
+      // Common URL variants that return 404 - redirect to correct pages
+      { source: '/vape', destination: '/vapes', permanent: true },
+      { source: '/vape/:path*', destination: '/vapes', permanent: true },
+      { source: '/collections/vapes', destination: '/vapes', permanent: true },
+      { source: '/collections/:slug*', destination: '/vapes', permanent: true },
+      { source: '/pages/faq', destination: '/faq', permanent: true },
+      { source: '/pages/about', destination: '/about-us', permanent: true },
+      { source: '/pages/contact', destination: '/contact', permanent: true },
+      { source: '/contact-us', destination: '/contact', permanent: true },
+      { source: '/about', destination: '/about-us', permanent: true },
+      { source: '/sitemap', destination: '/sitemap.xml', permanent: false },
+      { source: '/search', destination: '/vapes', permanent: false },
       // Deleted pages from iTip.co migration - redirect to /vapes
       { source: '/adults-goods', destination: '/vapes', permanent: true },
       { source: '/adults-goods/:path*', destination: '/vapes', permanent: true },
