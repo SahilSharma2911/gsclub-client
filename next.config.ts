@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
       },
       // Duplicate page fix: /terms-conditions → canonical /terms-and-conditions
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
+      // Deleted pages from iTip.co migration - redirect to /vapes
+      { source: '/adults-goods', destination: '/vapes', permanent: true },
+      { source: '/adults-goods/:path*', destination: '/vapes', permanent: true },
+      { source: '/supplements', destination: '/vapes', permanent: true },
+      { source: '/supplements/:path*', destination: '/vapes', permanent: true },
       // SMOK brand discontinued - redirect to homepage
       { source: '/brands/smok', destination: '/', permanent: true },
       { source: '/brands/smok/:path*', destination: '/', permanent: true },

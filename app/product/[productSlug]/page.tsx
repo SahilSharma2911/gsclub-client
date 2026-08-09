@@ -21,24 +21,39 @@ type Props = {
 };
 
 // React.cache() — deduplicated per request: generateMetadata + Page share one DB call
+// Shared Prisma include for all product page queries
+const PRODUCT_INCLUDE = {
+  Review: { where: { isApproved: true }, orderBy: { createdAt: "desc" as const } },
+  images: { orderBy: { position: "asc" as const } },
+  brand: true,
+  flavor: true,
+  Nicotine: true,
+  productPuffs: { include: { puffs: true }, orderBy: { createdAt: "asc" as const } },
+  productFlavors: { include: { flavor: true } },
+  ProductContentSection: true,
+} as const;
+
+// React.cache() deduplicates within a single render pass (page + generateMetadata)
 const getProductForPage = cache(async (slug: string): Promise<Product | null> => {
   try {
     const product = await prisma.product.findUnique({
       where: { slug },
-      include: {
-        Review: { where: { isApproved: true }, orderBy: { createdAt: "desc" } },
-        images: { orderBy: { position: "asc" } },
-        brand: true,
-        flavor: true,
-        Nicotine: true,
-        productPuffs: { include: { puffs: true }, orderBy: { createdAt: "asc" } },
-        productFlavors: { include: { flavor: true } },
-        ProductContentSection: true,
-      },
+      include: PRODUCT_INCLUDE,
     });
     return product as Product | null;
-  } catch {
-    return null;
+  } catch (err) {
+    console.error(`[ProductPage] Prisma error for slug "${slug}":`, err);
+    // Retry once on transient connection errors
+    try {
+      const product = await prisma.product.findUnique({
+        where: { slug },
+        include: PRODUCT_INCLUDE,
+      });
+      return product as Product | null;
+    } catch (retryErr) {
+      console.error(`[ProductPage] Retry also failed for slug "${slug}":`, retryErr);
+      return null;
+    }
   }
 });
 
