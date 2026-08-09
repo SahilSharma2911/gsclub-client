@@ -106,6 +106,8 @@ export default function RootLayout({
         {/* Preconnect to R2 image CDN for faster LCP */}
         <link rel="preconnect" href="https://pub-e2c8a53d84f146beb67cf9ee9a8f4961.r2.dev" />
         <link rel="dns-prefetch" href="https://pub-e2c8a53d84f146beb67cf9ee9a8f4961.r2.dev" />
+        {/* Preload logo - LCP element in age verification modal for unauthenticated users */}
+        <link rel="preload" as="image" href="/images/logo.png" fetchPriority="high" />
         {/* Preload first hero banners - critical for LCP */}
         <link rel="preload" as="image" href="/banners/mobile-1.webp" media="(max-width: 767px)" fetchPriority="high" />
         <link rel="preload" as="image" href="/banners/desktop-1.webp" media="(min-width: 768px)" fetchPriority="high" />

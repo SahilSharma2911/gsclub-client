@@ -1723,6 +1723,23 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "no-store, no-cache, must-revalidate" },
         ],
       },
+      // ── Long cache for static public assets (30 days) ──
+      {
+        source: '/images/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+      {
+        source: '/banners/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+      {
+        source: '/model-banners/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+      {
+        source: '/icons/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
     ];
   },
 
