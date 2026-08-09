@@ -5,57 +5,50 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 
-function safeLocalStorage(key: string): string | null {
-    try { return localStorage.getItem(key); } catch { return null; }
-}
-function safeLocalStorageSet(key: string, value: string): void {
-    try { localStorage.setItem(key, value); } catch { }
-}
-
 // Pages that skip age verification
 const AUTH_PATHS = ['/login', '/signup', '/forgot-password', '/reset-password'];
 
+// Read age verification status synchronously from cookie
+// This runs during useState initialization - no useEffect delay
+function readVerifiedCookie(): boolean {
+    if (typeof document === 'undefined') return false; // SSR: unverified → modal in initial HTML
+    return document.cookie.split(';').some(c => c.trim().startsWith('ageVerified=true'));
+}
+
+function setVerifiedCookie() {
+    // 1 year expiry, root path, SameSite=Lax
+    const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `ageVerified=true; expires=${expires}; path=/; SameSite=Lax`;
+    // Also keep localStorage for backward compat
+    try { localStorage.setItem('ageVerified', 'true'); } catch { /* ignore */ }
+}
+
 export default function AgeVerification() {
     const pathname = usePathname();
-    const [isVerified, setIsVerified] = useState<boolean | null>(null);
+
+    // Initialize from cookie synchronously - no delay, no useEffect needed for this
+    // SSR: returns false → modal renders in initial HTML (LCP = 3s, not 15s)
+    // Client hydration for verified users: cookie=true → no modal, no flash
+    const [isVerified, setIsVerified] = useState<boolean>(() => readVerifiedCookie());
     const [showNotOldEnough, setShowNotOldEnough] = useState(false);
 
     useEffect(() => {
-        // Skip on auth pages
-        if (AUTH_PATHS.includes(pathname)) return;
-
-        // Skip for search engine crawlers and automated testing (Lighthouse, PageSpeed, Googlebot)
-        // This allows Google to crawl and measure real page content instead of the modal
-        const ua = navigator.userAgent || '';
-        const isBot = (
-            navigator.webdriver === true || // Headless Chrome / Lighthouse
-            /bot|crawler|spider|googlebot|bingbot|yandexbot|pagespeed|lighthouse|chrome-lighthouse|adsbot|apis-google|mediapartners/i.test(ua)
-        );
-        if (isBot) {
-            setIsVerified(true); // treat bots as verified - they can't interact with the modal anyway
-            return;
-        }
-
-        const verified = safeLocalStorage('ageVerified') === 'true';
-        setIsVerified(verified);
-
-        if (!verified) {
+        if (isVerified) {
+            document.body.style.overflow = '';
+        } else if (!AUTH_PATHS.includes(pathname)) {
             document.body.style.overflow = 'hidden';
         }
-
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [pathname]);
+        return () => { document.body.style.overflow = ''; };
+    }, [isVerified, pathname]);
 
     // Don't show on auth pages
     if (AUTH_PATHS.includes(pathname)) return null;
-    // Don't show while loading or if verified
-    if (isVerified === null || isVerified) return null;
+    // Don't show if verified
+    if (isVerified) return null;
 
     const handleConfirm = (confirmed: boolean) => {
         if (confirmed) {
-            safeLocalStorageSet('ageVerified', 'true');
+            setVerifiedCookie();
             setIsVerified(true);
             document.body.style.overflow = '';
         } else {
