@@ -228,8 +228,8 @@ const Products = ({ productType, search, nameOnly, initialProducts }: ProductsPr
                           width={400}
                           height={400}
                           className="object-cover w-full h-full"
-                          loading={idx < 2 ? "eager" : "lazy"}
-                          priority={idx === 0}
+                          loading={idx < 6 ? "eager" : "lazy"}
+                          priority={idx < 2}
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
                           style={{ height: "100%", width: "100%" }}
                         />
