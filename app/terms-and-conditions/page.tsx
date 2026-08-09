@@ -2,6 +2,7 @@ import PolicyPage from "@/components/PolicyPage/PolicyPage"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://getsmoke.com/terms-and-conditions' },
   title: "Terms and Conditions | GetSmoke",
   description: "GetSmoke Terms and Conditions - Legal terms governing use of our website and purchase of products.",
 }

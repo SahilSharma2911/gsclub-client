@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { noIndex } from "@/lib/noindex";
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://getsmoke.com/faq' },
   ...noIndex,
   title: "FAQ | GetSmoke",
   description: "Frequently asked questions about GetSmoke - shipping, returns, products and more.",

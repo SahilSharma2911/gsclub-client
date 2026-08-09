@@ -6,6 +6,7 @@ import { prefetchProducts } from "@/lib/prefetch-products";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://getsmoke.com/vape-juice' },
   ...noIndex,
   title: "Vape Juice | GetSmoke",
   description: "Shop premium vape juice and e-liquids at GetSmoke.",

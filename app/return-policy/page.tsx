@@ -2,6 +2,7 @@ import PolicyPage from "@/components/PolicyPage/PolicyPage"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://getsmoke.com/return-policy' },
   title: "Refund and Returns Policy | GetSmoke",
   description: "GetSmoke Refund and Returns Policy",
 }

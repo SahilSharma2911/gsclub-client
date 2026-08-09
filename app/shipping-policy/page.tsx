@@ -2,6 +2,7 @@ import PolicyPage from "@/components/PolicyPage/PolicyPage"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
+  alternates: { canonical: 'https://getsmoke.com/shipping-policy' },
   title: "Shipping Policy | GetSmoke",
   description: "GetSmoke Shipping Policy - delivery times, PACT Act compliance, age verification, and order tracking.",
 }
