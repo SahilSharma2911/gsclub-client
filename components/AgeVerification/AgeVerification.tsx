@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+// eslint-disable-next-line @next/next/no-img-element
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
@@ -59,7 +59,8 @@ export default function AgeVerification() {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4">
             <div className="bg-white rounded-lg max-w-md w-full p-8 text-center flex flex-col justify-center items-center font-unbounded">
-                <Image src="/images/logo.png" width={180} height={30} alt="GetSmoke" priority />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/logo.png" width={180} height={30} alt="GetSmoke" fetchPriority="high" />
                 <p className="my-4">Are you of legal smoking age?</p>
                 <div className="flex flex-col gap-4 justify-center w-full">
                     <Button onClick={() => handleConfirm(true)} variant="primary" className="w-full !bg-green-500 hover:!bg-green-600">
