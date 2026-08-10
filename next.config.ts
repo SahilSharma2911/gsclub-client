@@ -26,6 +26,13 @@ const nextConfig: NextConfig = {
       { source: '/brand/:brandSlug', destination: '/brands/:brandSlug', permanent: true },
       // Common URL variants that return 404 - redirect to correct pages
       { source: '/vape', destination: '/vapes', permanent: true },
+      // Geo-page nested URL variants → canonical slug
+      { source: '/vape-shop/wisconsin', destination: '/vape-shop-wisconsin', permanent: true },
+      { source: '/vape-shop/florida', destination: '/vape-shop-florida', permanent: true },
+      { source: '/vape-shop/illinois', destination: '/vape-shop-illinois', permanent: true },
+      { source: '/vape-shop/tennessee', destination: '/vape-shop-tennessee', permanent: true },
+      { source: '/vape-shop/pennsylvania', destination: '/vape-shop-pennsylvania', permanent: true },
+      { source: '/vape-shop/texas', destination: '/vape-shop-texas', permanent: true },
       { source: '/vape/:path*', destination: '/vapes', permanent: true },
       { source: '/collections/vapes', destination: '/vapes', permanent: true },
       { source: '/collections/:slug*', destination: '/vapes', permanent: true },
