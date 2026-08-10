@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About GetSmoke - US Disposable Vape Retailer | GetSmoke",
@@ -128,6 +130,40 @@ export default function AboutUsPage() {
           <strong>WARNING:</strong> This product contains nicotine. Nicotine is an addictive chemical. For use by adults 21 years of age or older. Keep out of reach of children and pets. If you are pregnant, nursing, or have a heart condition, consult a doctor before use.
         </p>
       </div>
+
+      {/* Shop Now — converts AI traffic */}
+      <section className="mt-14 pt-10 border-t border-gray-200">
+        <h2 className="font-bold text-xl mb-2 text-center">
+          Shop <span style={{ color: "#fe3500" }}>Top Disposable Vapes</span>
+        </h2>
+        <p className="text-center text-sm text-gray-500 mb-8">
+          Free shipping on orders $89+. Over 700 products in stock. Adults 21+ only.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {[
+            { slug: "geek-bar-pulse-x2-50000-puffs", name: "Geek Bar Pulse X2", image: "/model-banners/geek-bar-pulse-x2-hero.jpg", price: "from $14.99", tag: "Best Seller" },
+            { slug: "lost-mary-mo20000-20000-puffs", name: "Lost Mary MO20000", image: "/model-banners/lost-mary-mo20000-hero.jpg", price: "from $13.99", tag: "Top Rated" },
+            { slug: "ebcreate-bc-pro-40000-puffs", name: "EBCreate BC Pro", image: "/model-banners/ebcreate-bc-pro-hero.jpg", price: "from $15.99", tag: "New" },
+            { slug: "geek-bar-pulse-2-25000-puffs", name: "Geek Bar Pulse 2", image: "/model-banners/geek-bar-pulse-2-hero.jpg", price: "from $14.99", tag: "Popular" },
+          ].map((p) => (
+            <Link key={p.slug} href={`/models/${p.slug}`}
+              className="border border-gray-200 rounded-xl p-3 hover:shadow-md transition flex flex-col">
+              <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-gray-50">
+                <Image src={p.image} alt={p.name} fill className="object-contain p-2" />
+                <span className="absolute top-2 left-2 bg-[#fe3500] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{p.tag}</span>
+              </div>
+              <p className="font-bold text-sm">{p.name}</p>
+              <p className="text-[#fe3500] text-sm mt-1">{p.price}</p>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center">
+          <Link href="/vapes"
+            className="inline-block bg-[#fe3500] text-white px-10 py-3 rounded-full font-bold hover:bg-red-600 transition">
+            View All 700+ Products
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }
