@@ -51,7 +51,8 @@ const BLOCKED_REFERRERS = [
   "blackhatworth.com",
 ];
 
-// Headless / scraper UA patterns
+// Headless / scraper UA patterns — ONLY specific malicious tools
+// DO NOT add generic "bot/", "crawl", "spider" — they block GPTBot, ClaudeBot, PerplexityBot
 const BOT_UA_PATTERNS = [
   "HeadlessChrome",
   "PhantomJS",
@@ -66,11 +67,6 @@ const BOT_UA_PATTERNS = [
   "curl/",
   "wget/",
   "scrapy",
-  "crawl",
-  "spider",
-  "bot/",
-  "slurp",
-  "mediapartners",
 ];
 
 // Page-level rate limit: max 60 page requests/min per IP (real user ~5-15)
@@ -92,16 +88,24 @@ export function middleware(req: NextRequest) {
   }
 
   // Block headless browsers / scrapers by User-Agent
+  // Whitelist: all legitimate crawlers including AI bots that bring referral traffic
   const uaLower = ua.toLowerCase();
+  const CRAWLERS_WHITELIST = [
+    "googlebot", "bingbot", "yandexbot", "applebot",
+    "facebookexternalhit", "twitterbot", "linkedinbot",
+    // AI crawlers — DO NOT block, they drive ChatGPT/Perplexity referrals
+    "gptbot", "chatgpt-user", "oai-searchbot",
+    "claudebot", "anthropic-ai",
+    "perplexitybot",
+    "gemini", "google-extended",
+    "copilot", "bingpreview",
+    "ccbot",        // CommonCrawl — training data for AI
+    "diffbot",
+    "ia_archiver",  // Internet Archive
+  ];
   if (
     BOT_UA_PATTERNS.some((p) => uaLower.includes(p.toLowerCase())) &&
-    // Allow legitimate SEO crawlers (Google, Bing, Yandex)
-    !uaLower.includes("googlebot") &&
-    !uaLower.includes("bingbot") &&
-    !uaLower.includes("yandexbot") &&
-    !uaLower.includes("applebot") &&
-    !uaLower.includes("facebookexternalhit") &&
-    !uaLower.includes("twitterbot")
+    !CRAWLERS_WHITELIST.some((w) => uaLower.includes(w))
   ) {
     return new NextResponse(null, { status: 403 });
   }
