@@ -51,15 +51,69 @@ const BLOCKED_REFERRERS = [
   "blackhatworth.com",
 ];
 
+// Headless / scraper UA patterns
+const BOT_UA_PATTERNS = [
+  "HeadlessChrome",
+  "PhantomJS",
+  "Selenium",
+  "Puppeteer",
+  "Playwright",
+  "python-requests",
+  "python-httpx",
+  "node-fetch",
+  "axios/",
+  "Go-http-client",
+  "curl/",
+  "wget/",
+  "scrapy",
+  "crawl",
+  "spider",
+  "bot/",
+  "slurp",
+  "mediapartners",
+];
+
+// Page-level rate limit: max 60 page requests/min per IP (real user ~5-15)
+function pageLimitAllowed(ip: string): boolean {
+  return rateLimit(ip + ":pages", 60_000, 60, 120_000);
+}
+
 export function middleware(req: NextRequest) {
   const ip = getClientIP(req);
   const path = req.nextUrl.pathname;
   const method = req.method;
+  const ua = req.headers.get("user-agent") || "";
+  const isPageRequest = !path.startsWith("/api/") && !path.startsWith("/_next/");
 
   // Block known bot referrers
   const referer = req.headers.get("referer") || "";
   if (BLOCKED_REFERRERS.some((bot) => referer.includes(bot))) {
     return new NextResponse(null, { status: 403 });
+  }
+
+  // Block headless browsers / scrapers by User-Agent
+  const uaLower = ua.toLowerCase();
+  if (
+    BOT_UA_PATTERNS.some((p) => uaLower.includes(p.toLowerCase())) &&
+    // Allow legitimate SEO crawlers (Google, Bing, Yandex)
+    !uaLower.includes("googlebot") &&
+    !uaLower.includes("bingbot") &&
+    !uaLower.includes("yandexbot") &&
+    !uaLower.includes("applebot") &&
+    !uaLower.includes("facebookexternalhit") &&
+    !uaLower.includes("twitterbot")
+  ) {
+    return new NextResponse(null, { status: 403 });
+  }
+
+  // Block requests with no User-Agent at all (API bots)
+  if (!ua && isPageRequest) {
+    return new NextResponse(null, { status: 403 });
+  }
+
+  // Page-level rate limiting: max 60 page requests/min per IP
+  if (isPageRequest && !pageLimitAllowed(ip)) {
+    return tooManyResponse(120);
   }
 
   // 1. Checkout: 3 attempts/min, ban 5 min
@@ -102,11 +156,22 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
+    // API routes
     "/api/checkout",
     "/api/products/:path*",
     "/api/orders/:path*",
     "/api/blog/:path*",
     "/api/auth/:path*",
     "/api/user/:path*",
+    // Page routes — bot detection + rate limiting
+    "/",
+    "/vapes",
+    "/vapes/:path*",
+    "/product/:path*",
+    "/models/:path*",
+    "/brands/:path*",
+    "/blog/:path*",
+    "/vape-shop-:path*",
+    "/vape-delivery-:path*",
   ],
 };
