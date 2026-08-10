@@ -1,16 +1,18 @@
 /**
- * Product page — server-prefetches product via internal API for:
+ * Product page — server-prefetches product directly from Prisma for:
  *  1. Real SEO metadata (title/desc from DB, not slug-derived)
  *  2. JSON-LD schema (Product + BreadcrumbList for Google rich snippets)
  *  3. SSR H1 in initial HTML (passed as initialProduct to client component)
  *
- * Uses fetch() → /api/products/[slug] (same endpoint client uses) to avoid
- * direct Prisma in server component which caused silent failures / notFound().
+ * Uses direct Prisma (via getProductFromDB) — NOT fetch() to avoid CF SG block:
+ * Vercel runs in Singapore (sin1); fetch() to https://getsmoke.com went through
+ * Cloudflare which blocked Singapore IPs, causing all product pages to 404.
  */
 import ProductPage from "@/components/ProductPage/ProductPage";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Product } from "@/types/product";
+import { getProductFromDB } from "@/lib/getProductFromDB";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -18,21 +20,6 @@ export const revalidate = 0;
 type Props = {
   params: Promise<{ productSlug: string }>;
 };
-
-// Fetch product from internal API (proven to work — same source as client uses)
-async function getProduct(slug: string): Promise<Product | null> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://getsmoke.com";
-    const res = await fetch(`${baseUrl}/api/products/${encodeURIComponent(slug)}`, {
-      cache: "no-store",
-    });
-    if (!res.ok) return null;
-    return (await res.json()) as Product;
-  } catch (err) {
-    console.error(`[ProductPage] fetch failed for slug "${slug}":`, err);
-    return null;
-  }
-}
 
 // Build Product JSON-LD schema
 function buildProductSchema(product: Product, slug: string) {
@@ -206,7 +193,7 @@ function buildFAQSchema(product: Product) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { productSlug } = await params;
   const canonicalUrl = `https://getsmoke.com/product/${productSlug}`;
-  const product = await getProduct(productSlug);
+  const product = await getProductFromDB(productSlug);
 
   if (!product) {
     // Product not found — noindex so Google doesn't crawl soft-404 pages
@@ -241,7 +228,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const page = async ({ params }: Props) => {
   const { productSlug } = await params;
-  const product = await getProduct(productSlug);
+  const product = await getProductFromDB(productSlug);
 
   if (!product) {
     notFound();
