@@ -209,15 +209,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProduct(productSlug);
 
   if (!product) {
-    // Fallback: derive name from slug
-    const name = productSlug
-      .split("-")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
+    // Product not found — noindex so Google doesn't crawl soft-404 pages
     return {
-      title: `${name} | GetSmoke`,
-      description: `Buy ${name} at GetSmoke. Fast US shipping, 21+ only.`,
-      alternates: { canonical: canonicalUrl },
+      title: "Product Not Found | GetSmoke",
+      description: "This product is no longer available.",
+      robots: { index: false, follow: false },
     };
   }
 
