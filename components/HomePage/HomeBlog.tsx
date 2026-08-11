@@ -72,7 +72,7 @@ const HomeBlog = () => {
                     </div>
                 </div>
 
-                {/* ── Desktop layout: horizontal — text left, 2 cards right ── */}
+                {/* ── Desktop layout: horizontal - text left, 2 cards right ── */}
                 <div className="hidden md:flex items-start gap-8 rounded-3xl overflow-visible">
                     {/* Left: logo + heading */}
                     <div className="flex-shrink-0 w-64 flex flex-col" style={{ minHeight: '220px' }}>

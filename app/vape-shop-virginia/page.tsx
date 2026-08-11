@@ -321,7 +321,7 @@ export default function VapeShopVirginiaPage() {
       {/* FAQ */}
       <section className="max-w-3xl mx-auto px-4 py-12">
         <h2 className="text-xl font-bold mb-6 text-center">
-          Frequently Asked Questions — Vape Shop Virginia
+          Frequently Asked Questions - Vape Shop Virginia
         </h2>
         <div className="space-y-4">
           {FAQ.map((item) => (

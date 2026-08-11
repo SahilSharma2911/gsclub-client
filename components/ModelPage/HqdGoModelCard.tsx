@@ -8,7 +8,7 @@ export default function HqdGoModelCard() {
   return (
     <div className="border-2 border-black rounded-3xl overflow-hidden hover:border-[#fe3500] transition-colors flex flex-col h-full bg-white">
       <Link href="/models/hqd-go" className="block">
-        {/* Image — object-contain so "35K PUFFS" at bottom is never cropped */}
+        {/* Image - object-contain so "35K PUFFS" at bottom is never cropped */}
         <div className="relative bg-white" style={{ paddingTop: "100%" }}>
           <div className="absolute inset-0">
             <Image
@@ -20,12 +20,12 @@ export default function HqdGoModelCard() {
           </div>
         </div>
 
-        {/* Text — same layout as BrandProductCard */}
+        {/* Text - same layout as BrandProductCard */}
         <div className="p-2 md:p-3">
           <div className="text-center text-sm font-bold text-black">
             $34.99
             <span className="block text-xs text-gray-500 font-normal">
-              — or subscribe to save up to 10%
+              - or subscribe to save up to 10%
             </span>
           </div>
           <h3 className="font-bold text-xs md:text-sm text-center mt-1 leading-4">
@@ -34,7 +34,7 @@ export default function HqdGoModelCard() {
         </div>
       </Link>
 
-      {/* Button — exact same style as compact AddToCartButton */}
+      {/* Button - exact same style as compact AddToCartButton */}
       <div className="px-2 md:px-3 pb-2 md:pb-3 mt-auto">
         <Link href="/models/hqd-go" className="block">
           <button

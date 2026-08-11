@@ -29,7 +29,7 @@ const TOP_PICKS = [
     price: "from $14.99",
     image: "/model-banners/geek-bar-pulse-x2-hero.jpg",
     badge: "Editor's Pick",
-    pros: ["50,000 puffs — longest lasting", "Smart display with battery/juice level", "50+ flavors available", "Dual mode: Regular + Boost"],
+    pros: ["50,000 puffs - longest lasting", "Smart display with battery/juice level", "50+ flavors available", "Dual mode: Regular + Boost"],
     verdict: "The Geek Bar Pulse X2 is the most advanced disposable vape available in 2026. With 50,000 puffs, a real-time display, and Boost mode for stronger hits, it sets the standard. Best value for heavy vapers.",
   },
   {

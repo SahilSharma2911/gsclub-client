@@ -11,7 +11,7 @@ import {
 
 export const dynamic = "force-dynamic";
 
-// GET /api/subscriptions — list user's subscriptions
+// GET /api/subscriptions - list user's subscriptions
 export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -28,7 +28,7 @@ export async function GET() {
   return NextResponse.json({ subscriptions });
 }
 
-// POST /api/subscriptions — create a new subscription
+// POST /api/subscriptions - create a new subscription
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

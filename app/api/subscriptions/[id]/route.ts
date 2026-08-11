@@ -6,7 +6,7 @@ import { getNextBillingDate, SUBSCRIPTION_FREQUENCIES, FrequencyValue } from "@/
 
 export const dynamic = "force-dynamic";
 
-// PATCH /api/subscriptions/[id] — pause, resume, cancel, change frequency
+// PATCH /api/subscriptions/[id] - pause, resume, cancel, change frequency
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

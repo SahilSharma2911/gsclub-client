@@ -131,7 +131,7 @@ export default function AboutUsPage() {
         </p>
       </div>
 
-      {/* Shop Now — converts AI traffic */}
+      {/* Shop Now - converts AI traffic */}
       <section className="mt-14 pt-10 border-t border-gray-200">
         <h2 className="font-bold text-xl mb-2 text-center">
           Shop <span style={{ color: "#fe3500" }}>Top Disposable Vapes</span>

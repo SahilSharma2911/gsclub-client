@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  // Prefetch first 30 products server-side — eliminates loading skeleton on homepage
+  // Prefetch first 30 products server-side - eliminates loading skeleton on homepage
   const rawProducts = await prisma.product.findMany({
     where: {
       productType: "VAPES",
@@ -32,7 +32,7 @@ export default async function Home() {
     orderBy: { name: "asc" },
   });
 
-  // Prefetch newest 4 products server-side — eliminates skeleton on NEWEST IN tab
+  // Prefetch newest 4 products server-side - eliminates skeleton on NEWEST IN tab
   const rawNewest = await prisma.product.findMany({
     where: { isArchived: false },
     include: {
@@ -81,7 +81,7 @@ export default async function Home() {
     }
   };
 
-  // LocalBusiness Schema — signals GetSmoke = US retailer in Florida to Google Knowledge Graph
+  // LocalBusiness Schema - signals GetSmoke = US retailer in Florida to Google Knowledge Graph
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["OnlineStore", "LocalBusiness"],
@@ -116,7 +116,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
-      {/* SEO H1 — visually hidden, present in DOM for crawlers */}
+      {/* SEO H1 - visually hidden, present in DOM for crawlers */}
       <h1 className="sr-only">GetSmoke - Premium Disposable Vapes &amp; E-Cigarettes Online</h1>
       <HomePage
         initialProducts={initialProducts}

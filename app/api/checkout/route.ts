@@ -364,7 +364,7 @@ export async function POST(req: NextRequest) {
             subscriptionFrequency || undefined
           )
         );
-        // Notify store — send to both info@ and owner Gmail for reliability
+        // Notify store - send to both info@ and owner Gmail for reliability
         const storeSubjectSuffix = isSubscription ? ` - SUBSCRIPTION (${subscriptionFrequency || "recurring"})` : hasPreOrder ? " - PRE-ORDER" : "";
         const storeSubject = `[getsmoke]: New order #${orderNum}${storeSubjectSuffix}`;
         const storeHtml = orderConfirmationTemplate(

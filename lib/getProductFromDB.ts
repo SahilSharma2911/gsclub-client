@@ -1,6 +1,6 @@
 /**
- * Shared product fetch — used by BOTH server component AND API route.
- * Direct Prisma query — avoids HTTP round-trip through Cloudflare
+ * Shared product fetch - used by BOTH server component AND API route.
+ * Direct Prisma query - avoids HTTP round-trip through Cloudflare
  * (which blocked server component fetches from Vercel Singapore IPs via CF SG block rule).
  */
 import { prisma } from "@/lib/prisma";

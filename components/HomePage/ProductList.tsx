@@ -3,7 +3,7 @@ import React, { useRef, useCallback } from "react";
 import { ShoppingBag, } from "lucide-react";
 import Link from "next/link";
 import AddToCartButton from "@/components/Cart/AddToCartButton";
-// useFilter intentionally NOT used here — homepage always shows unfiltered products
+// useFilter intentionally NOT used here - homepage always shows unfiltered products
 import { Product } from "@/types/product";
 import Image from "next/image";
 import GenericModelCard from "@/components/ModelPage/GenericModelCard";
@@ -90,7 +90,7 @@ const ProductList: React.FC<ProductListProps> = ({
     // Flatten all pages into a single array of products
     const products = data?.pages.flatMap((page) => page.products) || [];
 
-    // Handle scroll — kept for potential future use
+    // Handle scroll - kept for potential future use
     const handleScroll = useCallback(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -184,7 +184,7 @@ const ProductList: React.FC<ProductListProps> = ({
                 </div>
             ) : (
                 <div className="relative">
-                    {/* 2-column grid on mobile, 4-column on desktop — Figma layout */}
+                    {/* 2-column grid on mobile, 4-column on desktop - Figma layout */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
                         {featuredModelSlugs && featuredModelSlugs.map(slug => {
                             const m = MODELS.find(x => x.slug === slug);
@@ -217,7 +217,7 @@ const ProductList: React.FC<ProductListProps> = ({
                                                 <span className="ml-1.5 text-xs text-gray-400 line-through font-normal">${product.originalPrice!.toFixed(2)}</span>
                                             )}
                                             <span className="block text-xs text-gray-500 font-normal">
-                                                — or subscribe to save up to 10%
+                                                - or subscribe to save up to 10%
                                             </span>
                                         </div>
                                         <h3 className="font-bold text-xs md:text-sm text-center mt-1">

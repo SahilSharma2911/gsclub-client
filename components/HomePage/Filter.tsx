@@ -27,7 +27,7 @@ interface FilterButtonProps {
   btnRef: React.RefObject<HTMLButtonElement>;
 }
 
-// Trigger button only — dropdown is rendered outside the overflow container
+// Trigger button only - dropdown is rendered outside the overflow container
 const FilterTrigger = ({ label, isActive, isOpen, onToggle, selectedName, btnRef }: FilterButtonProps) => (
   <button
     ref={btnRef}
@@ -62,7 +62,7 @@ const Filter = ({ productType }: { productType?: string }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const filterRef = useRef<HTMLDivElement>(null);
-  // Ref for the horizontal-scrollable pill — close dropdown on horizontal swipe
+  // Ref for the horizontal-scrollable pill - close dropdown on horizontal swipe
   const pillRef = useRef<HTMLDivElement>(null);
   const brandBtnRef = useRef<HTMLButtonElement>(null);
   const puffsBtnRef = useRef<HTMLButtonElement>(null);
@@ -91,7 +91,7 @@ const Filter = ({ productType }: { productType?: string }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productType]);
 
-  // Fetch all filter options (always full list — no active filter params)
+  // Fetch all filter options (always full list - no active filter params)
   const fetchFilterOptions = useCallback(async () => {
     try {
       setLoading(true);
@@ -126,7 +126,7 @@ const Filter = ({ productType }: { productType?: string }) => {
       .catch(() => setFilteredFlavors(null));
   }, [puffsId, productType]);
 
-  // Close dropdown on outside click — check both filterRef AND the Portal dropdown
+  // Close dropdown on outside click - check both filterRef AND the Portal dropdown
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const insideFilter = filterRef.current?.contains(e.target as Node);
@@ -208,7 +208,7 @@ const Filter = ({ productType }: { productType?: string }) => {
 
   return (
     <div className="w-11/12 mx-auto py-6 md:py-8 font-unbounded" ref={filterRef} style={{ position: 'relative', zIndex: 9999, isolation: 'isolate' }}>
-      {/* Yellow pill — overflow-x scroll, no clipping of children */}
+      {/* Yellow pill - overflow-x scroll, no clipping of children */}
       <div
         ref={pillRef}
         className="flex items-center bg-[#ffc42e] rounded-full px-8 py-2.5 text-black text-sm font-bold overflow-x-auto"
@@ -253,7 +253,7 @@ const Filter = ({ productType }: { productType?: string }) => {
         )}
       </div>
 
-      {/* Dropdown via Portal — position:fixed so it always clears product cards and sticky bars */}
+      {/* Dropdown via Portal - position:fixed so it always clears product cards and sticky bars */}
       {mounted && openDropdown && createPortal(
         <div
           ref={dropdownRef}

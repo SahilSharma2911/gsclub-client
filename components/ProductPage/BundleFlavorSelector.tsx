@@ -167,7 +167,7 @@ export default function BundleFlavorSelector({ productName, packCount }: BundleF
                   disabled={f.stockStatus === "PREORDER"}
                   style={f.stockStatus === "PREORDER" ? { color: "#9ca3af" } : {}}
                 >
-                  {getFlavorLabel(f)}{f.stockStatus === "PREORDER" ? " — Pre-Order" : ""}
+                  {getFlavorLabel(f)}{f.stockStatus === "PREORDER" ? " - Pre-Order" : ""}
                 </option>
               ))}
             </select>

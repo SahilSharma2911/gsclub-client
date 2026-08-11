@@ -36,7 +36,7 @@ interface SingleProductProps {
 }
 
 const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProductProps) => {
-    // If server prefetched product — use it directly, skip loading skeleton
+    // If server prefetched product - use it directly, skip loading skeleton
     const { data: product, isLoading, error } = useProduct(productSlug, initialProduct);
     const resolvedProduct = product ?? initialProduct;
 
@@ -64,7 +64,7 @@ const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProdu
     // const [selectedFlavors, setSelectedFlavors] = useState<{ [key: number]: string }>({});
     // const [availableFlavors, setAvailableFlavors] = useState<{ id: string, name: string }[]>([]);
 
-    // Loading state — skip if we already have server-prefetched data
+    // Loading state - skip if we already have server-prefetched data
     if (isLoading && !resolvedProduct) {
         return <Loading />;
     }
@@ -179,7 +179,7 @@ const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProdu
                           }}
                         />
 
-                        {/* Add to Cart — "Pack of 10" bundles get flavor selector, all others get standard button */}
+                        {/* Add to Cart - "Pack of 10" bundles get flavor selector, all others get standard button */}
                         <div className="py-2 mt-3">
                           {/pack\s*of\s*10/i.test(resolvedProduct.name) ? (
                             <BundleFlavorSelector
@@ -472,7 +472,7 @@ const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProdu
                 </section>
             )}
 
-            {/* Flavor Profile Section — enriches product pages for AI citations */}
+            {/* Flavor Profile Section - enriches product pages for AI citations */}
             {flavorProfile && (
                 <section className="w-11/12 mx-auto my-6 bg-gray-50 rounded-2xl p-5">
                     <h2 className="text-lg font-bold mb-3 text-gray-900">Flavor Profile</h2>
@@ -506,7 +506,7 @@ const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProdu
                 />
             </section>
 
-            {/* Model page link — SEO internal link to model listing */}
+            {/* Model page link - SEO internal link to model listing */}
             {(() => {
                 const model = findModelForProduct(resolvedProduct.name);
                 if (!model) return null;
@@ -519,7 +519,7 @@ const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProdu
                             <div>
                                 <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Shop all flavors</p>
                                 <p className="font-semibold text-sm text-gray-900 group-hover:text-orange-600">
-                                    {model.name} — {model.puffs} puffs, all {model.nicotine} flavors
+                                    {model.name} - {model.puffs} puffs, all {model.nicotine} flavors
                                 </p>
                             </div>
                             <svg className="w-5 h-5 text-gray-400 group-hover:text-orange-500 flex-shrink-0 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

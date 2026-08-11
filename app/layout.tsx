@@ -9,7 +9,7 @@ import { Providers } from "@/providers/provider";
 import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-// Suspense removed — AgeVerification is a Client Component (no Suspense needed)
+// Suspense removed - AgeVerification is a Client Component (no Suspense needed)
 import AgeVerification from "@/components/AgeVerification/AgeVerification";
 import ScrollToTopButton from "@/components/ScrollToTopButton/ScrollToTopButton";
 import CookieBanner from "@/components/CookieBanner/CookieBanner";
@@ -111,7 +111,7 @@ export default function RootLayout({
         {/* Preload first hero banners - critical for LCP */}
         <link rel="preload" as="image" href="/banners/mobile-1.webp" media="(max-width: 767px)" fetchPriority="high" />
         <link rel="preload" as="image" href="/banners/desktop-1.webp" media="(min-width: 768px)" fetchPriority="high" />
-        {/* ── Static JSON-LD schemas — always in initial HTML, visible to all crawlers ── */}
+        {/* ── Static JSON-LD schemas - always in initial HTML, visible to all crawlers ── */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",

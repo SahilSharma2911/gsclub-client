@@ -9,7 +9,7 @@ import type { Prisma } from "@prisma/client";
 const SITE_URL = "https://getsmoke.com";
 
 // ISR: revalidate model pages every 6 hours (not full SSG - avoids 49 concurrent DB calls at build)
-// ISR: cache for 6h, generate on first request (no build-time pre-render — avoids DATABASE_URL issue)
+// ISR: cache for 6h, generate on first request (no build-time pre-render - avoids DATABASE_URL issue)
 export const revalidate = 21600;
 export const dynamicParams = true;
 
@@ -197,7 +197,7 @@ export default async function ModelPage({ params }: Props) {
 
   return (
     <>
-      {/* Plain <script> tags render in initial HTML — next/script goes to RSC payload */}
+      {/* Plain <script> tags render in initial HTML - next/script goes to RSC payload */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productGroupSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

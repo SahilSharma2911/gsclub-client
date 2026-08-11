@@ -483,9 +483,9 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
                                 const oos = p.stockStatus === "OUTOFSTOCK";
                                 const preorder = p.stockStatus === "PREORDER";
                                 const label = oos
-                                  ? `${getFlavorName(p, model.dbSearchQuery)} — Out of Stock`
+                                  ? `${getFlavorName(p, model.dbSearchQuery)} - Out of Stock`
                                   : preorder
-                                    ? `${getFlavorName(p, model.dbSearchQuery)} — Pre-Order`
+                                    ? `${getFlavorName(p, model.dbSearchQuery)} - Pre-Order`
                                     : getFlavorName(p, model.dbSearchQuery);
                                 return (
                                   <option

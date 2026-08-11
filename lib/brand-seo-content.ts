@@ -22,7 +22,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     introParagraphs: [
       "Discover a world of delicious flavors and unmatched satisfaction with RAZ Vape. Every puff is a fun vaping adventure packed with vibrant taste and smooth vapor delivery.",
       "RAZ Vape is built on a simple promise: premium ingredients, outstanding flavors, and a device that performs from the first draw to the last. Whether you prefer sweet fruits, icy menthol, or candy-inspired blends, RAZ has something for you.",
-      "At GetSmoke, we carry the full RAZ lineup so you can explore everything this bold brand has to offer. Subscribe and save up to 10% on recurring orders — never run out of your favorite RAZ flavor again.",
+      "At GetSmoke, we carry the full RAZ lineup so you can explore everything this bold brand has to offer. Subscribe and save up to 10% on recurring orders - never run out of your favorite RAZ flavor again.",
     ],
     advantageTitle: "Understanding the RAZ Advantage",
     features: [
@@ -142,7 +142,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         question: "What are the best Geek Bar flavors?",
         answer:
-          "Popular choices include Grapefruit Refresher, Crazy Melon, and Blackberry Fcuking Fab. With over 100 options, there is truly something for every palate — fruity, icy, menthol, and candy flavors alike.",
+          "Popular choices include Grapefruit Refresher, Crazy Melon, and Blackberry Fcuking Fab. With over 100 options, there is truly something for every palate - fruity, icy, menthol, and candy flavors alike.",
       },
       {
         question: "Where can I buy authentic Geek Bar vapes?",
@@ -167,7 +167,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Design & Portability",
         description:
-          "HQD devices are compact, lightweight, and built to travel. The straightforward no-button design means you pick it up and vape — simple, clean, and effective every time.",
+          "HQD devices are compact, lightweight, and built to travel. The straightforward no-button design means you pick it up and vape - simple, clean, and effective every time.",
       },
       {
         title: "Flavor Profiles",
@@ -206,7 +206,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         question: "What nicotine strength does HQD use?",
         answer:
-          "Most HQD devices use 5% (50mg) nicotine salt for a smooth, satisfying hit. Some models are available in lower strengths — check the product listing for details.",
+          "Most HQD devices use 5% (50mg) nicotine salt for a smooth, satisfying hit. Some models are available in lower strengths - check the product listing for details.",
       },
       {
         question: "Are HQD vapes available in menthol flavors?",
@@ -227,7 +227,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     metaDescription:
       "Shop Lost Mary disposable vapes at GetSmoke. Discover the signature oval design, rich flavor profiles, and long-lasting performance that define the Lost Mary brand.",
     introParagraphs: [
-      "Lost Mary stands out from the crowd with its distinctive oval shape and commitment to delivering rich, complex flavors. From the moment you pick one up, it feels different — because it is.",
+      "Lost Mary stands out from the crowd with its distinctive oval shape and commitment to delivering rich, complex flavors. From the moment you pick one up, it feels different - because it is.",
       "Each Lost Mary device is packed with carefully developed e-liquid that captures real fruit, menthol, and dessert profiles with impressive accuracy. The draw is smooth, the vapor is satisfying, and the flavors are layered.",
       "GetSmoke stocks the full Lost Mary collection, including the popular MO5000 and BM5000 series. Subscribe to save up to 10% and enjoy reliable doorstep delivery on every order.",
     ],
@@ -294,18 +294,18 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     h1: "Fume Vapes",
     metaTitle: "Fume Vapes | Proven Flavor & Reliable Performance | GetSmoke",
     metaDescription:
-      "Shop Fume disposable vapes at GetSmoke. One of the most trusted brands in the USA market — explore the Fume Extra, Ultra, Infinity, and more.",
+      "Shop Fume disposable vapes at GetSmoke. One of the most trusted brands in the USA market - explore the Fume Extra, Ultra, Infinity, and more.",
     introParagraphs: [
       "Fume is one of the most recognized disposable vape brands in the United States, and for good reason. Built on a foundation of consistent quality and crowd-pleasing flavors, Fume has earned the trust of millions of vapers.",
       "From the Fume Extra to the high-puff Fume Infinity and beyond, every device in the lineup is engineered for easy use, dependable performance, and flavors that satisfy from morning to night.",
-      "GetSmoke carries the complete Fume collection at competitive prices. Subscribe and save up to 10% on your favorite Fume flavors — delivered straight to your door.",
+      "GetSmoke carries the complete Fume collection at competitive prices. Subscribe and save up to 10% on your favorite Fume flavors - delivered straight to your door.",
     ],
     advantageTitle: "Understanding the Fume Advantage",
     features: [
       {
         title: "Design & Portability",
         description:
-          "Fume vapes feature a clean, compact design that is simple and discreet. The lightweight build makes it perfect for daily carry, and the draw-activated mechanism means zero complexity — just pick up and puff.",
+          "Fume vapes feature a clean, compact design that is simple and discreet. The lightweight build makes it perfect for daily carry, and the draw-activated mechanism means zero complexity - just pick up and puff.",
       },
       {
         title: "Flavor Profiles",
@@ -328,7 +328,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       "Fume makes great vaping effortless. With no buttons, no refilling, and no guesswork, a Fume vape is ready whenever you are. Explore the full lineup at GetSmoke and stock up on the flavors you love.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
-      "Fume's success is no accident — it is the result of consistent innovation and a relentless focus on what vapers actually want. Dependable performance, bold flavor, and accessible pricing. Shop Fume at GetSmoke.",
+      "Fume's success is no accident - it is the result of consistent innovation and a relentless focus on what vapers actually want. Dependable performance, bold flavor, and accessible pricing. Shop Fume at GetSmoke.",
     faqTitle: "Fume Vapes FAQs",
     faqs: [
       {
@@ -339,7 +339,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         question: "Are Fume vapes rechargeable?",
         answer:
-          "Most standard Fume models are not rechargeable. They are designed to be fully disposable. However, newer Fume models may include a USB-C port — check the product listing for details.",
+          "Most standard Fume models are not rechargeable. They are designed to be fully disposable. However, newer Fume models may include a USB-C port - check the product listing for details.",
       },
       {
         question: "What flavors does Fume offer?",
@@ -365,7 +365,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     metaDescription:
       "Shop Fifty Bar disposable vapes at GetSmoke. Up to 6,000 puffs per device, 50mg nicotine salt, and a wide selection of bold flavors. Fast USA shipping.",
     introParagraphs: [
-      "Fifty Bar delivers exactly what its name promises — a premium vaping experience powered by 50mg nicotine salt and engineered for maximum satisfaction. With up to 6,000 puffs per device, it is built for vapers who demand more.",
+      "Fifty Bar delivers exactly what its name promises - a premium vaping experience powered by 50mg nicotine salt and engineered for maximum satisfaction. With up to 6,000 puffs per device, it is built for vapers who demand more.",
       "Each Fifty Bar device features a rechargeable design and a broad flavor lineup that covers everything from tropical fruits to cool menthol and indulgent desserts. Every puff is smooth, full-bodied, and consistent.",
       "Shop the full Fifty Bar collection at GetSmoke. Our competitive pricing and subscription options make it easy to keep your favorite flavors stocked at all times.",
     ],
@@ -436,7 +436,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     introParagraphs: [
       "EBCreate (formerly known as EB Design) brings a level of craftsmanship to the disposable vape market that is hard to match. Every device reflects a commitment to innovation, quality materials, and flavor excellence.",
       "With a growing lineup that spans compact everyday devices to high-capacity rechargeable models, EBCreate has a product for every type of vaper. The flavor profiles are bold, accurate, and long-lasting.",
-      "Explore the complete EBCreate collection at GetSmoke. Subscribe and save up to 10% — because your favorite flavors should always be within reach.",
+      "Explore the complete EBCreate collection at GetSmoke. Subscribe and save up to 10% - because your favorite flavors should always be within reach.",
     ],
     advantageTitle: "Understanding the EBCreate Advantage",
     features: [
@@ -504,7 +504,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       "Shop Viho disposable vapes at GetSmoke. Vibrant flavors, high puff counts, and rechargeable designs for vapers who want more from every device.",
     introParagraphs: [
       "Viho is a rising star in the disposable vape world, delivering vibrant flavors and high-performance devices that punch well above their price point. If you haven't tried Viho, you are missing out.",
-      "Each Viho device features a rechargeable battery, a generous e-liquid capacity, and a flavor lineup that spans the full spectrum — from tropical fruits to cool menthol and sweet blends.",
+      "Each Viho device features a rechargeable battery, a generous e-liquid capacity, and a flavor lineup that spans the full spectrum - from tropical fruits to cool menthol and sweet blends.",
       "Get your Viho fix at GetSmoke. Competitive pricing, subscription savings of up to 10%, and fast USA shipping make Viho accessible every day.",
     ],
     advantageTitle: "Understanding the Viho Advantage",
@@ -517,7 +517,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Flavor Profiles",
         description:
-          "Viho's flavor team has developed a lineup that emphasizes sweetness, freshness, and balance. Every profile is crafted to be enjoyable as an all-day vape — not too harsh, not too mild.",
+          "Viho's flavor team has developed a lineup that emphasizes sweetness, freshness, and balance. Every profile is crafted to be enjoyable as an all-day vape - not too harsh, not too mild.",
       },
       {
         title: "Coil Technology",
@@ -655,7 +655,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Flavor Profiles",
         description:
-          "Adjust offers a curated flavor lineup covering the most popular categories — fruity, icy, and dessert. Each flavor is developed to perform across all airflow settings.",
+          "Adjust offers a curated flavor lineup covering the most popular categories - fruity, icy, and dessert. Each flavor is developed to perform across all airflow settings.",
       },
       {
         title: "Coil Technology",
@@ -711,7 +711,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       "Shop Al Fakher disposable vapes at GetSmoke. Legendary shisha-inspired flavors meet modern vaping technology. Rich, aromatic, and deeply satisfying.",
     introParagraphs: [
       "Al Fakher is a globally recognized name in hookah culture, and now that legacy of rich, aromatic flavor has made its way into premium disposable vapes. Each Al Fakher vape carries the same flavor DNA that made the brand famous.",
-      "Expect lush, complex profiles inspired by the most beloved shisha blends — double apple, mint, grape, and beyond. Al Fakher vapes deliver a smooth, flavorful experience that stands apart from the crowd.",
+      "Expect lush, complex profiles inspired by the most beloved shisha blends - double apple, mint, grape, and beyond. Al Fakher vapes deliver a smooth, flavorful experience that stands apart from the crowd.",
       "Shop Al Fakher vapes at GetSmoke. Explore the lineup, subscribe to save up to 10%, and enjoy fast delivery to your door.",
     ],
     advantageTitle: "Understanding the Al Fakher Advantage",
@@ -724,7 +724,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Flavor Profiles",
         description:
-          "Al Fakher's flavor expertise is unmatched. Drawing on decades of shisha flavor development, each vape profile is rich, layered, and deeply aromatic — a sensory experience unlike typical disposables.",
+          "Al Fakher's flavor expertise is unmatched. Drawing on decades of shisha flavor development, each vape profile is rich, layered, and deeply aromatic - a sensory experience unlike typical disposables.",
       },
       {
         title: "Coil Technology",
@@ -779,8 +779,8 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     metaDescription:
       "Shop Beri disposable vapes at GetSmoke. Bold, berry-forward flavors in a reliable, portable device. Fast USA shipping and subscription savings available.",
     introParagraphs: [
-      "Beri Vape is all about bold, vibrant flavor — and the name says it all. Built around rich, fruity profiles with a focus on berry-forward blends, Beri vapes are made for vapers who want a burst of flavor in every draw.",
-      "Each Beri device is compact, reliable, and packed with premium e-liquid that delivers consistent taste from start to finish. No dry hits, no flavor fade — just pure, satisfying vapor.",
+      "Beri Vape is all about bold, vibrant flavor - and the name says it all. Built around rich, fruity profiles with a focus on berry-forward blends, Beri vapes are made for vapers who want a burst of flavor in every draw.",
+      "Each Beri device is compact, reliable, and packed with premium e-liquid that delivers consistent taste from start to finish. No dry hits, no flavor fade - just pure, satisfying vapor.",
       "Shop Beri vapes at GetSmoke. Subscribe and save up to 10% on recurring orders and never run out of your favorite flavor.",
     ],
     advantageTitle: "Understanding the Beri Advantage",
@@ -788,7 +788,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Design & Portability",
         description:
-          "Beri devices are slim, lightweight, and built for everyday carry. The draw-activated design means there are no buttons to press — just pick it up and enjoy.",
+          "Beri devices are slim, lightweight, and built for everyday carry. The draw-activated design means there are no buttons to press - just pick it up and enjoy.",
       },
       {
         title: "Flavor Profiles",
@@ -915,7 +915,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     h1: "Cookies Vapes",
     metaTitle: "Cookies Vapes | Premium Brand Collaboration | GetSmoke",
     metaDescription:
-      "Shop Cookies disposable vapes at GetSmoke. Premium vaping products from the legendary Cookies brand — bold, unique flavors and high-quality hardware.",
+      "Shop Cookies disposable vapes at GetSmoke. Premium vaping products from the legendary Cookies brand - bold, unique flavors and high-quality hardware.",
     introParagraphs: [
       "The Cookies brand is synonymous with premium quality and cultural cachet, and that same standard carries through to the Cookies vape lineup. These are not ordinary disposables.",
       "Each Cookies vape is built with premium hardware and filled with unique, often inspired flavor profiles that stand out in a crowded market. The brand's commitment to authenticity and excellence is evident in every device.",
@@ -926,7 +926,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Design & Portability",
         description:
-          "Cookies devices carry the brand's signature aesthetic — bold, recognizable, and premium. The hardware quality matches the brand's reputation, making it a device worth showing off.",
+          "Cookies devices carry the brand's signature aesthetic - bold, recognizable, and premium. The hardware quality matches the brand's reputation, making it a device worth showing off.",
       },
       {
         title: "Flavor Profiles",
@@ -946,7 +946,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     ],
     ctaTitle: "Elevate Your Daily Routine",
     ctaText:
-      "Cookies is more than a vape brand — it is a lifestyle. If you appreciate premium quality, bold flavors, and cultural authenticity in your vaping experience, Cookies belongs in your collection. Shop at GetSmoke today.",
+      "Cookies is more than a vape brand - it is a lifestyle. If you appreciate premium quality, bold flavors, and cultural authenticity in your vaping experience, Cookies belongs in your collection. Shop at GetSmoke today.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
       "Cookies brings the same standard of excellence to vaping that it has always applied to everything it touches. Premium hardware, unique flavors, and an unmistakable brand identity. Discover Cookies vapes at GetSmoke.",
@@ -986,7 +986,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     metaDescription:
       "Shop Flum Pebble disposable vapes at GetSmoke. The iconic pebble-shaped design delivers up to 6,000 puffs in a pocket-perfect form factor.",
     introParagraphs: [
-      "The Flum Pebble is one of the most recognizable disposable vapes on the market — and its iconic shape is matched by its equally impressive performance. Compact, stylish, and packed with up to 6,000 puffs, the Pebble sets a high bar.",
+      "The Flum Pebble is one of the most recognizable disposable vapes on the market - and its iconic shape is matched by its equally impressive performance. Compact, stylish, and packed with up to 6,000 puffs, the Pebble sets a high bar.",
       "Every Flum Pebble device is loaded with premium e-liquid spanning a broad flavor catalog. From icy menthol to tropical fruit blends, the Pebble delivers flavor that is bold, consistent, and satisfying.",
       "Get your Flum Pebble at GetSmoke. Competitive pricing, subscription savings of up to 10%, and fast shipping across the USA.",
     ],
@@ -1429,7 +1429,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     ],
     ctaTitle: "Elevate Your Daily Routine",
     ctaText:
-      "Olit makes excellent everyday vaping effortless. Reliable, smooth, and consistently satisfying — Olit is the no-fuss choice for daily vapers. Shop the full Olit lineup at GetSmoke.",
+      "Olit makes excellent everyday vaping effortless. Reliable, smooth, and consistently satisfying - Olit is the no-fuss choice for daily vapers. Shop the full Olit lineup at GetSmoke.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
       "Olit has earned the loyalty of everyday vapers by simply delivering on its promises every single time. Great flavor, smooth performance, and accessible pricing. Discover Olit at GetSmoke.",
@@ -1570,7 +1570,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       "Rama adds excitement and novelty to every vaping session. If you are tired of the same predictable flavors and want something that genuinely surprises you, Rama is the answer. Explore the collection at GetSmoke.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
-      "Rama is for vapers who want more than just nicotine — they want an experience. The brand's commitment to flavor innovation and hardware reliability makes it a genuinely exciting choice. Discover Rama at GetSmoke.",
+      "Rama is for vapers who want more than just nicotine - they want an experience. The brand's commitment to flavor innovation and hardware reliability makes it a genuinely exciting choice. Discover Rama at GetSmoke.",
     faqTitle: "Rama Vapes FAQs",
     faqs: [
       {
@@ -1605,11 +1605,11 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     h1: "Tyson 2.0 Vapes",
     metaTitle: "Tyson 2.0 Vapes | Champion-Level Flavor | GetSmoke",
     metaDescription:
-      "Shop Tyson 2.0 disposable vapes at GetSmoke. Co-created by boxing legend Mike Tyson — powerful flavor, knockout puff counts, and champion-grade hardware.",
+      "Shop Tyson 2.0 disposable vapes at GetSmoke. Co-created by boxing legend Mike Tyson - powerful flavor, knockout puff counts, and champion-grade hardware.",
     introParagraphs: [
       "Tyson 2.0 is the vape brand co-created by boxing legend Mike Tyson, and like the man himself, it is built to make an impact. Powerful flavors, knockout puff counts, and hardware that refuses to go down until the job is done.",
       "Every Tyson 2.0 device is engineered to deliver a heavyweight vaping experience: bold flavors that hit hard and a device that goes the distance. Whether you are a die-hard Mike Tyson fan or simply want a premium disposable, Tyson 2.0 delivers.",
-      "Shop Tyson 2.0 at GetSmoke. Subscribe and save up to 10% on recurring orders — because champions never run out.",
+      "Shop Tyson 2.0 at GetSmoke. Subscribe and save up to 10% on recurring orders - because champions never run out.",
     ],
     advantageTitle: "Understanding the Tyson 2.0 Advantage",
     features: [
@@ -1626,20 +1626,20 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Coil Technology",
         description:
-          "Tyson 2.0 uses champion-grade coil technology for powerful vapor production and bold flavor delivery. Every draw packs a punch — consistent, satisfying, and full of flavor.",
+          "Tyson 2.0 uses champion-grade coil technology for powerful vapor production and bold flavor delivery. Every draw packs a punch - consistent, satisfying, and full of flavor.",
       },
       {
         title: "Power & Longevity",
         description:
-          "Tyson 2.0 devices feature high-capacity batteries with USB-C recharging. They are built to go the full 15 rounds — powerful and consistent from start to finish.",
+          "Tyson 2.0 devices feature high-capacity batteries with USB-C recharging. They are built to go the full 15 rounds - powerful and consistent from start to finish.",
       },
     ],
     ctaTitle: "Elevate Your Daily Routine",
     ctaText:
-      "Train your taste buds to expect more. Tyson 2.0 delivers a championship vaping experience every time — bold, powerful, and built to last. Shop the full Tyson 2.0 lineup at GetSmoke.",
+      "Train your taste buds to expect more. Tyson 2.0 delivers a championship vaping experience every time - bold, powerful, and built to last. Shop the full Tyson 2.0 lineup at GetSmoke.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
-      "Tyson 2.0 is more than a celebrity brand — it is a genuine commitment to quality vaping in the spirit of a champion. Bold flavors and powerful hardware make every Tyson 2.0 session a knockout experience. Discover it at GetSmoke.",
+      "Tyson 2.0 is more than a celebrity brand - it is a genuine commitment to quality vaping in the spirit of a champion. Bold flavors and powerful hardware make every Tyson 2.0 session a knockout experience. Discover it at GetSmoke.",
     faqTitle: "Tyson 2.0 Vapes FAQs",
     faqs: [
       {
@@ -1676,7 +1676,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     metaDescription:
       "Shop X-Posed disposable vapes at GetSmoke. Unapologetically bold flavors and reliable high-puff devices for vapers who want it all.",
     introParagraphs: [
-      "X-Posed is a brand that lives up to its name — bold, unapologetic, and impossible to ignore. Every device delivers intense, forward-facing flavor that makes no apologies and no compromises.",
+      "X-Posed is a brand that lives up to its name - bold, unapologetic, and impossible to ignore. Every device delivers intense, forward-facing flavor that makes no apologies and no compromises.",
       "From the hardware to the e-liquid, X-Posed is built for vapers who want a strong, satisfying experience. The flavor lineup is diverse, bold, and crafted for maximum impact.",
       "Discover X-Posed at GetSmoke. Subscribe for up to 10% savings and have your boldest flavors delivered on schedule.",
     ],
@@ -1685,12 +1685,12 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
       {
         title: "Design & Portability",
         description:
-          "X-Posed devices feature a bold visual identity in a compact, carry-ready form factor. The design is a statement — confident, modern, and ready for anything.",
+          "X-Posed devices feature a bold visual identity in a compact, carry-ready form factor. The design is a statement - confident, modern, and ready for anything.",
       },
       {
         title: "Flavor Profiles",
         description:
-          "X-Posed flavors are intense and forward-facing. Every profile is developed for maximum impact — bold fruit, sharp menthol, and decadent dessert options that demand attention.",
+          "X-Posed flavors are intense and forward-facing. Every profile is developed for maximum impact - bold fruit, sharp menthol, and decadent dessert options that demand attention.",
       },
       {
         title: "Coil Technology",
@@ -1705,7 +1705,7 @@ export const BRAND_SEO: Record<string, BrandSeoContent> = {
     ],
     ctaTitle: "Elevate Your Daily Routine",
     ctaText:
-      "X-Posed is for vapers who refuse to blend into the background. Bold flavors, strong performance, and a design that gets noticed — this is vaping with no apologies. Shop X-Posed at GetSmoke.",
+      "X-Posed is for vapers who refuse to blend into the background. Bold flavors, strong performance, and a design that gets noticed - this is vaping with no apologies. Shop X-Posed at GetSmoke.",
     closingTitle: "Where Passion Meets Performance",
     closingText:
       "X-Posed has built its brand around a simple belief: great vaping should be bold, intense, and completely satisfying. Every device in the X-Posed lineup delivers exactly that. Discover X-Posed at GetSmoke.",

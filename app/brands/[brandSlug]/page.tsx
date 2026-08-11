@@ -118,7 +118,7 @@ export default async function BrandPage({ params }: Props) {
     ],
   };
 
-  // ItemList schema — top products for this brand
+  // ItemList schema - top products for this brand
   const itemListSchema = brand.products.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "ItemList",

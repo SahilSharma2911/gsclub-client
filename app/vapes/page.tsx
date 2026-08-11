@@ -59,9 +59,9 @@ export default async function VapesPage({ searchParams }: Props) {
       <VapePage
         productType="VAPES"
         initialProducts={initialProducts}
-        heading={pageNum === 1 ? "Shop All Disposable Vapes" : `Shop All Disposable Vapes — Page ${pageNum}`}
+        heading={pageNum === 1 ? "Shop All Disposable Vapes" : `Shop All Disposable Vapes - Page ${pageNum}`}
       />
-      {/* SEO pagination — crawlable numbered links */}
+      {/* SEO pagination - crawlable numbered links */}
       {totalPages > 1 && (
         <nav aria-label="Page navigation" className="flex justify-center gap-2 py-8 flex-wrap">
           {pageNum > 1 && (

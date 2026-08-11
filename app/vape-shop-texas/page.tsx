@@ -143,7 +143,7 @@ export default function VapeShopTexasPage() {
         </div>
       </section>
 
-      {/* Existing page content — preserved as-is */}
+      {/* Existing page content - preserved as-is */}
       <section className="max-w-4xl mx-auto px-4 py-8">
         <p className="mb-4 text-gray-700 leading-relaxed">Welcome to Getsmoke, your premier Vape Shop in Texas! We take pride in offering an extensive selection of high-quality vape products, including e-cigarettes, disposable vapes, nicotine salts, and mouthwatering eLiquids from top vape brands. Our commitment extends beyond just providing products; we aim to create a welcoming environment for both novice and seasoned vapers. In our shop, you&apos;ll find everything from premium devices to accessories that enhance your vaping experience, all while promoting responsible awareness about vaping. We serve customers not only in Austin but also in Round Rock, Cedar Park, Georgetown, and Pflugerville, ensuring everyone can access the best vaping solutions in Texas, including our renowned online vape shop services.</p>
         <p className="mb-4 text-gray-700 leading-relaxed">At Getsmoke, our passion for the vaping community drives our mission to provide Texans with the finest selection of vape products and accessories, promoting a healthy and satisfying vaping lifestyle.</p>

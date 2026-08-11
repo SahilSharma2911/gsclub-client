@@ -2,7 +2,7 @@ import BlogDetails from "@/components/Blog/BlogDetails";
 import { noIndex } from "@/lib/noindex";
 import { prisma } from "@/lib/prisma";
 import { r2src } from "@/lib/r2-image";
-// wp-images removed — images now on R2 via MongoDB
+// wp-images removed - images now on R2 via MongoDB
 import { getSEOData } from "@/lib/seo";
 import { Article } from "@/types/article";
 import { Metadata } from "next";
@@ -239,7 +239,7 @@ const page = async ({ params }: Props) => {
       ],
     };
 
-    // FAQPage schema — generated from article.faq field (stored in MongoDB)
+    // FAQPage schema - generated from article.faq field (stored in MongoDB)
     type FaqItem = { question: string; answer: string; order?: number };
     const faqItems: FaqItem[] = Array.isArray((article as Article & { faq?: FaqItem[] }).faq)
       ? ((article as Article & { faq?: FaqItem[] }).faq as FaqItem[])

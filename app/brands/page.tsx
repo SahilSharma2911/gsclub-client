@@ -36,7 +36,7 @@ const BRAND_LOGOS: Record<string, string> = {
   "x-posed":    "/brand-logos/x-posed-clean.png",
   "adjust":     "/brand-logos/adjust-clean.png",
   "beri":       "/brand-logos/beri-clean.png",
-  // Previously text-only — now have logos
+  // Previously text-only - now have logos
   "tyson-2-0":  "/brand-logos/blogo-22.png",
   "olit":       "/brand-logos/blogo-18.png",
   "rama":       "/brand-logos/blogo-30.png",

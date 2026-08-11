@@ -1,5 +1,5 @@
 /**
- * IndexNow — instant URL submission to Bing (and Yandex, Seznam, etc.)
+ * IndexNow - instant URL submission to Bing (and Yandex, Seznam, etc.)
  * Bing uses this to immediately crawl updated/new pages instead of waiting for scheduled crawl.
  * ChatGPT Search uses Bing index → faster AI visibility.
  *

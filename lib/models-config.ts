@@ -98,7 +98,7 @@ export function findModelForProduct(productName: string): ModelConfig | null {
     if (!m.dbSearchQuery) return false;
     const queryLower = m.dbSearchQuery.toLowerCase();
     if (!nameLower.includes(queryLower)) return false;
-    // Check excludeQueries — if product name contains any exclusion, skip
+    // Check excludeQueries - if product name contains any exclusion, skip
     if (m.excludeQueries?.some(eq => nameLower.includes(eq.toLowerCase()))) return false;
     return true;
   });

@@ -75,7 +75,7 @@ const BundleDeals: React.FC<BundleDealsProps> = ({ initialProducts }) => {
         </h2>
       </div>
 
-      {/* 2-col grid — matches Figma */}
+      {/* 2-col grid - matches Figma */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
@@ -113,7 +113,7 @@ const BundleDeals: React.FC<BundleDealsProps> = ({ initialProducts }) => {
                       <div className="text-center text-sm font-bold text-black">
                         ${product.currentPrice.toFixed(2)}
                         <span className="block text-xs text-gray-500 font-normal">
-                          — or subscribe to save up to 10%
+                          - or subscribe to save up to 10%
                         </span>
                       </div>
                       <h3 className="font-bold text-xs md:text-sm text-center mt-1">

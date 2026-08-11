@@ -19,7 +19,7 @@ const BrandPage = ({ brandId, brandName }: BrandPageProps) => {
 
     return (
         <main>
-            {/* Brand header — no hero, clean heading */}
+            {/* Brand header - no hero, clean heading */}
             <div className="w-11/12 mx-auto pt-8 pb-4">
                 <h1 className="font-unbounded font-bold text-2xl md:text-3xl uppercase">
                     {brandName} <span style={{ color: "#fe3500" }}>Vapes</span>

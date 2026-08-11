@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-// POST /api/subscriptions/manage — pause, resume, or cancel a subscription
+// POST /api/subscriptions/manage - pause, resume, or cancel a subscription
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -257,7 +257,7 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
           ACCOUNT
         </h1>
 
-        {/* Bonus balance — bigger, plain text + info icon */}
+        {/* Bonus balance - bigger, plain text + info icon */}
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 8, marginBottom: 20 }}>
           <span style={{ fontSize: 18, color: "#F5A623" }}>&#11088;</span>
           <span style={{ fontSize: 20, fontWeight: 800, color: "#111" }}>

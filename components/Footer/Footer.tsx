@@ -92,7 +92,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Black bottom section — policy links */}
+            {/* Black bottom section - policy links */}
             <div className="bg-black py-5 px-4 flex flex-col md:flex-row md:justify-center md:flex-wrap items-center gap-4 md:gap-8" style={{ paddingTop: '20px', paddingBottom: '20px', display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
                 {[
                     { label: "Privacy policy",        href: "/privacy-policy" },

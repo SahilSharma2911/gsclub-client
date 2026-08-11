@@ -1,10 +1,10 @@
 /**
- * Product page — server-prefetches product directly from Prisma for:
+ * Product page - server-prefetches product directly from Prisma for:
  *  1. Real SEO metadata (title/desc from DB, not slug-derived)
  *  2. JSON-LD schema (Product + BreadcrumbList for Google rich snippets)
  *  3. SSR H1 in initial HTML (passed as initialProduct to client component)
  *
- * Uses direct Prisma (via getProductFromDB) — NOT fetch() to avoid CF SG block:
+ * Uses direct Prisma (via getProductFromDB) - NOT fetch() to avoid CF SG block:
  * Vercel runs in Singapore (sin1); fetch() to https://getsmoke.com went through
  * Cloudflare which blocked Singapore IPs, causing all product pages to 404.
  */
@@ -205,7 +205,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductFromDB(productSlug);
 
   if (!product) {
-    // Product not found — noindex so Google doesn't crawl soft-404 pages
+    // Product not found - noindex so Google doesn't crawl soft-404 pages
     return {
       title: "Product Not Found | GetSmoke",
       description: "This product is no longer available.",
@@ -268,7 +268,7 @@ const page = async ({ params }: Props) => {
       />
       <ProductPage productSlug={productSlug} initialProduct={product} flavorProfile={flavorProfile} />
 
-      {/* SSR Flavor Profile — visible to AI crawlers and search engines */}
+      {/* SSR Flavor Profile - visible to AI crawlers and search engines */}
       {flavorProfile && (
         <section
           aria-label="Flavor profile"

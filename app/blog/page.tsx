@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const page = async () => {
   try {
-    // All images now served from R2 via MongoDB — no WP API calls
+    // All images now served from R2 via MongoDB - no WP API calls
     const articles = await prisma.blogArticle.findMany({
       include: { images: { take: 1, orderBy: { position: "asc" } } },
       orderBy: { createdAt: "desc" },

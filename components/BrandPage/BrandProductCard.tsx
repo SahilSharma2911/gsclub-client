@@ -36,7 +36,7 @@ const BrandProductCard = ({ product }: BrandProductCardProps) => {
               <span className="ml-1.5 text-xs text-gray-400 line-through font-normal">${product.originalPrice!.toFixed(2)}</span>
             )}
             <span className="block text-xs text-gray-500 font-normal">
-              — or subscribe to save up to 10%
+              - or subscribe to save up to 10%
             </span>
           </div>
           <h3 className="font-bold text-xs md:text-sm text-center mt-1 line-clamp-2 leading-4">

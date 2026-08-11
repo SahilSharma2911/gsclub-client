@@ -9,7 +9,7 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const page = async ({ searchParams }: { searchParams: Promise<{ callbackUrl?: string }> }) => {
   // next-auth v4 getServerSession is broken with Next.js 15 async cookies().
-  // getToken reads the JWT directly from cookies — works correctly.
+  // getToken reads the JWT directly from cookies - works correctly.
   const cookieStore = await cookies();
   const cookieObj = Object.fromEntries(
     cookieStore.getAll().map((c) => [c.name, c.value])

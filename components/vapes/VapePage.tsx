@@ -11,7 +11,7 @@ interface VapePageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     initialProducts?: any[];
     faqSlug?: string; // e.g. "/vapes" or "/bundles"
-    heading?: string; // SEO H1 — rendered server-side via prop
+    heading?: string; // SEO H1 - rendered server-side via prop
 }
 
 const VapePage = ({ productType = "VAPES", search, nameOnly, initialProducts, faqSlug = "/vapes", heading }: VapePageProps) => {

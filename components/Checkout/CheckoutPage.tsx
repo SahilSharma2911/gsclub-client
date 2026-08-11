@@ -63,7 +63,7 @@ const US_STATES = [
   "Virginia","Washington","West Virginia","Wisconsin","Wyoming",
 ];
 
-// States where online vape sales are prohibited — removed from dropdown
+// States where online vape sales are prohibited - removed from dropdown
 const RESTRICTED_STATES = new Set([
   "California","District of Columbia","Georgia","Maine","Massachusetts",
   "Nebraska","New York","Oregon","South Dakota","Utah","Vermont",
@@ -76,7 +76,7 @@ const CheckoutPage = () => {
   const { data: session, status } = useSession();
   const { items } = useCart();
 
-  // Available states — remove all restricted states from dropdown
+  // Available states - remove all restricted states from dropdown
   const availableStates = US_STATES.filter(state => !RESTRICTED_STATES.has(state));
 
   // Stale closure refs

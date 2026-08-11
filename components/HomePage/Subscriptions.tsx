@@ -15,8 +15,8 @@ const Subscriptions = () => {
                 <div className="flex flex-col gap-4">
                     {[
                         { num: "01", text: "Do your things, without wasting your time. Subscribe and choose your vapes with your own delivery schedule." },
-                        { num: "02", text: "No need to waste time going to store — we deliver a box with vapes monthly. You can change flavours at any time." },
-                        { num: "03", text: "No chance to accidentally buy a fake — we deliver vapes straight from the producer. 100% quality guarantee." },
+                        { num: "02", text: "No need to waste time going to store - we deliver a box with vapes monthly. You can change flavours at any time." },
+                        { num: "03", text: "No chance to accidentally buy a fake - we deliver vapes straight from the producer. 100% quality guarantee." },
                     ].map(({ num, text }) => (
                         <div key={num} className="bg-white text-black rounded-2xl p-4 flex gap-4 items-start">
                             <span className="font-unbounded font-black text-xl text-gray-800 min-w-[2rem]">{num}</span>
