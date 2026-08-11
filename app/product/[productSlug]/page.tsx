@@ -13,6 +13,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Product } from "@/types/product";
 import { getProductFromDB } from "@/lib/getProductFromDB";
+import { getFlavorProfile, generateFlavorFAQs } from "@/lib/flavorProfiles";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -142,7 +143,7 @@ function buildBreadcrumbSchema(product: Product, slug: string) {
   };
 }
 
-// Build FAQPage JSON-LD schema from product attributes
+// Build FAQPage JSON-LD schema from product attributes + flavor profile
 function buildFAQSchema(product: Product) {
   const brandName = product.brand?.name ?? "this brand";
   const puffCount = product.puffs?.[0]?.name;
@@ -150,7 +151,7 @@ function buildFAQSchema(product: Product) {
   const price = `$${product.currentPrice.toFixed(2)}`;
   const inStock = product.stockStatus !== "OUTOFSTOCK";
 
-  const questions = [
+  const baseQuestions = [
     {
       q: `How much does ${product.name} cost?`,
       a: `${product.name} costs ${price} at GetSmoke with free shipping on orders over $89.`,
@@ -179,10 +180,18 @@ function buildFAQSchema(product: Product) {
     },
   ];
 
+  // Add flavor-specific FAQs when profile exists
+  const flavorProfile = getFlavorProfile(product.name);
+  const flavorFAQs = flavorProfile
+    ? generateFlavorFAQs(product.name, brandName, flavorProfile)
+    : [];
+
+  const allQuestions = [...flavorFAQs, ...baseQuestions];
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: questions.map(({ q, a }) => ({
+    mainEntity: allQuestions.map(({ q, a }) => ({
       "@type": "Question",
       name: q,
       acceptedAnswer: { "@type": "Answer", text: a },
@@ -234,6 +243,9 @@ const page = async ({ params }: Props) => {
     notFound();
   }
 
+  const flavorProfile = getFlavorProfile(product.name);
+  const brandName = product.brand?.name ?? "";
+
   return (
     <>
       <script
@@ -255,6 +267,77 @@ const page = async ({ params }: Props) => {
         }}
       />
       <ProductPage productSlug={productSlug} initialProduct={product} />
+
+      {/* SSR Flavor Profile — visible to AI crawlers and search engines */}
+      {flavorProfile && (
+        <section
+          aria-label="Flavor profile"
+          style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 16px" }}
+        >
+          <h2 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "12px" }}>
+            {product.name} - Flavor Profile
+          </h2>
+          <p style={{ lineHeight: 1.7, color: "#333", marginBottom: "20px" }}>
+            {flavorProfile.taste}
+          </p>
+
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "20px" }}>
+            {flavorProfile.notes.map((note) => (
+              <span
+                key={note}
+                style={{
+                  background: "#f3f4f6",
+                  borderRadius: "99px",
+                  padding: "4px 14px",
+                  fontSize: "0.9rem",
+                  fontWeight: 500,
+                }}
+              >
+                {note}
+              </span>
+            ))}
+          </div>
+
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "8px" }}>
+            Who Is This For?
+          </h3>
+          <p style={{ lineHeight: 1.7, color: "#444", marginBottom: "16px" }}>
+            {flavorProfile.bestFor}
+          </p>
+
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "8px" }}>
+            Best Enjoyed When
+          </h3>
+          <p style={{ lineHeight: 1.7, color: "#444", marginBottom: "16px" }}>
+            {flavorProfile.mood}
+          </p>
+
+          {flavorProfile.similar.length > 0 && (
+            <>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "8px" }}>
+                Similar Flavors at GetSmoke
+              </h3>
+              <p style={{ lineHeight: 1.7, color: "#444" }}>
+                If you enjoy {product.name}, explore other flavors at{" "}
+                <a href="/vapes" style={{ color: "#1d4ed8" }}>GetSmoke.com</a>:{" "}
+                {flavorProfile.similar.join(", ")}.{" "}
+                Free shipping on orders over $89. Adults 21+ only.
+              </p>
+            </>
+          )}
+
+          {/* FAQ section for AI citations */}
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginTop: "32px", marginBottom: "16px" }}>
+            Frequently Asked Questions - {product.name}
+          </h2>
+          {generateFlavorFAQs(product.name, brandName, flavorProfile).map(({ q, a }) => (
+            <div key={q} style={{ marginBottom: "20px" }}>
+              <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: "6px" }}>{q}</h3>
+              <p style={{ lineHeight: 1.7, color: "#444" }}>{a}</p>
+            </div>
+          ))}
+        </section>
+      )}
     </>
   );
 };
