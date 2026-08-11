@@ -65,9 +65,9 @@ export default function Page() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
         {[
           { icon: "⚡", title: "1-3 Day Delivery", sub: "to Atlanta metro" },
-          { icon: "🚚", title: "Free Shipping", sub: "orders $89+" },
+          { icon: "", title: "Free Shipping", sub: "orders $89+" },
           { icon: "✅", title: "All Flavors Legal", sub: "No GA flavor ban" },
-          { icon: "🔒", title: "21+ Verified", sub: "Adult signature req." },
+          { icon: "", title: "21+ Verified", sub: "Adult signature req." },
         ].map((b) => (
           <div key={b.title} className="bg-gray-50 rounded-xl p-3 text-center">
             <div className="text-xl mb-1">{b.icon}</div>

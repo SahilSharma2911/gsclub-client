@@ -72,12 +72,12 @@ const speakableSchema = {
 };
 
 const WHY_US = [
-  { icon: "📦", title: "700+ Products", body: "Widest selection of disposable vapes, pods, hookah, and e-liquids from all major US brands in one place." },
-  { icon: "🚀", title: "Fast Shipping", body: "Most orders ship same or next business day. Delivery in 3-7 business days to most US locations." },
-  { icon: "💸", title: "Free Shipping $89+", body: "Orders over $89 ship free. Flat rate $7.69 on smaller orders. No surprise fees at checkout." },
-  { icon: "✅", title: "PACT Act Compliant", body: "Licensed US tobacco retailer. Registered with ATF, state tax authorities. Full legal compliance." },
-  { icon: "🔒", title: "Secure Checkout", body: "SSL-encrypted checkout. We accept Visa, Mastercard, Amex, and Discover. No stored card data." },
-  { icon: "🔞", title: "21+ Verified", body: "Age verified at checkout and at delivery via carrier adult-signature requirement." },
+  { icon: "", title: "700+ Products", body: "Widest selection of disposable vapes, pods, hookah, and e-liquids from all major US brands in one place." },
+  { icon: "", title: "Fast Shipping", body: "Most orders ship same or next business day. Delivery in 3-7 business days to most US locations." },
+  { icon: "", title: "Free Shipping $89+", body: "Orders over $89 ship free. Flat rate $7.69 on smaller orders. No surprise fees at checkout." },
+  { icon: "", title: "PACT Act Compliant", body: "Licensed US tobacco retailer. Registered with ATF, state tax authorities. Full legal compliance." },
+  { icon: "", title: "Secure Checkout", body: "SSL-encrypted checkout. We accept Visa, Mastercard, Amex, and Discover. No stored card data." },
+  { icon: "", title: "21+ Verified", body: "Age verified at checkout and at delivery via carrier adult-signature requirement." },
 ];
 
 const TOP_CATEGORIES = [

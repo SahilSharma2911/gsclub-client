@@ -112,37 +112,37 @@ const breadcrumbSchema = {
 const VAPE_PARTS = [
   {
     name: "Battery",
-    icon: "🔋",
+    
     description:
       "The battery is the power source of the vape. Disposable vapes use lithium-ion batteries ranging from 400mAh (small devices) to 1000mAh+ (high-puff-count models). Rechargeable disposables include a USB-C port so you can recharge the battery when it dies before the e-liquid runs out.",
   },
   {
     name: "Coil (Atomizer)",
-    icon: "🌀",
+    
     description:
       "The coil is a resistive heating element that converts e-liquid into vapor. Modern disposables use mesh coils, which are flat metal sheets with tiny holes that offer more even heating and better flavor than traditional wire coils. The coil is surrounded by a wicking material (usually cotton) that draws e-liquid from the reservoir.",
   },
   {
     name: "E-Liquid Pod / Reservoir",
-    icon: "💧",
+    
     description:
       "The e-liquid pod holds the nicotine salt vape juice. In fully disposable vapes, this is sealed at the factory and cannot be refilled. In refillable pod systems (like RAZ DC25000), the pod is a replaceable cartridge. E-liquid capacity ranges from 2mL (small disposables) to 20mL+ (high-capacity models).",
   },
   {
     name: "Mouthpiece",
-    icon: "👄",
+    
     description:
       "The mouthpiece is the part you place to your lips. It channels the vapor from inside the device into your mouth. Mouthpiece shape affects the draw experience - narrow mouthpieces give a tighter, cigarette-like draw (mouth-to-lung), while wider ones allow more airflow. Most disposables ship with a small silicone cap on the mouthpiece to keep it clean.",
   },
   {
     name: "Airflow Sensor",
-    icon: "💨",
+    
     description:
       "The airflow sensor detects when you inhale and activates the battery and coil. There are no buttons on most disposables - the sensor does all the work. Some premium devices include an adjustable airflow valve so you can control how tight or loose the draw feels.",
   },
   {
     name: "LED Indicator",
-    icon: "💡",
+    
     description:
       "The LED light at the base of the device shows device status. It glows during each puff to confirm the device is working. It flashes to signal low battery or empty e-liquid. Some advanced devices like the Geek Bar Pulse X use a full rotating display that shows exact battery percentage and e-liquid level.",
   },
@@ -192,7 +192,9 @@ export default function PartsOfAVapePage() {
         <div className="space-y-5">
           {VAPE_PARTS.map((part, i) => (
             <div key={i} className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-              <div className="text-3xl flex-shrink-0">{part.icon}</div>
+              <div className="flex-shrink-0 w-7 h-7 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center">
+                {i + 1}
+              </div>
               <div>
                 <h3 className="font-bold text-sm mb-1">{part.name}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{part.description}</p>

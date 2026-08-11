@@ -109,10 +109,10 @@ export default function Page() {
       {/* Trust badges */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 text-center">
         {[
-          { icon: "🚚", title: "Free Shipping", sub: "Orders $89+" },
+          { icon: "", title: "Free Shipping", sub: "Orders $89+" },
           { icon: "⚡", title: "Fast Delivery", sub: "2-4 days to TN" },
           { icon: "✅", title: "500+ Flavors", sub: "Top brands in stock" },
-          { icon: "🔒", title: "Age Verified", sub: "21+ only, ID required" },
+          { icon: "", title: "Age Verified", sub: "21+ only, ID required" },
         ].map((b) => (
           <div key={b.title} className="bg-gray-50 rounded-xl p-4">
             <div className="text-2xl mb-1">{b.icon}</div>

@@ -97,10 +97,10 @@ export default function VapeShopWisconsinPage() {
       <section className="border-b border-gray-100 py-5 px-4">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-xs md:text-sm">
           {[
-            { icon: "🚚", text: "Free shipping $89+" },
+            { icon: "", text: "Free shipping $89+" },
             { icon: "✅", text: "Adults 21+ only" },
-            { icon: "📦", text: "2-4 day delivery" },
-            { icon: "🔒", text: "Secure checkout" },
+            { icon: "", text: "2-4 day delivery" },
+            { icon: "", text: "Secure checkout" },
           ].map((b) => (
             <div key={b.text} className="flex flex-col items-center gap-1">
               <span className="text-2xl">{b.icon}</span>

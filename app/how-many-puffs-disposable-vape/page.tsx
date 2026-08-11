@@ -124,9 +124,9 @@ export default function HowManyPuffsPage() {
       <h2 className="font-bold text-xl mb-4">What Affects How Many Puffs You Get?</h2>
       <div className="space-y-3 text-sm text-gray-700 mb-10">
         <div className="flex gap-3 items-start"><span className="text-lg">⏱</span><div><strong>Puff duration</strong> - Short 1-second puffs use less e-liquid than long 3-4 second draws. Longer puffs can reduce actual puff count by 30-40%.</div></div>
-        <div className="flex gap-3 items-start"><span className="text-lg">🌡</span><div><strong>Temperature and storage</strong> - Heat degrades e-liquid faster. Store vapes at room temperature, away from direct sunlight.</div></div>
-        <div className="flex gap-3 items-start"><span className="text-lg">🔋</span><div><strong>Battery vs liquid</strong> - Modern rechargeable disposables ensure battery and liquid run out together. Older non-rechargeable models sometimes die of battery before liquid runs out.</div></div>
-        <div className="flex gap-3 items-start"><span className="text-lg">💨</span><div><strong>Airflow setting</strong> - Devices with adjustable airflow on higher settings deliver more vapor per puff but use more e-liquid.</div></div>
+        <div className="flex gap-3 items-start"><span className="text-lg"></span><div><strong>Temperature and storage</strong> - Heat degrades e-liquid faster. Store vapes at room temperature, away from direct sunlight.</div></div>
+        <div className="flex gap-3 items-start"><span className="text-lg"></span><div><strong>Battery vs liquid</strong> - Modern rechargeable disposables ensure battery and liquid run out together. Older non-rechargeable models sometimes die of battery before liquid runs out.</div></div>
+        <div className="flex gap-3 items-start"><span className="text-lg"></span><div><strong>Airflow setting</strong> - Devices with adjustable airflow on higher settings deliver more vapor per puff but use more e-liquid.</div></div>
       </div>
 
       <h2 className="font-bold text-xl mb-6">Frequently Asked Questions</h2>
