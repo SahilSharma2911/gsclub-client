@@ -241,25 +241,101 @@ export const FLAVOR_PROFILES: Record<string, FlavorProfile> = {
   },
 };
 
+// ── Keyword ingredient map ──────────────────────────────────────────────
+// Used to auto-generate profiles for flavors not in the static map.
+const INGREDIENT_NOTES: Record<string, string> = {
+  banana: "Banana", coconut: "Coconut", cherry: "Cherry", apple: "Apple",
+  grape: "Grape", peach: "Peach", mango: "Mango", lemon: "Lemon",
+  lime: "Lime", orange: "Orange", pineapple: "Pineapple", strawberry: "Strawberry",
+  watermelon: "Watermelon", melon: "Melon", kiwi: "Kiwi", guava: "Guava",
+  passion: "Passion Fruit", lychee: "Lychee", dragon: "Dragon Fruit",
+  raspberry: "Raspberry", blueberry: "Blueberry", blackberry: "Blackberry",
+  cranberry: "Cranberry", berry: "Mixed Berry", mint: "Mint", menthol: "Menthol",
+  ice: "Ice Cool", frozen: "Frozen Ice", arctic: "Arctic Cool", cool: "Cool",
+  cola: "Cola", soda: "Soda", energy: "Energy Drink", bull: "Energy Drink",
+  chocolate: "Chocolate", caramel: "Caramel", vanilla: "Vanilla",
+  coffee: "Coffee", tobacco: "Tobacco", candy: "Candy", gummy: "Gummy",
+  sour: "Sour Tart", tart: "Tart", sweet: "Sweet", tropical: "Tropical",
+  citrus: "Citrus", cream: "Cream", custard: "Custard", cake: "Cake",
+  punch: "Fruit Punch", gush: "Bursting Fruit", slush: "Slushy Fruit",
+  fab: "Tutti Frutti", clear: "Clean Neutral",
+};
+
+const COOLING_KEYWORDS = new Set(["ice", "frozen", "arctic", "cool", "mint", "menthol", "freeze", "chill", "polar"]);
+const SWEET_KEYWORDS = new Set(["candy", "gummy", "cake", "custard", "caramel", "vanilla", "shortcake", "cotton", "taffy"]);
+const TROPICAL_KEYWORDS = new Set(["mango", "pineapple", "coconut", "passion", "guava", "lychee", "tropical", "dragon"]);
+
+/**
+ * Auto-generates a flavor profile for any flavor name using keyword analysis.
+ * Used as fallback when no static profile exists.
+ */
+function generateGenericProfile(productName: string): FlavorProfile {
+  const lower = productName.toLowerCase();
+  const words = lower.replace(/[^a-z\s]/g, " ").split(/\s+/);
+
+  // Collect matching notes
+  const notes: string[] = [];
+  for (const word of words) {
+    if (INGREDIENT_NOTES[word]) notes.push(INGREDIENT_NOTES[word]);
+  }
+  // Deduplicate, keep first 4
+  const uniqueNotes = [...new Set(notes)].slice(0, 4);
+  if (uniqueNotes.length === 0) uniqueNotes.push("Unique Blend", "Sweet", "Smooth");
+
+  const isCool = words.some((w) => COOLING_KEYWORDS.has(w));
+  const isSweet = words.some((w) => SWEET_KEYWORDS.has(w));
+  const isTropical = words.some((w) => TROPICAL_KEYWORDS.has(w));
+  const isSour = lower.includes("sour") || lower.includes("tart");
+
+  // Build taste description
+  const fruitNotes = uniqueNotes.filter((n) => !["Ice Cool","Frozen Ice","Arctic Cool","Cool","Mint","Menthol"].includes(n));
+  const coolNote = isCool ? " finished with a refreshing cool exhale" : "";
+  const sourNote = isSour ? ", with a pleasantly tart edge" : "";
+
+  const taste =
+    fruitNotes.length >= 2
+      ? `${fruitNotes.slice(0, 2).join(" and ")} combine into a smooth, satisfying vape experience${sourNote}${coolNote}. Well-balanced and consistent from first puff to last.`
+      : fruitNotes.length === 1
+      ? `${fruitNotes[0]} flavor done right - authentic, not artificial${sourNote}${coolNote}. Clean and satisfying throughout.`
+      : `A unique, well-crafted blend${isCool ? " with a refreshing cool finish" : ""}. Smooth and enjoyable from start to finish.`;
+
+  const bestFor = isTropical
+    ? "Vapers who love tropical and exotic fruit flavors. Great for warm weather and outdoor use."
+    : isSweet
+    ? "Those who enjoy sweet, dessert-style flavors. A treat vape rather than an all-day vape for most."
+    : isCool
+    ? "Menthol fans and ex-menthol cigarette smokers. Refreshing and clean."
+    : "Vapers looking for a distinctive, enjoyable flavor experience. Suitable for all levels.";
+
+  const mood = isCool
+    ? "Refreshing at any time of day. Great after meals or during warm weather."
+    : isSweet
+    ? "Evening relaxation or as a treat. Works well for occasional use."
+    : "Versatile all-day vape. Works in any situation.";
+
+  return { taste, notes: uniqueNotes, bestFor, mood, similar: [] };
+}
+
 /**
  * Find the best matching flavor profile for a product name.
- * Returns null if no profile matches.
+ * Falls back to auto-generated profile if no static match found.
  */
 export function getFlavorProfile(productName: string): FlavorProfile | null {
   const lower = productName.toLowerCase();
 
-  // Exact/contains match (longest match wins)
+  // Static map: longest key match wins
   let bestKey = "";
   let bestScore = 0;
-
   for (const key of Object.keys(FLAVOR_PROFILES)) {
     if (lower.includes(key) && key.length > bestScore) {
       bestKey = key;
       bestScore = key.length;
     }
   }
+  if (bestScore > 0) return FLAVOR_PROFILES[bestKey];
 
-  return bestScore > 0 ? FLAVOR_PROFILES[bestKey] : null;
+  // Fallback: auto-generate from keywords — always returns a profile
+  return generateGenericProfile(productName);
 }
 
 /**
