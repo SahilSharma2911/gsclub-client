@@ -266,7 +266,7 @@ const page = async ({ params }: Props) => {
           __html: JSON.stringify(buildFAQSchema(product)),
         }}
       />
-      <ProductPage productSlug={productSlug} initialProduct={product} />
+      <ProductPage productSlug={productSlug} initialProduct={product} flavorProfile={flavorProfile} />
 
       {/* SSR Flavor Profile — visible to AI crawlers and search engines */}
       {flavorProfile && (

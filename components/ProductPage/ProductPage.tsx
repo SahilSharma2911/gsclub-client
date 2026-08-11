@@ -32,9 +32,10 @@ import Modal from "../ui/modal";
 interface SingleProductProps {
     productSlug: string;
     initialProduct?: Product;
+    flavorProfile?: import("@/lib/flavorProfiles").FlavorProfile | null;
 }
 
-const ProductPage = ({ productSlug, initialProduct }: SingleProductProps) => {
+const ProductPage = ({ productSlug, initialProduct, flavorProfile }: SingleProductProps) => {
     // If server prefetched product — use it directly, skip loading skeleton
     const { data: product, isLoading, error } = useProduct(productSlug, initialProduct);
     const resolvedProduct = product ?? initialProduct;
@@ -467,6 +468,31 @@ const ProductPage = ({ productSlug, initialProduct }: SingleProductProps) => {
                                 </div>
                             </div>
                         )}
+                    </div>
+                </section>
+            )}
+
+            {/* Flavor Profile Section — enriches product pages for AI citations */}
+            {flavorProfile && (
+                <section className="w-11/12 mx-auto my-6 bg-gray-50 rounded-2xl p-5">
+                    <h2 className="text-lg font-bold mb-3 text-gray-900">Flavor Profile</h2>
+                    <p className="text-sm text-gray-700 leading-relaxed mb-4">{flavorProfile.taste}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {flavorProfile.notes.map((note) => (
+                            <span key={note} className="bg-white border border-gray-200 rounded-full px-3 py-1 text-xs font-medium text-gray-700">
+                                {note}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="grid grid-cols-1 gap-3 text-sm">
+                        <div>
+                            <p className="font-semibold text-gray-800 mb-1">Best for</p>
+                            <p className="text-gray-600 leading-relaxed">{flavorProfile.bestFor}</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold text-gray-800 mb-1">Best enjoyed</p>
+                            <p className="text-gray-600 leading-relaxed">{flavorProfile.mood}</p>
+                        </div>
                     </div>
                 </section>
             )}
