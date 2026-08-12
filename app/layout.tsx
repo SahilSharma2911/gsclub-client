@@ -16,7 +16,8 @@ import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import { getSEOData } from "@/lib/seo";
 
 const SITE_URL = "https://getsmoke.com";
-const GTM_ID = "GTM-TLGTR33M"; // TODO: replace with GetSmoke GTM container ID when created
+const GTM_ID = "GTM-TLGTR33M";
+const GA4_ID = "G-VP2W0Z2LGE"; // Correct GA4 Measurement ID for property 445742060
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -166,6 +167,19 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
+        {/* GA4 Direct - GTM container sends to wrong property (G-J4RRNLFRL4), this ensures correct tracking */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA4_ID}', { send_page_view: true });
+            `,
+          }}
+        />
+        {/* End GA4 Direct */}
         {/* Yandex Metrika - deferred after page is interactive */}
         <Script
           id="yandex-metrika"
