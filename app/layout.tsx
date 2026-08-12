@@ -167,24 +167,6 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
-        {/* GA4 Direct - GTM container sends to wrong property (G-J4RRNLFRL4), this ensures correct tracking */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script
-          id="ga4-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA4_ID}', { send_page_view: true });
-            `,
-          }}
-        />
-        {/* End GA4 Direct */}
         {/* Yandex Metrika - deferred after page is interactive */}
         <Script
           id="yandex-metrika"
@@ -246,6 +228,24 @@ export default function RootLayout({
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        {/* GA4 Direct - placed in body per Next.js Script requirements */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga4-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA4_ID}', { send_page_view: true });
+            `,
+          }}
+        />
+        {/* End GA4 Direct */}
         {/* Yandex Metrika (noscript) */}
         <noscript>
           <div>
