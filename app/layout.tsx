@@ -168,8 +168,13 @@ export default function RootLayout({
         />
         {/* End Google Tag Manager */}
         {/* GA4 Direct - GTM container sends to wrong property (G-J4RRNLFRL4), this ensures correct tracking */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
-        <script
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga4-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
