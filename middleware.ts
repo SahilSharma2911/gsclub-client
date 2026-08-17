@@ -115,10 +115,7 @@ export function middleware(req: NextRequest) {
     return new NextResponse(null, { status: 403 });
   }
 
-  // Page-level rate limiting: max 60 page requests/min per IP
-  if (isPageRequest && !pageLimitAllowed(ip)) {
-    return tooManyResponse(120);
-  }
+  // Page-level rate limiting disabled — CF cache handles bot traffic at edge
 
   // 1. Checkout: 3 attempts/min, ban 5 min
   if (path === "/api/checkout" && method === "POST") {
