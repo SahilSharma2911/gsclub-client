@@ -95,11 +95,22 @@ const Login = () => {
       });
 
       if (loginResponse?.error) {
-        // Show migration modal only for migration errors, not wrong password
-        if (loginResponse.error === "MIGRATION_REQUIRED") {
-          setLastEmail(formData.email);
-          setShowMigrationModal(true);
-          return;
+        // NextAuth v4 doesn't pass custom errors from authorize().
+        // Check if this email exists in DB - if yes, show migration modal.
+        try {
+          const check = await fetch("/api/auth/check-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: formData.email }),
+          });
+          const { exists } = await check.json();
+          if (exists) {
+            setLastEmail(formData.email);
+            setShowMigrationModal(true);
+            return;
+          }
+        } catch {
+          // fallthrough to generic error
         }
         toast.error("Invalid email or password. Please try again.");
         return;

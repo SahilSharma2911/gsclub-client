@@ -94,9 +94,8 @@ export const authOptions: AuthOptions = {
         console.log("Password match:", isCorrect);
 
         if (!isCorrect) {
-          console.error("Incorrect password for existing user - likely WP migration");
-          // User exists but password doesn't match - show migration modal on frontend
-          throw new Error("MIGRATION_REQUIRED");
+          console.error("Incorrect password");
+          return null;
         }
 
         return convertToNextAuthUser(user);
