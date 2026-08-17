@@ -60,6 +60,7 @@ const nextConfig: NextConfig = {
       { source: '/supplements', destination: '/vapes', permanent: true },
       { source: '/supplements/:path*', destination: '/vapes', permanent: true },
       // SMOK brand discontinued - redirect to homepage
+      { source: '/models/geek-bar-skyview-30000-puffs', destination: '/brands/geek-bar', permanent: true },
       { source: '/brands/smok', destination: '/', permanent: true },
       { source: '/brands/smok/:path*', destination: '/', permanent: true },
       // BC5000 EB Design — discontinued model, redirect to EBCREATE brand page
