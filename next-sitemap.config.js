@@ -89,6 +89,7 @@ module.exports = {
       { loc: "/models/fume-nb-super-k-20000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-pro-30000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/fume-recharge-zero-5000-puffs", priority: 0.8, changefreq: "weekly" },
+      { loc: "/models/geek-bar-skyview-30000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/geek-bar-meloso-30000-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/geek-bar-meloso-mini-1500-puffs", priority: 0.8, changefreq: "weekly" },
       { loc: "/models/geek-bar-pulse-x-25000-puffs", priority: 0.8, changefreq: "weekly" },
