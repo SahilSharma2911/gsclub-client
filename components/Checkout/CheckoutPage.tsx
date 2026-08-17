@@ -123,7 +123,7 @@ const CheckoutPage = () => {
   // Insurance
   const [useInsurance, setUseInsurance] = useState(true);
   const useInsuranceRef = useRef(true);
-  const [applyFreeShipping, setApplyFreeShipping] = useState(false); // user opt-in for free shipping (orders >= $89)
+  // Free shipping is AUTOMATIC when subtotal >= $89 - no opt-in needed
 
   // Payment form fields
   const [nameOnCard, setNameOnCard] = useState("");
@@ -199,9 +199,9 @@ const CheckoutPage = () => {
     return sum + price * item.quantity;
   }, 0);
   const discount = originalTotal > subtotal ? originalTotal - subtotal : 0;
-  const eligibleForFreeShipping = subtotal >= FREE_THRESHOLD; // order qualifies, but user must opt in
-  const isFreeShipping = eligibleForFreeShipping && applyFreeShipping; // true only when user checks the box
-  const shippingCost = isFreeShipping ? 0 : FLAT_RATE; // always $7.69 unless user opted in
+  const eligibleForFreeShipping = subtotal >= FREE_THRESHOLD;
+  const isFreeShipping = eligibleForFreeShipping; // AUTOMATIC - no checkbox needed
+  const shippingCost = isFreeShipping ? 0 : FLAT_RATE;
   const insuranceCost = useInsurance ? INSURANCE_FEE : 0;
   const total = subtotal + shippingCost + insuranceCost;
 
@@ -498,18 +498,14 @@ const CheckoutPage = () => {
                   </div>
                 );
               })}
-              {/* Free shipping opt-in for qualifying orders */}
-              {eligibleForFreeShipping && (
-                <div
-                  onClick={() => setApplyFreeShipping(v => !v)}
-                  style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", padding: "10px 12px", borderRadius: 10, marginBottom: 8, background: applyFreeShipping ? "#f0fdf4" : "#f9fafb", border: `1.5px solid ${applyFreeShipping ? "#86efac" : "#e5e7eb"}`, transition: "all 0.2s" }}>
-                  <div style={{ width: 20, height: 20, borderRadius: 5, border: `2px solid ${applyFreeShipping ? "#16a34a" : "#9ca3af"}`, background: applyFreeShipping ? "#16a34a" : "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.2s" }}>
-                    {applyFreeShipping && <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+              {/* Free shipping - automatic for qualifying orders */}
+              {isFreeShipping && (
+                <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 10, marginBottom: 8, background: "#f0fdf4", border: "1.5px solid #86efac" }}>
+                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
                   <div>
-                    <p style={{ fontSize: 13, fontWeight: 600, color: applyFreeShipping ? "#16a34a" : "#374151", margin: 0 }}>
-                      {applyFreeShipping ? "Free shipping applied - save $7.69!" : "Apply free shipping (orders over $89)"}
-                    </p>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: "#16a34a", margin: 0 }}>Free shipping applied - save $7.69!</p>
                     <p style={{ fontSize: 11, color: "#9ca3af", margin: 0 }}>Your order qualifies for free shipping</p>
                   </div>
                 </div>
@@ -666,15 +662,13 @@ const CheckoutPage = () => {
                     })}
                   </div>
 
-                  {/* Free shipping toggle - mobile */}
-                  {eligibleForFreeShipping && (
-                    <div onClick={() => setApplyFreeShipping(v => !v)} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", padding: "10px 12px", borderRadius: 10, marginBottom: 8, background: applyFreeShipping ? "#f0fdf4" : "#f9fafb", border: `1.5px solid ${applyFreeShipping ? "#86efac" : "#e5e7eb"}` }}>
-                      <div style={{ width: 20, height: 20, borderRadius: 5, border: `2px solid ${applyFreeShipping ? "#16a34a" : "#9ca3af"}`, background: applyFreeShipping ? "#16a34a" : "#fff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        {applyFreeShipping && <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  {/* Free shipping - automatic, mobile */}
+                  {isFreeShipping && (
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 10, marginBottom: 8, background: "#f0fdf4", border: "1.5px solid #86efac" }}>
+                      <div style={{ width: 20, height: 20, borderRadius: 5, background: "#16a34a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </div>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: applyFreeShipping ? "#16a34a" : "#374151", margin: 0 }}>
-                        {applyFreeShipping ? "Free shipping applied!" : "Apply free shipping (orders over $89)"}
-                      </p>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "#16a34a", margin: 0 }}>Free shipping applied!</p>
                     </div>
                   )}
                   <OrderTotals subtotal={subtotal} discount={discount} shippingCost={shippingCost}
