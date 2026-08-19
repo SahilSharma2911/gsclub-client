@@ -172,7 +172,7 @@ const Signup = () => {
                             />
                             <label htmlFor="agreeToTerms" className="text-sm text-[#666666]">
                                 I agree to the{" "}
-                                <a href="/terms" className="text-black underline">
+                                <a href="/terms-and-conditions" className="text-black underline">
                                     Terms & Conditions
                                 </a>
                             </label>
