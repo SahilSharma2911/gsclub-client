@@ -42,6 +42,7 @@ module.exports = {
     // Add your static pages here
     const staticPages = [
       { loc: "/", priority: 1.0, changefreq: "daily" },
+      { loc: "/where-to-buy-disposable-vapes-online", priority: 0.9, changefreq: "monthly" },
       { loc: "/about", priority: 0.8, changefreq: "monthly" },
       { loc: "/contact", priority: 0.8, changefreq: "monthly" },
       { loc: "/privacy-policy", priority: 0.5, changefreq: "yearly" },

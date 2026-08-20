@@ -120,13 +120,22 @@ export default function RootLayout({
           "url": "https://getsmoke.com",
           "logo": "https://getsmoke.com/icon-192.png",
           "email": "info@getsmoke.com",
+          "telephone": "+17863680100",
           "legalName": "COSMOPROJECT LLC",
-          "foundingLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressCountry": "US", "addressRegion": "FL" } },
+          "foundingDate": "2021",
+          "description": "GetSmoke is a licensed US online retailer of nicotine disposable vapes. We carry Geek Bar, RAZ, Fifty Bar, FUME, HQD, Foger, Lost Mary and more. Adults 21+ only. Fast shipping across all 50 states.",
+          "address": { "@type": "PostalAddress", "addressLocality": "Miami", "addressRegion": "FL", "addressCountry": "US" },
           "areaServed": { "@type": "Country", "name": "United States" },
-          "contactPoint": { "@type": "ContactPoint", "email": "info@getsmoke.com", "contactType": "customer support", "areaServed": "US" },
-          "sameAs": [
-            "https://www.instagram.com/getsmoke.shop/"
-          ]
+          "contactPoint": { "@type": "ContactPoint", "telephone": "+17863680100", "email": "info@getsmoke.com", "contactType": "customer support", "areaServed": "US", "availableLanguage": "English" },
+          "hasOfferCatalog": { "@type": "OfferCatalog", "name": "Disposable Vapes", "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Geek Bar Disposable Vapes", "brand": { "@type": "Brand", "name": "Geek Bar" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "RAZ Disposable Vapes", "brand": { "@type": "Brand", "name": "RAZ" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "FUME Disposable Vapes", "brand": { "@type": "Brand", "name": "FUME" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "HQD Disposable Vapes", "brand": { "@type": "Brand", "name": "HQD" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Fifty Bar Disposable Vapes", "brand": { "@type": "Brand", "name": "Fifty Bar" } } },
+            { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Foger Disposable Vapes", "brand": { "@type": "Brand", "name": "Foger" } } }
+          ]},
+          "sameAs": ["https://www.instagram.com/getsmoke.shop/"]
         })}} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
