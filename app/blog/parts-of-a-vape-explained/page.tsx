@@ -182,6 +182,15 @@ export default function PartsOfAVapePage() {
         Parts of a Vape Explained - Complete Beginner Guide 2026
       </h1>
 
+      {/* Author + Date */}
+      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+        <time dateTime="2026-08-11">Published: 08/11/2026</time>
+        <span className="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          By Angel Rose
+        </span>
+      </div>
+
       <p className="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
         If you are new to vaping, understanding how a vape works makes it easier to choose the right device, use it correctly, and avoid common issues like coughing or weak vapor. This guide breaks down every part of a disposable vape, explains how they work together, covers popular brands like Geek Bar, and gives practical tips for beginners.
       </p>

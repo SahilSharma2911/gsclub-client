@@ -149,6 +149,15 @@ export default function RazVapeGuidePage() {
         RAZ Vape Complete Guide 2026 - Instructions, Charging and Flavors
       </h1>
 
+      {/* Author + Date */}
+      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+        <time dateTime="2026-08-11">Published: 08/11/2026</time>
+        <span className="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          By Angel Rose
+        </span>
+      </div>
+
       <p className="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
         RAZ vapes have become one of the most searched disposable vape brands in the US. Whether you just picked up your first RAZ device or you are comparing models before buying, this guide covers everything: what RAZ vapes are, how to use them, how to charge them, which models are available, and where to buy them. All information is current for 2026.
       </p>

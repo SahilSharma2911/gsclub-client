@@ -190,6 +190,15 @@ export default function HqdGoFlavorsReviewPage() {
         HQD GO Flavors Review 2026 - Black Ice, Miami Breeze, Razz Quake and More
       </h1>
 
+      {/* Author + Date */}
+      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+        <time dateTime="2026-08-11">Published: 08/11/2026</time>
+        <span className="flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          By Angel Rose
+        </span>
+      </div>
+
       <p className="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
         The HQD GO is a popular compact disposable vape available at GetSmoke in over a dozen flavors. This review covers the three most searched HQD GO flavors in detail - Black Ice, Miami Breeze, and Razz Quake - plus a full flavor list, specs, and a comparison with the HQD Cuvie. All flavors were reviewed on the standard HQD GO device using a mesh coil with 5% nicotine salt e-liquid.
       </p>
