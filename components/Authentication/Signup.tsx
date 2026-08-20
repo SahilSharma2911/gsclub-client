@@ -163,23 +163,32 @@ const Signup = () => {
                             </button>
                         </div>
 
-                        <div className="flex items-center mt-5">
-                            <input
-                                type="checkbox"
-                                id="agreeToTerms"
-                                {...register("agreeToTerms")}
-                                className="w-4 h-4 accent-[#003399] mr-2"
-                            />
-                            <label htmlFor="agreeToTerms" className="text-sm text-[#666666]">
-                                I agree to the{" "}
-                                <a href="/terms-and-conditions" className="text-black underline">
-                                    Terms & Conditions
-                                </a>
+                        <div className="mt-5">
+                            <label htmlFor="agreeToTerms" className="flex items-start gap-3 cursor-pointer group">
+                                <input
+                                    type="checkbox"
+                                    id="agreeToTerms"
+                                    {...register("agreeToTerms")}
+                                    className="w-5 h-5 mt-0.5 shrink-0 accent-[#fe3500] cursor-pointer"
+                                />
+                                <span className="text-sm text-[#444444] leading-relaxed group-hover:text-black transition-colors">
+                                    I have read and agree to the{" "}
+                                    <a
+                                        href="/terms-and-conditions"
+                                        className="text-[#fe3500] underline font-semibold"
+                                        onClick={e => e.stopPropagation()}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Terms & Conditions
+                                    </a>
+                                    . You must accept to create an account.
+                                </span>
                             </label>
+                            {errors.agreeToTerms && (
+                                <p className="text-sm text-red-500 mt-2 ml-8">{errors.agreeToTerms.message}</p>
+                            )}
                         </div>
-                        {errors.agreeToTerms && (
-                            <p className="text-sm text-red-500">{errors.agreeToTerms.message}</p>
-                        )}
                     </div>
 
                     <Button type="submit" variant="primary" className="w-full" disabled={isSubmitting}>
