@@ -25,7 +25,7 @@ const VapePage = ({ productType = "VAPES", search, nameOnly, initialProducts, fa
                 </div>
             )}
             <div className="pt-2">
-                <div style={{ position: 'relative', zIndex: 100 }}>
+                <div style={{ position: 'sticky', top: '90px', zIndex: 35, background: 'white' }}>
                     <Filter productType={productType} />
                 </div>
                 <div style={{ marginTop: '16px', position: 'relative', zIndex: 1 }}>

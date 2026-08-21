@@ -207,7 +207,7 @@ const Filter = ({ productType }: { productType?: string }) => {
   if (error) return <div className="text-red-500 p-2 text-sm">Filter error: {error}</div>;
 
   return (
-    <div className="w-11/12 mx-auto py-6 md:py-8 font-unbounded" ref={filterRef} style={{ position: 'relative', zIndex: 9999, isolation: 'isolate' }}>
+    <div className="w-11/12 mx-auto py-3 md:py-4 font-unbounded" ref={filterRef} style={{ position: 'relative', zIndex: 35, isolation: 'isolate' }}>
       {/* Yellow pill - overflow-x scroll, no clipping of children */}
       <div
         ref={pillRef}
