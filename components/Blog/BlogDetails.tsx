@@ -116,7 +116,7 @@ const BlogDetails = ({ article }: BlogDetailsProps) => {
       <article className="mt-7">
         <div
           ref={contentRef}
-          dangerouslySetInnerHTML={{ __html: (article as any).content || article.description }}
+          dangerouslySetInnerHTML={{ __html: article.content || article.description }}
           className={contentStyles}
         />
       </article>

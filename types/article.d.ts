@@ -19,7 +19,9 @@ export interface Article {
   title: string;
   subtitle: string;
   description: string;
+  content?: string;
   author: string;
+  authorName?: string;
   createdAt: Date;
   updatedAt: Date;
   images: Image[];
