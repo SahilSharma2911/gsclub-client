@@ -97,8 +97,9 @@ model Product {
   productPuffs ProductPuffs[]
 
   // System fields
-  isArchived  Boolean      @default(false)
-  stockStatus StockStatus? @default(INSTOCK)
+  isArchived     Boolean      @default(false)
+  stockStatus    StockStatus? @default(INSTOCK)
+  stockQuantity  Int?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
