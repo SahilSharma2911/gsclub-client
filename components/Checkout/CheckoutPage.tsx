@@ -191,12 +191,12 @@ const CheckoutPage = () => {
   const getProductForItem = (id: string) => products.find((p) => p.id === id);
   const subtotal = items.reduce((sum, item) => {
     const prod = getProductForItem(item.id);
-    const price = prod ? (prod.currentPrice ?? item.price ?? 0) : (item.price ?? 0);
+    const price = item.price ?? (prod ? prod.currentPrice : 0) ?? 0;
     return sum + price * item.quantity;
   }, 0);
   const originalTotal = items.reduce((sum, item) => {
     const prod = getProductForItem(item.id);
-    const price = prod ? (prod.currentPrice ?? item.price ?? 0) : (item.price ?? 0);
+    const price = item.price ?? (prod ? prod.currentPrice : 0) ?? 0;
     return sum + price * item.quantity;
   }, 0);
   const discount = originalTotal > subtotal ? originalTotal - subtotal : 0;
@@ -485,7 +485,7 @@ const CheckoutPage = () => {
               <h2 className="font-semibold text-base mb-4">Order Summary</h2>
               {items.map((item) => {
                 const prod = getProductForItem(item.id);
-                const price = prod ? (prod.currentPrice ?? item.price ?? 0) : (item.price ?? 0);
+                const price = item.price ?? (prod ? prod.currentPrice : 0) ?? 0;
                 return (
                   <div key={item.id} className="flex items-center gap-3 mb-3 pb-3 border-b border-gray-100 last:border-0">
                     {prod?.images?.[0]?.url && (
@@ -651,7 +651,7 @@ const CheckoutPage = () => {
                   <div className="flex flex-col gap-3 mb-4">
                     {items.map((item) => {
                       const prod = getProductForItem(item.id);
-                      const price = prod ? (prod.currentPrice ?? item.price ?? 0) : (item.price ?? 0);
+                      const price = item.price ?? (prod ? prod.currentPrice : 0) ?? 0;
                       return (
                         <div key={item.id} className="flex items-center gap-3">
                           {prod?.images?.[0]?.url && (

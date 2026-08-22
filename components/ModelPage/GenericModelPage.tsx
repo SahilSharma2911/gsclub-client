@@ -261,7 +261,7 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
       const id = selectedProductIds[0] || selectedProduct?.id;
       if (!id) return;
       setInvalidSlots([]);
-      await addItem(email, { id, quantity: qty, ...subscriptionMeta });
+      await addItem(email, { id, quantity: qty, price: activePack.price, ...subscriptionMeta });
     } else {
       // Validate: all slots in the pack must be filled
       const slots = selectedProductIds.slice(0, pack.count);
@@ -276,7 +276,7 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
       }
       setInvalidSlots([]);
       for (const productId of slots) {
-        if (productId) await addItem(email, { id: productId, quantity: 1, ...subscriptionMeta });
+        if (productId) await addItem(email, { id: productId, quantity: 1, price: activePack.price, ...subscriptionMeta });
       }
     }
   };
