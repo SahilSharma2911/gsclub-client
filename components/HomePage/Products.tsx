@@ -220,9 +220,9 @@ const Products = ({ productType, search, nameOnly, initialProducts }: ProductsPr
               >
                 <Link href={`/product/${product.slug}`} className="block">
                   <div className="relative bg-gray-50" style={{ paddingTop: "100%" }}>
-                    {(product as any).stockQuantity != null && (product as any).stockQuantity < 10 && (product as any).stockQuantity > 0 && (
+                    {product.stockQuantity != null && product.stockQuantity < 10 && product.stockQuantity > 0 && (
                       <div className="absolute top-2 left-2 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm whitespace-nowrap">
-                        Only {(product as any).stockQuantity} left
+                        Only {product.stockQuantity} left
                       </div>
                     )}
                     <div className="absolute inset-0">
