@@ -309,6 +309,25 @@ const CheckoutPage = () => {
       const data = await response.json();
       if (data.success) {
         toast.success("Payment successful!");
+        // Store order data for GA4 purchase event on success page
+        try {
+          const gaItems = itemsRef.current.map((item) => {
+            const prod = products.find((p) => p.id === item.id);
+            const price = item.price ?? (prod ? prod.currentPrice : 0) ?? 0;
+            return {
+              item_id: item.id,
+              item_name: prod?.name || item.id,
+              price: Number(price),
+              quantity: item.quantity,
+            };
+          });
+          sessionStorage.setItem("gs_order", JSON.stringify({
+            transaction_id: String(data.orderNumber || data.transactionId),
+            value: Number(data.total),
+            currency: "USD",
+            items: gaItems,
+          }));
+        } catch (_) { /* ignore */ }
         router.push("/checkout/success");
       } else {
         const msg = getNmiUserMessage(data.message || "", data.errorDetails?.response_code);

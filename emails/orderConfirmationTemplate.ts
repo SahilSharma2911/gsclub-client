@@ -25,7 +25,7 @@ export const orderConfirmationTemplate = (
   `).join('');
 
   const headerTitle = isSubscription
-    ? `New Subscription Order: #${orderId}`
+    ? `Subscription Renewal: #${orderId}`
     : `New Order: #${orderId}`;
 
   const freqLabel = subscriptionFrequency ? FREQ_LABELS[subscriptionFrequency] || subscriptionFrequency : null;
@@ -47,7 +47,7 @@ export const orderConfirmationTemplate = (
   <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
 
     <!-- Header -->
-    <div style="background:${isSubscription ? '#7c3aed' : '#f0a500'};padding:32px;text-align:center;">
+    <div style="background:#f0a500;padding:32px;text-align:center;">
       <h1 style="color:#fff;margin:0;font-size:28px;font-weight:700;">${headerTitle}</h1>
     </div>
 

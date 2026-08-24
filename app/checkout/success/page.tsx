@@ -3,11 +3,32 @@ import Link from "next/link";
 import { useEffect } from "react";
 import useCart from "@/hooks/useCart";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function SuccessPage() {
   const { clearCart } = useCart();
 
   useEffect(() => {
     clearCart(null);
+
+    // Fire GA4 purchase event
+    try {
+      const raw = sessionStorage.getItem("gs_order");
+      if (raw && typeof window.gtag === "function") {
+        const order = JSON.parse(raw);
+        window.gtag("event", "purchase", {
+          transaction_id: order.transaction_id,
+          value: order.value,
+          currency: order.currency || "USD",
+          items: order.items,
+        });
+        sessionStorage.removeItem("gs_order");
+      }
+    } catch (_) { /* ignore */ }
   }, [clearCart]);
 
   return (

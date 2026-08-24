@@ -414,6 +414,7 @@ export async function POST(req: NextRequest) {
         {
           success: true,
           orderId: order.id,
+          orderNumber: order.orderNumber,
           transactionId: responseData.transactionid,
           authCode: responseData.authcode,
           message: responseData.responsetext,
