@@ -28,7 +28,7 @@ export default function SuccessPage() {
         });
         sessionStorage.removeItem("gs_order");
       }
-    } catch (_) { /* ignore */ }
+    } catch { /* ignore */ }
   }, [clearCart]);
 
   return (

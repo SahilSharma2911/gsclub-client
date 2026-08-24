@@ -327,7 +327,7 @@ const CheckoutPage = () => {
             currency: "USD",
             items: gaItems,
           }));
-        } catch (_) { /* ignore */ }
+        } catch { /* ignore */ }
         router.push("/checkout/success");
       } else {
         const msg = getNmiUserMessage(data.message || "", data.errorDetails?.response_code);
