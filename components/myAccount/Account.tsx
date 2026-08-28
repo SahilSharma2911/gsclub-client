@@ -106,16 +106,8 @@ function SendFriendModal({ referralLink, onClose }: { referralLink: string; onCl
 }
 
 // ---------- Account details + referral side by side (desktop) ----------
-function AccountDetailsWithReferral({ isMobile }: { isMobile: boolean }) {
+function AccountDetailsWithReferral({ isMobile, referralLink }: { isMobile: boolean; referralLink: string }) {
   const [showSendFriend, setShowSendFriend] = useState(false);
-  const [referralLink, setReferralLink] = useState("");
-
-  useEffect(() => {
-    fetch("/api/bonus/info")
-      .then(r => r.json())
-      .then(data => { if (data.referralLink) setReferralLink(data.referralLink); })
-      .catch(() => {});
-  }, []);
 
   const handleCopyLink = () => {
     const link = referralLink || `https://getsmoke.com/?ref=FRIEND`;
@@ -183,6 +175,7 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [bonusBalance, setBonusBalance] = useState<number | null>(null);
   const [canRedeem, setCanRedeem] = useState(false);
+  const [referralLink, setReferralLink] = useState("");
   const [showBonusInfo, setShowBonusInfo] = useState(false);
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemResult, setRedeemResult] = useState<{ code: string; discountAmount: number } | null>(null);
@@ -199,6 +192,7 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
       .then(data => {
         if (data.bonusBalance !== undefined) setBonusBalance(data.bonusBalance);
         if (data.canRedeem !== undefined) setCanRedeem(data.canRedeem);
+        if (data.referralLink) setReferralLink(data.referralLink);
       })
       .catch(() => {});
   }, [email]);
@@ -216,6 +210,9 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
       router.replace(`/login?callbackUrl=${callbackUrl}`);
     }
   }, [status, router, pathname]);
+
+  // Don't render anything while session is resolving - prevents flash/blink
+  if (status === "loading") return null;
 
   return (
     <>
@@ -436,7 +433,7 @@ const Account: React.FC<AccountProps> = ({ orders }) => {
         {/* Content */}
         <div style={{ padding: isMobile ? "0" : undefined }}>
           {selectOpt === "Account details" && (
-            <AccountDetailsWithReferral isMobile={isMobile} />
+            <AccountDetailsWithReferral isMobile={isMobile} referralLink={referralLink} />
           )}
           {selectOpt === "Purchase history" && (
             <OrderHistory selectOpt="Purchase history" orders={orders} />
