@@ -185,8 +185,16 @@ const Navbar = () => {
             <section className='font-unbounded'>
                 <div ref={blackDivRef} className='bg-black p-3 text-white text-center text-sm md:text-base'>WARNING: These products contain nicotine. Nicotine is an addictive chemical.</div>
                 <aside
-                    className={`bg-white ${isSticky ? 'fixed top-0 left-0 right-0 z-40 shadow-md' : ''}`}
-                    style={show ? { position: isSticky ? 'fixed' : 'relative', zIndex: 9999999 } : showResults ? { position: isSticky ? 'fixed' : 'relative', zIndex: 99999 } : undefined}
+                    className={`bg-white ${isSticky ? 'fixed left-0 right-0 z-40 border-b border-gray-200' : ''}`}
+                    style={
+                        show
+                            ? { position: isSticky ? 'fixed' : 'relative', top: 0, zIndex: 9999999, transform: 'translateZ(0)' }
+                            : showResults
+                            ? { position: isSticky ? 'fixed' : 'relative', top: 0, zIndex: 99999, transform: 'translateZ(0)' }
+                            : isSticky
+                            ? { top: 0, transform: 'translateZ(0)' }
+                            : undefined
+                    }
                 >
                     {/* Row 1: Mobile full nav | Desktop: Search + Logo + Icons */}
                     <div className='w-11/12 mx-auto flex items-center justify-between py-3 md:py-5 md:relative' style={{ position: 'relative', paddingTop: '20px', paddingBottom: '20px' }}>
@@ -201,7 +209,7 @@ const Navbar = () => {
                                 opacity: isSearchFocused ? 0 : 1,
                                 transition: 'opacity 0.2s ease',
                                 pointerEvents: isSearchFocused ? 'none' : 'auto',
-                                zIndex: 10,
+                                zIndex: 20,
                             }}
                         >
                             <Link
@@ -211,9 +219,10 @@ const Navbar = () => {
                             >
                                 <Image
                                     src={"/images/logo.png"}
-                                    width={150}
-                                    height={150}
+                                    width={120}
+                                    height={120}
                                     alt='GetSmoke logo - Go to homepage'
+                                    style={{ maxWidth: '120px', height: 'auto' }}
                                 />
                             </Link>
                         </div>
