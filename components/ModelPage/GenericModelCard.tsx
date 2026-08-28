@@ -49,8 +49,8 @@ export default function GenericModelCard({ model }: Props) {
       <div className="px-2 md:px-3 pb-2 md:pb-3 mt-auto" style={{ paddingLeft: '12px', paddingRight: '12px', paddingBottom: '12px' }}>
         <Link href={`/models/${model.slug}`} className="block">
           <button
-            className="w-full rounded-full text-white text-sm font-bold flex items-center justify-center gap-1.5 transition-opacity whitespace-nowrap"
-            style={{ background: "linear-gradient(90deg, #7c3aed 0%, #fe3500 100%)", paddingTop: '10px', paddingBottom: '10px' }}
+            className="w-full rounded-full text-white text-xs md:text-sm font-bold flex items-center justify-center gap-1 md:gap-1.5 transition-opacity whitespace-nowrap"
+            style={{ background: "linear-gradient(90deg, #7c3aed 0%, #fe3500 100%)", paddingTop: '10px', paddingBottom: '10px', paddingLeft: '6px', paddingRight: '6px' }}
           >
             Pick Your Flavor
           </button>
