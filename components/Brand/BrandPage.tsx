@@ -29,7 +29,7 @@ const BrandPage = ({ brandId, brandName }: BrandPageProps) => {
                 </p>
             </div>
             <div className="pt-2">
-                <div style={{ position: 'sticky', top: '90px', zIndex: 35, background: 'white' }}>
+                <div style={{ position: 'sticky', top: 'var(--navbar-height, 70px)', zIndex: 35, background: 'white' }}>
                     <Filter />
                 </div>
                 <Products productType="VAPES" />

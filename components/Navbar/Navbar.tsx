@@ -28,6 +28,7 @@ const Navbar = () => {
     // Add state for sticky navbar
     const [isSticky, setIsSticky] = useState(false);
     const blackDivRef = useRef<HTMLDivElement>(null);
+    const asideRef = useRef<HTMLElement>(null);
     // Add ref for hamburger menu
     const hamburgerMenuRef = useRef<HTMLDivElement>(null);
     const hamburgerButtonRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,10 @@ const Navbar = () => {
                 const blackDivBottom = blackDivRef.current.getBoundingClientRect().bottom;
                 setIsSticky(blackDivBottom <= 0);
             }
+            // Update navbar height CSS variable on scroll too (handles resize)
+            if (asideRef.current) {
+                document.documentElement.style.setProperty('--navbar-height', `${asideRef.current.offsetHeight}px`);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -53,6 +58,18 @@ const Navbar = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    // Set --navbar-height CSS variable after render and on resize
+    useEffect(() => {
+        const updateNavHeight = () => {
+            if (asideRef.current) {
+                document.documentElement.style.setProperty('--navbar-height', `${asideRef.current.offsetHeight}px`);
+            }
+        };
+        updateNavHeight();
+        window.addEventListener('resize', updateNavHeight);
+        return () => window.removeEventListener('resize', updateNavHeight);
+    }, [isSticky]);
 
     // Handle outside click for hamburger menu
     useEffect(() => {
@@ -185,6 +202,7 @@ const Navbar = () => {
             <section className='font-unbounded'>
                 <div ref={blackDivRef} className='bg-black p-3 text-white text-center text-sm md:text-base'>WARNING: These products contain nicotine. Nicotine is an addictive chemical.</div>
                 <aside
+                    ref={asideRef}
                     className={`bg-white ${isSticky ? 'fixed left-0 right-0 z-40 border-b border-gray-200' : ''}`}
                     style={
                         show
