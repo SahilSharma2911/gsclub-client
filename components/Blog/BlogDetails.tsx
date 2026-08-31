@@ -78,13 +78,14 @@ const BlogDetails = ({ article }: BlogDetailsProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <header className="flex flex-col md:flex-row gap-7">
-        <Image
-          src={r2src(article.images[0]?.url)}
-          alt={`Image for ${article.title}`}
-          width={600}
-          height={400}
-          className="object-fill rounded-lg w-[423px] h-[228px]"
-        />
+        <div className="relative w-full md:w-[423px] shrink-0" style={{ aspectRatio: '16/9' }}>
+          <Image
+            src={r2src(article.images[0]?.url)}
+            alt={`Image for ${article.title}`}
+            fill
+            className="object-cover rounded-lg"
+          />
+        </div>
         <div className="space-y-5">
           <aside>
             <Link href="/blog">
