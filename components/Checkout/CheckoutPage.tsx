@@ -125,6 +125,7 @@ const CheckoutPage = () => {
   const useInsuranceRef = useRef(true);
   const [applyFreeShipping, setApplyFreeShipping] = useState(false);
   const applyFreeShippingRef = useRef(false); // ref for stale-closure-safe access in submit handler
+  const eligibleForFreeShippingRef = useRef(false); // ref to avoid stale closure in useCallback
 
   // Payment form fields
   const [nameOnCard, setNameOnCard] = useState("");
@@ -201,6 +202,7 @@ const CheckoutPage = () => {
   }, 0);
   const discount = originalTotal > subtotal ? originalTotal - subtotal : 0;
   const eligibleForFreeShipping = subtotal >= FREE_THRESHOLD;
+  eligibleForFreeShippingRef.current = eligibleForFreeShipping; // keep ref in sync every render (avoids stale closure in useCallback)
   const isFreeShipping = eligibleForFreeShipping && applyFreeShipping;
   const shippingCost = isFreeShipping ? 0 : FLAT_RATE;
   const insuranceCost = useInsurance ? INSURANCE_FEE : 0;
@@ -294,8 +296,8 @@ const CheckoutPage = () => {
           shippingCity,
           shippingState,
           shippingZipCode: shippingZip,
-          // Use ref to avoid stale closure - applyFreeShippingRef.current is always current at submit time
-          shippingAmount: (eligibleForFreeShipping && applyFreeShippingRef.current ? 0 : FLAT_RATE).toFixed(2),
+          // Use refs to avoid stale closure - both refs are always current at submit time
+          shippingAmount: (eligibleForFreeShippingRef.current && applyFreeShippingRef.current ? 0 : FLAT_RATE).toFixed(2),
           insuranceAmount: (useInsuranceRef.current ? INSURANCE_FEE : 0).toFixed(2),
           nameOnCard: nameOnCardRef.current || shippingName,
           billingDifferent: billingDifferentRef.current,
