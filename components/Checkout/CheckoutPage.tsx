@@ -43,7 +43,7 @@ interface CollectJSConfig {
 }
 declare global {
   interface Window {
-    CollectJS: { configure: (config: CollectJSConfig) => void };
+    CollectJS?: { configure: (config: CollectJSConfig) => void };
   }
 }
 
@@ -162,6 +162,7 @@ const CheckoutPage = () => {
 
   // NMI CollectJS configuration
   const configureCollectJS = useCallback(() => {
+    if (!window.CollectJS) return;
     window.CollectJS.configure({
       paymentSelector: "#placeOrderBtn",
       variant: "inline",
