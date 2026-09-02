@@ -27,7 +27,7 @@ const BlogDetails = ({ article }: BlogDetailsProps) => {
       img.addEventListener('error', () => { img.style.display = 'none'; });
     });
   }, [article.description]);
-  const formattedDate = format(new Date(article.createdAt), 'dd/MM/yyyy');
+  const formattedDate = format(new Date(article.createdAt), 'MM/dd/yyyy');
 
   // Dynamic styles for the blog content
   const contentStyles = `
