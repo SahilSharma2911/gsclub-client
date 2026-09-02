@@ -43,3 +43,9 @@ r2-upload-webp.js
 resize-product-images.js
 public/banners/mobile-1-backup.webp
 .deploy-secrets
+*.mjs
+create_blog_articles.js
+r2-upload-webp.js
+resize-product-images.js
+test-mongo.js
+update_mongo_fume_pro.js
