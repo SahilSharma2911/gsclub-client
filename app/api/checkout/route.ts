@@ -115,6 +115,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Step 2b: Block checkout if any product is out of stock
+    const outOfStockProducts = productsWithDetails.filter(
+      (p) => p.stockStatus === "OUTOFSTOCK"
+    );
+    if (outOfStockProducts.length > 0) {
+      const names = outOfStockProducts.map((p) => p.name).join(", ");
+      console.warn(`[CHECKOUT] Blocked — out of stock: ${names}`);
+      return NextResponse.json(
+        { success: false, message: `Sorry, the following item(s) are out of stock: ${names}. Please remove them from your cart.` },
+        { status: 400 }
+      );
+    }
+
     // Step 3: Calculate the order total based on products and quantities
     let subtotal = 0;
     const orderItemsData = items.map((item: CartItem) => {
