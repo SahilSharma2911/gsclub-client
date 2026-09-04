@@ -20,21 +20,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const model = getModelBySlug(modelSlug);
   if (!model) return {};
   const canonicalUrl = `${SITE_URL}/models/${modelSlug}`;
+  // Build keyword-rich title and description using model-specific data
+  const priceStr = model.price ? `$${model.price}` : "";
+  const topFlavorStr = model.topFlavors && model.topFlavors.length > 0
+    ? ` Shop top flavors: ${model.topFlavors.slice(0, 4).join(", ")}.`
+    : "";
+  const metaTitle = priceStr
+    ? `${model.name} ${priceStr} | Buy Online | GetSmoke`
+    : `${model.name} Disposable Vape | Buy Online | GetSmoke`;
+  const metaDesc = model.seoDescription
+    ? model.seoDescription
+    : `Buy ${model.name} disposable vape online. ${model.puffs} puffs.${topFlavorStr} Free shipping over $89. Fast US delivery 3-7 days. 21+ only.`;
+
   return {
-    title: `${model.name} Disposable Vape | Buy Online | GetSmoke`,
-    description: `Buy ${model.name} disposable vape online. ${model.puffs} puffs. Multiple flavors available. Free shipping on orders over $89. Fast delivery 3-7 days across the USA. 21+ only.`,
+    title: metaTitle,
+    description: metaDesc,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${model.name} Disposable Vape | GetSmoke`,
-      description: `Buy ${model.name} online. ${model.puffs} puffs, multiple flavors. Fast US shipping, 21+ only.`,
+      title: metaTitle,
+      description: metaDesc,
       url: canonicalUrl,
       siteName: "GetSmoke",
       images: [{ url: model.heroImage || "/og-default.jpg", width: 1200, height: 630, alt: model.name }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${model.name} Disposable Vape | GetSmoke`,
-      description: `Buy ${model.name} online. ${model.puffs} puffs, multiple flavors. Fast US shipping, 21+ only.`,
+      title: metaTitle,
+      description: metaDesc,
       images: [model.heroImage || "/og-default.jpg"],
     },
   };
