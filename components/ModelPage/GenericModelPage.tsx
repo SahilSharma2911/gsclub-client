@@ -72,11 +72,23 @@ function generateDescription(model: ModelConfig, flavorCount: number): string[] 
       ? "nicotine-free formula"
       : `${model.nicotine} nicotine salt`;
 
+  const topFlavorMention =
+    model.topFlavors && model.topFlavors.length > 0
+      ? ` Top-rated flavors include ${model.topFlavors.slice(0, 5).join(", ")} - each delivering a bold, true-to-name taste throughout the life of the device.`
+      : " Whether you prefer refreshing menthol, sweet fruity blends, or classic profiles, there is a flavor that matches your taste.";
+
+  const specNote = [
+    model.battery ? `${model.battery} rechargeable battery` : null,
+    model.eliquid ? `${model.eliquid} e-liquid capacity` : null,
+    model.coil ? `${model.coil} coil` : null,
+    model.display ? `${model.display} display` : null,
+  ].filter(Boolean).join(", ");
+
   return [
-    `The ${model.name} disposable vape is designed for vapers who demand long-lasting performance and rich flavor. With up to ${model.puffs} puffs per device, it delivers consistent vapor quality from the very first draw to the last, making it one of the most reliable options in its class.`,
-    `Each ${model.shortName} device is pre-filled with a ${nicotineNote} e-liquid, powered by a rechargeable USB-C battery that ensures you never waste any e-liquid. The draw-activated design requires no buttons - simply inhale to enjoy a smooth, satisfying vaping experience.`,
-    `Available in ${flavorCount > 0 ? flavorCount : "multiple"} carefully crafted flavors, the ${model.shortName} offers something for every palate. Whether you prefer refreshing menthol, sweet fruity blends, or classic tobacco profiles, there is a flavor that matches your taste. Each variant delivers a consistent, true-to-name flavor profile throughout the life of the device.`,
-    `GetSmoke ships the ${model.name} disposable vape across the entire United States with adult signature required delivery. Orders over $79 qualify for free shipping, and all products are sourced from authorized US distributors. We are committed to compliance with all applicable regulations for the sale of nicotine products to adults 21 and older.`,
+    `The ${model.name} disposable vape is designed for vapers who demand long-lasting performance and rich flavor. With up to ${model.puffs} puffs per device, it delivers consistent vapor quality from the very first draw to the last, making it one of the most reliable choices in its class.`,
+    `Each ${model.shortName} device is pre-filled with ${nicotineNote} e-liquid${specNote ? ` and features ${specNote}` : ""}. The rechargeable USB-C design ensures you never waste e-liquid - charge and finish the device fully. Draw-activated, no buttons needed.`,
+    `Available in ${flavorCount > 0 ? flavorCount : "multiple"} carefully crafted flavors, the ${model.shortName} covers every palate.${topFlavorMention}`,
+    `GetSmoke ships the ${model.name} across the entire United States with adult signature required delivery. Orders over $89 qualify for free shipping. All products are sourced from authorized US distributors. We comply with all applicable regulations for the sale of nicotine products to adults 21 and older.`,
   ];
 }
 
@@ -100,8 +112,12 @@ function generateFaq(model: ModelConfig, flavorCount: number, price: number) {
     },
     {
       q: `How many flavors does the ${model.shortName} come in?`,
-      a: `The ${model.shortName} is available in ${flavorCount > 0 ? flavorCount : "multiple"} flavors at GetSmoke. Browse the flavor selection above to find your favorite.`,
+      a: `The ${model.shortName} is available in ${flavorCount > 0 ? flavorCount : "multiple"} flavors at GetSmoke.${model.topFlavors && model.topFlavors.length > 0 ? ` Popular choices include ${model.topFlavors.slice(0, 5).join(", ")}.` : ""} Browse the full flavor selection above to find your favorite.`,
     },
+    ...(model.topFlavors && model.topFlavors.length > 0 ? [{
+      q: `What is the best flavor for the ${model.shortName}?`,
+      a: `The most popular ${model.shortName} flavors are ${model.topFlavors.join(", ")}. ${model.topFlavors[0]} and ${model.topFlavors[1]} are consistently top-sellers. The best flavor depends on your preference - fruity, icy, or candy profiles are all available.`,
+    }] : []),
     {
       q: `Can I buy the ${model.shortName} in a pack?`,
       a: `Yes. GetSmoke offers the ${model.shortName} in Single ($${price.toFixed(2)}), Pack of 3 ($${pack3Price} total), Pack of 5 ($${pack5Price} total), and Pack of 10 ($${pack10Price} total). Each device in a multi-pack can be a different flavor so you can mix and match.`,
@@ -573,21 +589,37 @@ export default function GenericModelPage({ modelSlug }: { modelSlug: string }) {
             <p key={i}>{p}</p>
           ))}
         </div>
+        {model.brandSlug && (
+          <p className="mt-4 text-sm text-gray-600">
+            Looking for more options?{" "}
+            <Link href={`/brands/${model.brandSlug}`} className="text-black font-semibold underline underline-offset-2">
+              Browse all {model.brand} disposable vapes
+            </Link>{" "}
+            or explore our full{" "}
+            <Link href="/vapes" className="text-black font-semibold underline underline-offset-2">
+              disposable vape collection
+            </Link>.
+          </p>
+        )}
       </section>
 
       {/* Specs table */}
       <section className="mt-8">
         <h2 className="text-base font-bold font-unbounded mb-3">{model.shortName} Specifications</h2>
         <div className="grid grid-cols-2 gap-2 text-sm">
-          {[
+          {([
             ["Puff Count", `Up to ${model.puffs} puffs`],
             ["Nicotine Strength", model.nicotine],
-            ["Battery", "Rechargeable (USB-C)"],
+            model.battery ? ["Battery", `${model.battery} (USB-C rechargeable)`] : ["Battery", "Rechargeable (USB-C)"],
+            model.eliquid ? ["E-Liquid Capacity", model.eliquid] : null,
+            model.coil ? ["Coil Type", model.coil] : null,
+            model.display ? ["Display", model.display] : null,
+            ["Charging Port", model.chargingPort || "USB-C"],
             ["Operation", "Draw-activated (no button)"],
             ["Available Flavors", products.length > 0 ? `${products.length} flavors` : "Multiple flavors"],
             ["Brand", model.brand],
             ["Age Requirement", "21+ only"],
-          ].map(([label, value]) => (
+          ] as ([string, string] | null)[]).filter((row): row is [string, string] => row !== null).map(([label, value]) => (
             <div key={label} className="flex flex-col bg-gray-50 rounded-xl p-3">
               <span className="text-xs text-gray-500">{label}</span>
               <span className="font-bold text-black">{value}</span>
