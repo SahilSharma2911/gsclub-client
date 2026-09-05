@@ -52,8 +52,7 @@ export default function BillingInformation() {
   }, []);
 
   const configureCollectJS = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cjs = (window as any).CollectJS;
+    const cjs = (window as { CollectJS?: { configure: (opts: Record<string, unknown>) => void } }).CollectJS;
     if (!cjs) return;
     cjs.configure({
       paymentSelector: "#addCardBtn",
@@ -94,7 +93,7 @@ export default function BillingInformation() {
   }, [showForm]);
 
   useEffect(() => {
-    if (scriptLoaded && showForm && (window as any).CollectJS && !collectJsConfigured.current) {
+    if (scriptLoaded && showForm && (window as { CollectJS?: unknown }).CollectJS && !collectJsConfigured.current) {
       configureCollectJS();
       collectJsConfigured.current = true;
     }
