@@ -24,6 +24,13 @@ const nextConfig: NextConfig = {
       { source: '/terms-conditions', destination: '/terms-and-conditions', permanent: true },
       // /brand/ is a duplicate of /brands/ - redirect to canonical URL
       { source: '/brand/:brandSlug', destination: '/brands/:brandSlug', permanent: true },
+      // Brand shortcut URLs → canonical brand pages
+      { source: '/juicy-bar-vape', destination: '/brands/juicy-bar', permanent: true },
+      { source: '/juicy-bar-vapes', destination: '/brands/juicy-bar', permanent: true },
+      { source: '/geek-bar-vape', destination: '/brands/geek-bar', permanent: true },
+      { source: '/geek-bar-vapes', destination: '/brands/geek-bar', permanent: true },
+      { source: '/raz-vape', destination: '/brands/raz', permanent: true },
+      { source: '/raz-vapes', destination: '/brands/raz', permanent: true },
       // Common URL variants that return 404 - redirect to correct pages
       { source: '/vape', destination: '/vapes', permanent: true },
       // Geo-page nested URL variants → canonical slug (specific states)
